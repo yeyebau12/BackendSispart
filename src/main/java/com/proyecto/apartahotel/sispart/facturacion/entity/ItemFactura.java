@@ -29,12 +29,22 @@ public class ItemFactura implements Serializable {
 	@JoinColumn(name = "cod_producto")
 	private Producto producto;
 
+	
+	
 	public Long getCodItemFactura() {
 		return codItemFactura;
 	}
 
 	public void setCodItemFactura(Long codItemFactura) {
 		this.codItemFactura = codItemFactura;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 
 	public Integer getCantidad() {

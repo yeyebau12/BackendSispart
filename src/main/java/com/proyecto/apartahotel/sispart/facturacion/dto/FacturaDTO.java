@@ -52,6 +52,7 @@ public class FacturaDTO {
 		this.fechaCreacion = fechaCreacion;
 		this.horaCreacion = horaCreacion;
 		this.huesped = huesped;
+
 	}
 
 	public String getDescripcion() {

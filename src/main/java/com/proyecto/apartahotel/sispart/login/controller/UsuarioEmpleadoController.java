@@ -130,7 +130,7 @@ public class UsuarioEmpleadoController {
 
 		response.put("mensaje", "Los accesos han sido creados con exito!");
 		response.put("mensaje",
-				"El e-mail ha sido enviado" + "a" + empleado.getCorreo() + "con las credenciales de acceso!");
+				"El e-mail ha sido enviado " + "a " + empleado.getCorreo() + " con las credenciales de acceso!");
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}

@@ -19,7 +19,7 @@ public class ProductoDTO {
 	@NotEmpty
 	private String marca;
 	@NotNull
-	private double cantidad;
+	private Integer cantidad;
 	@NotNull
 	private double precio;
 
@@ -39,7 +39,7 @@ public class ProductoDTO {
 
 	}
 
-	public ProductoDTO(@NotEmpty String nombreProducto, @NotEmpty String marca, @NotNull double cantidad,
+	public ProductoDTO(@NotEmpty String nombreProducto, @NotEmpty String marca, @NotNull Integer cantidad,
 			@NotNull double precio, Date fechaRegistro, Date horaRegistro) {
 		this.nombreProducto = nombreProducto;
 		this.marca = marca;
@@ -65,11 +65,11 @@ public class ProductoDTO {
 		this.marca = marca;
 	}
 
-	public double getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(double cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 

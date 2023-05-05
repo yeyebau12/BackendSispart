@@ -31,7 +31,7 @@ public class Producto implements Serializable {
 	@Column(length = 40, nullable = false)
 	private String marca;
 	@Column(length = 40, nullable = false)
-	private double cantidad;
+	private Integer cantidad;
 	@Column(length = 40, nullable = false)
 	private double precio;
 
@@ -51,7 +51,7 @@ public class Producto implements Serializable {
 
 	}
 
-	public Producto(Long codProducto, String nombreProducto, String marca, double cantidad, double precio,
+	public Producto(Long codProducto, String nombreProducto, String marca, Integer cantidad, double precio,
 			Date fechaRegistro, Date horaRegistro) {
 		this.codProducto = codProducto;
 		this.nombreProducto = nombreProducto;
@@ -60,7 +60,7 @@ public class Producto implements Serializable {
 		this.precio = precio;
 	}
 
-	public Producto(String nombreProducto, String marca, double cantidad, double precio) {
+	public Producto(String nombreProducto, String marca, Integer cantidad, double precio) {
 
 		this.nombreProducto = nombreProducto;
 		this.marca = marca;
@@ -103,11 +103,11 @@ public class Producto implements Serializable {
 		return precio;
 	}
 
-	public double getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(double cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 

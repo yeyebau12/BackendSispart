@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,13 +19,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.proyecto.apartahotel.sispart.empleado.entity.Empleado;
 import com.proyecto.apartahotel.sispart.tipDocumento.entity.TipDocumento;
 
 @Entity
@@ -38,9 +35,10 @@ public class UsuarioEmpleado implements Serializable {
 	@Column(name = "cod_user_empleado")
 	private Integer codUserEmpleado;
 
-	//@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	@ManyToOne(fetch = FetchType.LAZY) //, cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	// @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" },
+	// allowSetters = true)
+	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_tip_documento", nullable = false)
 	private TipDocumento tipDocumento;
 
 	@Column(nullable = false)

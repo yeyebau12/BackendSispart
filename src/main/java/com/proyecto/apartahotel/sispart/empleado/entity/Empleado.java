@@ -1,8 +1,11 @@
 package com.proyecto.apartahotel.sispart.empleado.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,7 +22,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.proyecto.apartahotel.sispart.actividadempleado.entity.Actividad;
 import com.proyecto.apartahotel.sispart.genero.entity.Sexo;
 import com.proyecto.apartahotel.sispart.tipDocumento.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.tipSangre.entity.TipoSangre;
@@ -35,8 +40,7 @@ public class Empleado implements Serializable {
 	private String nombre;
 	@Column(length = 30, nullable = false)
 	private String apellido;
-	// @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" },
-	// allowSetters = true)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
 	@JoinColumn(name = "tip_documento", nullable = false)
 	private TipDocumento tipDocumento;
@@ -63,21 +67,24 @@ public class Empleado implements Serializable {
 	private String eps;
 	@Column(length = 30, nullable = false)
 	private String arl;
-	// @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" },
-	// allowSetters = true)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Sexo sexo;
-	// @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" },
-	// allowSetters = true)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipo_sangre", nullable = false)
 	private TipoSangre tipoSangre;
 	@Column(name = "foto_empleado")
 	private String fotoEmpleado;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empleado", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = { "empleado", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private List<Actividad> actividad;
+
 	public Empleado() {
 
+		this.actividad = new ArrayList<>();
 	}
 
 	public Empleado(Long codEmpleado, String nombre, String apellido, TipDocumento tipDocumento, Long numDocumento,
@@ -256,6 +263,14 @@ public class Empleado implements Serializable {
 
 	public void setFotoEmpleado(String fotoEmpleado) {
 		this.fotoEmpleado = fotoEmpleado;
+	}
+
+	public List<Actividad> getActividad() {
+		return actividad;
+	}
+
+	public void setActividad(List<Actividad> actividad) {
+		this.actividad = actividad;
 	}
 
 	private static final long serialVersionUID = 1L;

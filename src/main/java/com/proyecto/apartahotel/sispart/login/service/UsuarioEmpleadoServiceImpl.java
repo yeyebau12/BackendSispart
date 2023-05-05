@@ -52,12 +52,14 @@ public class UsuarioEmpleadoServiceImpl implements UserDetailsService, IUsuarioE
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UsuarioEmpleado findByUsername(String username) {
 
 		return usuarioEmpleadoRepository.findByUserName(username);
 	}
 
 	@Override
+	@Transactional
 	public void save(UsuarioEmpleado userEmpleado) {
 
 		usuarioEmpleadoRepository.save(userEmpleado);

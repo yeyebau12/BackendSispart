@@ -12,11 +12,11 @@ public class ItemFacturaDTO {
 
 	}
 
-	public ItemFacturaDTO(Integer cantidad, Producto producto) {
+	/**public ItemFacturaDTO(Integer cantidad, Producto producto) {
 
 		this.cantidad = cantidad;
 		this.producto = producto;
-	}
+	}**/
 
 	public Integer getCantidad() {
 		return cantidad;

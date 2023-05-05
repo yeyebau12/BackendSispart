@@ -64,17 +64,19 @@ public class Factura implements Serializable {
 		this.itemFactura = new ArrayList<>();
 	}
 
-	public Factura(Long codFactura, String descripcion, Huesped huesped) {
+	public Factura(Long codFactura, String descripcion, Huesped huesped, List<ItemFactura> itemFactura) {
 
 		this.codFactura = codFactura;
 		this.descripcion = descripcion;
 		this.huesped = huesped;
+		this.itemFactura = itemFactura;
 	}
 
-	public Factura(String descripcion, Huesped huesped) {
+	public Factura(String descripcion, Huesped huesped, List<ItemFactura> itemFactura) {
 
 		this.descripcion = descripcion;
 		this.huesped = huesped;
+		this.itemFactura = itemFactura;
 	}
 
 	@PrePersist
@@ -142,12 +144,18 @@ public class Factura implements Serializable {
 		return total;
 	}
 
-	public Double setCambio(Double recibido) {
+	public Double getCambio(Double recibido) {
 
-		Double nuevoSaldo = 0.00;
-		nuevoSaldo = recibido - getTotal();
+		Double total = 0.00;
+		Double cambio = 0.00;
 
-		return nuevoSaldo;
+		for (ItemFactura itemsFacturas : itemFactura) {
+			total += itemsFacturas.getSubtotal();
+		}
+
+		cambio = recibido - total;
+
+		return cambio;
 	}
 
 	private static final long serialVersionUID = -4099422168283654087L;
