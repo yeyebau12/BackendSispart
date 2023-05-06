@@ -42,6 +42,8 @@ public class Factura implements Serializable {
 	@JoinColumn(name = "cod_factura")
 	private List<ItemFactura> itemFactura;
 
+	private Double pago;
+
 	@Column(name = "fecha_creacion", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -134,6 +136,14 @@ public class Factura implements Serializable {
 		this.itemFactura = itemFactura;
 	}
 
+	public Double getPago() {
+		return pago;
+	}
+
+	public void setPago(Double pago) {
+		this.pago = pago;
+	}
+
 	public Double getTotal() {
 		Double total = 0.00;
 
@@ -144,19 +154,6 @@ public class Factura implements Serializable {
 		return total;
 	}
 
-	public Double getCambio(Double recibido) {
-
-		Double total = 0.00;
-		Double cambio = 0.00;
-
-		for (ItemFactura itemsFacturas : itemFactura) {
-			total += itemsFacturas.getSubtotal();
-		}
-
-		cambio = recibido - total;
-
-		return cambio;
-	}
 
 	private static final long serialVersionUID = -4099422168283654087L;
 

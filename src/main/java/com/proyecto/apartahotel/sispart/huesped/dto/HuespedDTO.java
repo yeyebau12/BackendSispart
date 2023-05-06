@@ -1,10 +1,19 @@
 package com.proyecto.apartahotel.sispart.huesped.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.proyecto.apartahotel.sispart.facturacion.entity.Factura;
 import com.proyecto.apartahotel.sispart.nacionalidad.entity.Nacionalidad;
+import com.proyecto.apartahotel.sispart.reservacion.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.tipDocumento.entity.TipDocumento;
 
 public class HuespedDTO {
@@ -33,14 +42,21 @@ public class HuespedDTO {
 	private Long numContactoEmergencia;
 	private boolean estadoHuesped;
 
+	private List<Factura> facturas;
+
+	private List<Reservacion> reservacion;
+
 	public HuespedDTO() {
+
+		this.facturas = new ArrayList<>();
+		this.reservacion = new ArrayList<>();
 
 	}
 
 	public HuespedDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotEmpty String direccion,
 			@NotNull Long numCelular, @Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento,
 			@NotNull Long numDocumento, @NotNull Nacionalidad nacionalidad, @NotEmpty String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+			String nomContactoEmergencia, Long numContactoEmergencia, List<Reservacion> reservacion) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -53,6 +69,7 @@ public class HuespedDTO {
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
+		this.reservacion = reservacion;
 	}
 
 	public String getNombre() {
@@ -99,7 +116,7 @@ public class HuespedDTO {
 		return tipoDocumento;
 	}
 
-	public void setIdTipoDocumento(TipDocumento tipoDocumento) {
+	public void setTipoDocumento(TipDocumento tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 
@@ -149,6 +166,22 @@ public class HuespedDTO {
 
 	public void setEstadoHuesped(boolean estadoHuesped) {
 		this.estadoHuesped = estadoHuesped;
+	}
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+
+	public List<Reservacion> getReservacion() {
+		return reservacion;
+	}
+
+	public void setReservacion(List<Reservacion> reservacion) {
+		this.reservacion = reservacion;
 	}
 
 }

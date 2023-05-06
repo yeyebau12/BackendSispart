@@ -29,7 +29,7 @@ public class Habitacion implements Serializable {
 	private Integer maxPersonasDisponibles;
 	@Column(name = "precio_habitacion", nullable = false)
 	private Integer precioHabitacion;
-
+	@Column(name = "estado_habitacion", nullable = false)
 	private String estadoHabitacion;
 	private String imagenHabitacion;
 

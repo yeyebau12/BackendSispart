@@ -80,7 +80,7 @@ public class HuespedController {
 
 	}
 
-	@PostMapping("/crearhuesped")
+	@PostMapping("/crearHuesped")
 	public ResponseEntity<?> createdEmpleado(@Valid @RequestBody HuespedDTO huespedDTO, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
@@ -108,7 +108,7 @@ public class HuespedController {
 			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(), huespedDTO.getDireccion(),
 					huespedDTO.getNumCelular(), huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(),
 					huespedDTO.getNumDocumento(), huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(),
-					huespedDTO.getNomContactoEmergencia(), huespedDTO.getNumContactoEmergencia());
+					huespedDTO.getNomContactoEmergencia(), huespedDTO.getNumContactoEmergencia(),huespedDTO.getReservacion());
 
 			huespedService.save(huesped);
 

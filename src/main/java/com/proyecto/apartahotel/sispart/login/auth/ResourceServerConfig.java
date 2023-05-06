@@ -26,10 +26,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				.antMatchers("/tipoDocumento/**").permitAll().antMatchers(HttpMethod.POST, "/empleados/crearEmpleado")
 				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.PUT, "/empleados/actualizarEmpleado/{codEmpleado}")
 				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.GET, "/empleados/listarEmpleados")
-				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.DELETE, "/empleados/eliminarEmpleado/{codEmpleado}")
-				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.GET, "/loginEmpleado/listarLoginEmpleados")
-				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.POST, "/comentarios/crearComentario").permitAll()
-				.anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
+				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.GET, "/huespedes/listarHuespedes").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/empleados/eliminarEmpleado/{codEmpleado}").hasAnyRole("ADMINISTRADOR")
+				.antMatchers(HttpMethod.GET, "/loginEmpleado/listarLoginEmpleados").hasAnyRole("ADMINISTRADOR")
+				.antMatchers(HttpMethod.POST, "/comentarios/crearComentario").permitAll().anyRequest().authenticated()
+				.and().cors().configurationSource(corsConfigurationSource());
 	}
 
 	@Bean

@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.proyecto.apartahotel.sispart.facturacion.entity.Factura;
 import com.proyecto.apartahotel.sispart.nacionalidad.entity.Nacionalidad;
+import com.proyecto.apartahotel.sispart.reservacion.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.tipDocumento.entity.TipDocumento;
 
 import ch.qos.logback.core.subst.Token.Type;
@@ -53,7 +54,7 @@ public class Huesped implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "cod_nacionalidad", nullable = false)
-	private Nacionalidad Nacionalidad;
+	private Nacionalidad nacionalidad;
 
 	@Column(name = "lugar_origen", length = 30, nullable = false)
 	private String lugarOrigen;
@@ -71,16 +72,20 @@ public class Huesped implements Serializable {
 	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Factura> facturas;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private List<Reservacion> reservacion;
+
 	public Huesped() {
 
 		this.facturas = new ArrayList<>();
+		this.reservacion = new ArrayList<>();
 
 	}
 
 	public Huesped(Long codHuesped, String nombre, String apellido, String direccion, Long numCelular, String correo,
-			TipDocumento tipoDocumento, Long numDocumento,
-			com.proyecto.apartahotel.sispart.nacionalidad.entity.Nacionalidad nacionalidad, String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
+			String nomContactoEmergencia, Long numContactoEmergencia, List<Reservacion> reservacion) {
 
 		this.codHuesped = codHuesped;
 		this.nombre = nombre;
@@ -90,17 +95,17 @@ public class Huesped implements Serializable {
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
-		Nacionalidad = nacionalidad;
+		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
+		this.reservacion = reservacion;
 
 	}
 
 	public Huesped(String nombre, String apellido, String direccion, Long numCelular, String correo,
-			TipDocumento tipoDocumento, Long numDocumento,
-			com.proyecto.apartahotel.sispart.nacionalidad.entity.Nacionalidad nacionalidad, String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
+			String nomContactoEmergencia, Long numContactoEmergencia, List<Reservacion> reservacion) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.direccion = direccion;
@@ -108,10 +113,11 @@ public class Huesped implements Serializable {
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
-		Nacionalidad = nacionalidad;
+		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
+		this.reservacion = reservacion;
 
 	}
 
@@ -180,11 +186,11 @@ public class Huesped implements Serializable {
 	}
 
 	public Nacionalidad getNacionalidad() {
-		return Nacionalidad;
+		return nacionalidad;
 	}
 
 	public void setNacionalidad(Nacionalidad nacionalidad) {
-		Nacionalidad = nacionalidad;
+		nacionalidad = nacionalidad;
 	}
 
 	public String getLugarOrigen() {
@@ -225,6 +231,14 @@ public class Huesped implements Serializable {
 
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
+	}
+
+	public List<Reservacion> getReservacion() {
+		return reservacion;
+	}
+
+	public void setReservacion(List<Reservacion> reservacion) {
+		this.reservacion = reservacion;
 	}
 
 	private static final long serialVersionUID = 2556030903210616284L;
