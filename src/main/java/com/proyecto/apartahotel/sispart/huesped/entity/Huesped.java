@@ -59,10 +59,10 @@ public class Huesped implements Serializable {
 	@Column(name = "lugar_origen", length = 30, nullable = false)
 	private String lugarOrigen;
 
-	@Column(name = "nom_contacto_emergencia", length = 30, nullable = false)
+	@Column(name = "nom_contacto_emergencia", length = 30)
 	private String nomContactoEmergencia;
 
-	@Column(name = "num_contacto_emergencia", length = 30, nullable = false)
+	@Column(name = "num_contacto_emergencia", length = 30)
 	private Long numContactoEmergencia;
 
 	@Column(name = "estado_Huesped")

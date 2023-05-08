@@ -1,6 +1,6 @@
 package com.proyecto.apartahotel.sispart.reservacion.controller;
 
-import java.util.Date;
+
 import java.util.HashMap;
 
 import java.util.Map;
@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.apartahotel.sispart.facturacion.dto.FacturaDTO;
-import com.proyecto.apartahotel.sispart.facturacion.entity.Factura;
-import com.proyecto.apartahotel.sispart.huesped.entity.Huesped;
+
 
 import com.proyecto.apartahotel.sispart.reservacion.DTO.ReservacionDTO;
 import com.proyecto.apartahotel.sispart.reservacion.entity.Reservacion;
@@ -137,12 +135,12 @@ public class ReservacionController {
 	 * }
 	 */
 
-	@DeleteMapping("/eliminarReservacion/{codResrvacion}")
-	public ResponseEntity<?> deleteReservacion(@PathVariable("codReservacion") Long codResrvacion) {
+	@DeleteMapping("/eliminarReservacion/{codReservacion}")
+	public ResponseEntity<?> deleteReservacion(@PathVariable("codReservacion") Long codReservacion) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			reservacionService.delete(codResrvacion);
+			reservacionService.delete(codReservacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar la reservacion en la base de datos");

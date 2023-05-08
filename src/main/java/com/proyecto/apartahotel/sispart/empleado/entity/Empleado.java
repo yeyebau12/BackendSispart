@@ -69,7 +69,7 @@ public class Empleado implements Serializable {
 	private String arl;
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name="cod_sexo",nullable = false)
 	private Sexo sexo;
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
