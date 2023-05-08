@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.apartahotel.sispart.actividadempleado.dto.ActividadDTO;
 import com.proyecto.apartahotel.sispart.actividadempleado.entity.Actividad;
 import com.proyecto.apartahotel.sispart.actividadempleado.service.IActividadService;
+import com.proyecto.apartahotel.sispart.empleado.service.IEmpleadoService;
 
 @RestController
 @RequestMapping("actividades")
@@ -30,6 +31,9 @@ public class ActividadController {
 
 	@Autowired
 	private IActividadService actividadService;
+
+	@Autowired
+	private IEmpleadoService empleadoService;
 
 	@GetMapping("/listarActividades")
 	public ResponseEntity<?> findAll() {
@@ -95,7 +99,7 @@ public class ActividadController {
 
 		}
 
-		if (!actividadService.existsByEmpleado(actividadDTO.getEmpleado())) {
+		if (!empleadoService.existsById(actividadDTO.getEmpleado().getCodEmpleado())) {
 
 			response.put("mensaje", "El empleado no se encuentra registrado en la base de datos de empleados");
 
