@@ -1,6 +1,10 @@
 package com.proyecto.apartahotel.sispart.controller;
 
 
+<<<<<<< HEAD:src/main/java/com/proyecto/apartahotel/sispart/controller/ReservacionController.java
+=======
+
+>>>>>>> 74cdd1279716485ab5d1adab1d93d5cce34e9365:src/main/java/com/proyecto/apartahotel/sispart/reservacion/controller/ReservacionController.java
 import java.util.HashMap;
 
 import java.util.Map;
@@ -19,9 +23,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< HEAD:src/main/java/com/proyecto/apartahotel/sispart/controller/ReservacionController.java
 import com.proyecto.apartahotel.sispart.dto.ReservacionDTO;
 import com.proyecto.apartahotel.sispart.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.service.interfa.IReservacionService;
+=======
+
+
+import com.proyecto.apartahotel.sispart.reservacion.DTO.ReservacionDTO;
+import com.proyecto.apartahotel.sispart.reservacion.entity.Reservacion;
+import com.proyecto.apartahotel.sispart.reservacion.service.IReservacionService;
+>>>>>>> 74cdd1279716485ab5d1adab1d93d5cce34e9365:src/main/java/com/proyecto/apartahotel/sispart/reservacion/controller/ReservacionController.java
 
 @RestController
 @RequestMapping("/reservaciones")

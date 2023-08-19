@@ -1,6 +1,8 @@
 package com.proyecto.apartahotel.sispart.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -11,9 +13,16 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+<<<<<<< HEAD:src/main/java/com/proyecto/apartahotel/sispart/dto/EmpleadoDTO.java
 import com.proyecto.apartahotel.sispart.entity.Sexo;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.entity.TipoSangre;
+=======
+import com.proyecto.apartahotel.sispart.actividadempleado.entity.Actividad;
+import com.proyecto.apartahotel.sispart.genero.entity.Sexo;
+import com.proyecto.apartahotel.sispart.tipDocumento.entity.TipDocumento;
+import com.proyecto.apartahotel.sispart.tipSangre.entity.TipoSangre;
+>>>>>>> 74cdd1279716485ab5d1adab1d93d5cce34e9365:src/main/java/com/proyecto/apartahotel/sispart/empleado/dto/EmpleadoDTO.java
 
 public class EmpleadoDTO {
 
@@ -54,8 +63,11 @@ public class EmpleadoDTO {
 
 	private String fotoEmpleado;
 
+	private List<Actividad> actividad;
+
 	public EmpleadoDTO() {
 
+		this.actividad = new ArrayList<>();
 	}
 
 	public EmpleadoDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotEmpty TipDocumento tipDocumento,
@@ -209,5 +221,15 @@ public class EmpleadoDTO {
 	public void setFotoEmpleado(String fotoEmpleado) {
 		this.fotoEmpleado = fotoEmpleado;
 	}
+
+	public List<Actividad> getActividad() {
+		return actividad;
+	}
+
+	public void setActividad(List<Actividad> actividad) {
+		this.actividad = actividad;
+	}
+	
+	
 
 }

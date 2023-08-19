@@ -20,11 +20,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< HEAD:src/main/java/com/proyecto/apartahotel/sispart/controller/ActividadController.java
 import com.proyecto.apartahotel.sispart.dto.ActividadDTO;
 import com.proyecto.apartahotel.sispart.entity.Actividad;
 import com.proyecto.apartahotel.sispart.repository.IEmpleadoRepository;
 import com.proyecto.apartahotel.sispart.service.interfa.IActividadService;
 import com.proyecto.apartahotel.sispart.service.interfa.IEmpleadoService;
+=======
+import com.proyecto.apartahotel.sispart.actividadempleado.dto.ActividadDTO;
+import com.proyecto.apartahotel.sispart.actividadempleado.entity.Actividad;
+import com.proyecto.apartahotel.sispart.actividadempleado.service.IActividadService;
+import com.proyecto.apartahotel.sispart.empleado.service.IEmpleadoService;
+>>>>>>> 74cdd1279716485ab5d1adab1d93d5cce34e9365:src/main/java/com/proyecto/apartahotel/sispart/actividadempleado/controller/ActividadController.java
 
 @RestController
 @RequestMapping("actividades")

@@ -55,6 +55,7 @@ public class Actividad {
 	private String estadoActividad;
 
 	public Actividad() {
+		
 
 	}
 
