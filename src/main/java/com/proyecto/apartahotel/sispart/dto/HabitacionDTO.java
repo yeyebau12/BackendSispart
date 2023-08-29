@@ -16,7 +16,7 @@ public class HabitacionDTO {
 	@NotNull
 	private Integer maxPersonasDisponibles;
 	@NotNull
-	private Integer precioHabitacion;
+	private Double precioDia;
 
 	private String estadoHabitacion;
 	private String imagenHabitacion;
@@ -27,14 +27,14 @@ public class HabitacionDTO {
 
 	public HabitacionDTO(@NotEmpty String nombreHabitacion, @NotEmpty String descripHabitacion,
 			@NotNull Integer numHabitacion, @NotNull Integer pisoHabitacion, @NotNull Integer maxPersonasDisponibles,
-			@NotNull Integer precioHabitacion, String estadoHabitacion, String imagenHabitacion) {
+			@NotNull Double precioDia, String estadoHabitacion, String imagenHabitacion) {
 
 		this.nombreHabitacion = nombreHabitacion;
 		this.descripHabitacion = descripHabitacion;
 		this.numHabitacion = numHabitacion;
 		this.pisoHabitacion = pisoHabitacion;
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
-		this.precioHabitacion = precioHabitacion;
+		this.precioDia = precioDia;
 		this.estadoHabitacion = estadoHabitacion;
 		this.imagenHabitacion = imagenHabitacion;
 	}
@@ -79,12 +79,14 @@ public class HabitacionDTO {
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
 	}
 
-	public Integer getPrecioHabitacion() {
-		return precioHabitacion;
+
+
+	public Double getPrecioDia() {
+		return precioDia;
 	}
 
-	public void setPrecioHabitacion(Integer precioHabitacion) {
-		this.precioHabitacion = precioHabitacion;
+	public void setPrecioDia(Double precioDia) {
+		this.precioDia = precioDia;
 	}
 
 	public String getEstadoHabitacion() {

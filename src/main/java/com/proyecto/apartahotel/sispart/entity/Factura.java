@@ -55,28 +55,45 @@ public class Factura implements Serializable {
 	@JsonFormat(pattern = "HH:mm:ss", timezone = "GMT-5")
 	private Date horaCreacion;
 
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "cod_huesped")
+	 * 
+	 * @JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer",
+	 * "handler" }, allowSetters = true)
+	 */
+
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_huesped")
-	@JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Huesped huesped;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codHabitacion")
+	@JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private Habitacion habitacion;
 
 	public Factura() {
 
 		this.itemFactura = new ArrayList<>();
 	}
 
-	public Factura(Long codFactura, String descripcion, Huesped huesped, List<ItemFactura> itemFactura) {
+	public Factura(Long codFactura, String descripcion, Huesped huesped, Habitacion habitacion,
+			List<ItemFactura> itemFactura) {
 
 		this.codFactura = codFactura;
 		this.descripcion = descripcion;
 		this.huesped = huesped;
+		this.habitacion = habitacion;
 		this.itemFactura = itemFactura;
 	}
 
-	public Factura(String descripcion, Huesped huesped, List<ItemFactura> itemFactura) {
+	public Factura(String descripcion, Huesped huesped, Habitacion habitacion, List<ItemFactura> itemFactura) {
 
 		this.descripcion = descripcion;
 		this.huesped = huesped;
+		this.habitacion = habitacion;
 		this.itemFactura = itemFactura;
 	}
 
@@ -127,6 +144,14 @@ public class Factura implements Serializable {
 		this.huesped = huesped;
 	}
 
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+
 	public List<ItemFactura> getItemFactura() {
 		return itemFactura;
 	}
@@ -152,7 +177,6 @@ public class Factura implements Serializable {
 
 		return total;
 	}
-
 
 	private static final long serialVersionUID = -4099422168283654087L;
 

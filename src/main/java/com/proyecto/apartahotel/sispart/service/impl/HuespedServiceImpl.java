@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.repository.IHuespedRepository;
-import com.proyecto.apartahotel.sispart.service.interfa.IHuespedServiceImpl;
+import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
 
 @Service
-public class HuespedServiceImpl implements IHuespedServiceImpl {
+public class HuespedServiceImpl implements IHuespedService {
 
 	@Autowired
 	private IHuespedRepository huespedRepository;

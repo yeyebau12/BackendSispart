@@ -5,45 +5,70 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
+import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class ReservacionDTO {
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@JsonFormat(pattern = "dd-MM-yyyy", timezone = "GMT-5")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
 	private Date fechaEntrada;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@JsonFormat(pattern = "dd-MM-yyyy", timezone = "GMT-5")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
 	private Date fechaSalida;
 
-	private Integer numAcompañantes;
+	private Integer totalDias;
+
+	private Integer adultos;
+
+	private Integer ninos;
+
+	private TipDocumento tipoDocumento;
+
+	private Long numDocumento;
+
+	private String nombre;
+
+	private String apellido;
+
+	@Email
+	private String email;
 
 	private Habitacion habitacion;
-
-	private Huesped huesped;
 
 	public ReservacionDTO() {
 
 	}
 
-	public ReservacionDTO(Date fechaEntrada, Date fechaSalida, Integer numAcompañantes, Habitacion habitacion,
-			Huesped huesped) {
+	public ReservacionDTO(Date fechaEntrada, Date fechaSalida, Integer totalDias, Integer adultos, Integer ninos,
+			TipDocumento tipoDocumento, Long numDocumento, String nombre, String apellido, @Email String email,
+			Habitacion habitacion) {
 
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
-		this.numAcompañantes = numAcompañantes;
+		this.totalDias = totalDias;
+		this.adultos = adultos;
+		this.ninos = ninos;
+		this.tipoDocumento = tipoDocumento;
+		this.numDocumento = numDocumento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
 		this.habitacion = habitacion;
-		this.huesped = huesped;
 	}
 
 	public Date getFechaEntrada() {
@@ -62,12 +87,28 @@ public class ReservacionDTO {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Integer getNumAcompañantes() {
-		return numAcompañantes;
+	public Integer getTotalDias() {
+		return totalDias;
 	}
 
-	public void setNumAcompañantes(Integer numAcompañantes) {
-		this.numAcompañantes = numAcompañantes;
+	public void setTotalDias(Integer totalDias) {
+		this.totalDias = totalDias;
+	}
+
+	public Integer getAdultos() {
+		return adultos;
+	}
+
+	public void setAdultos(Integer adultos) {
+		this.adultos = adultos;
+	}
+
+	public Integer getNinos() {
+		return ninos;
+	}
+
+	public void setNinos(Integer ninos) {
+		this.ninos = ninos;
 	}
 
 	public Habitacion getHabitacion() {
@@ -78,12 +119,57 @@ public class ReservacionDTO {
 		this.habitacion = habitacion;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public TipDocumento getTipoDocumento() {
+		return tipoDocumento;
 	}
 
-	public void setHuesped(Huesped huesped) {
-		this.huesped = huesped;
+	public void setTipoDocumento(TipDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public Long getNumDocumento() {
+		return numDocumento;
+	}
+
+	public void setNumDocumento(Long numDocumento) {
+		this.numDocumento = numDocumento;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getTotalHuespedes() {
+
+		return adultos + ninos;
+	}
+	
+	public Double getTotalReservacion() {
+		Double total = 0.00;
+
+		total = totalDias.doubleValue() * habitacion.getPrecioDia();
+
+		return total;
 	}
 
 }

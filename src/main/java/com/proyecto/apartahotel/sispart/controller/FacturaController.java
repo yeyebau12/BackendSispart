@@ -25,6 +25,7 @@ import com.proyecto.apartahotel.sispart.dto.HabitacionDTO;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.service.interfa.IFacturaService;
+import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
 
 @RestController
 @RequestMapping("/factura")
@@ -32,6 +33,8 @@ public class FacturaController {
 
 	@Autowired
 	private IFacturaService facturaService;
+
+	private IHuespedService huespedService;
 
 	@GetMapping("/verFactura/{codFactura}")
 	public ResponseEntity<?> verFactura(@PathVariable("codFactura") Long codFactura) {
@@ -63,10 +66,11 @@ public class FacturaController {
 
 		Map<String, Object> response = new HashMap<>();
 
+		
 		try {
 
 			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getHuesped(),
-					facturaDTO.getItemFactura());
+					facturaDTO.getHabitacion(), facturaDTO.getItemFactura());
 
 			facturaService.saveFactura(factura);
 

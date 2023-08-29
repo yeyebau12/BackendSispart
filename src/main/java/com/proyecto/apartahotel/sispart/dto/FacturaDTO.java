@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.ItemFactura;
 
@@ -37,6 +38,9 @@ public class FacturaDTO {
 
 	@NotEmpty
 	private Huesped huesped;
+	
+	@NotEmpty
+	private Habitacion habitacion;
 
 	public FacturaDTO() {
 
@@ -44,13 +48,14 @@ public class FacturaDTO {
 	}
 
 	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, Date fechaCreacion,
-			Date horaCreacion, @NotEmpty Huesped huesped) {
+			Date horaCreacion, @NotEmpty Huesped huesped, @NotEmpty Habitacion habitacion) {
 
 		this.descripcion = descripcion;
 		this.itemFactura = itemFactura;
 		this.fechaCreacion = fechaCreacion;
 		this.horaCreacion = horaCreacion;
 		this.huesped = huesped;
+		this.habitacion = habitacion;
 
 	}
 
@@ -93,5 +98,15 @@ public class FacturaDTO {
 	public void setHuesped(Huesped huesped) {
 		this.huesped = huesped;
 	}
+
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+	
+	
 
 }

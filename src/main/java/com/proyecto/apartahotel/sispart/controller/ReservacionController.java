@@ -1,9 +1,12 @@
 package com.proyecto.apartahotel.sispart.controller;
 
-
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.List;
 import java.util.Map;
+
+import javax.mail.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,13 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.ReservacionDTO;
+import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Reservacion;
+import com.proyecto.apartahotel.sispart.service.interfa.IEmailService;
+import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
 import com.proyecto.apartahotel.sispart.service.interfa.IReservacionService;
-
-
-
-
-
 
 @RestController
 @RequestMapping("/reservaciones")
@@ -34,6 +35,12 @@ public class ReservacionController {
 
 	@Autowired
 	private IReservacionService reservacionService;
+
+	@Autowired
+	IHabitacionesService habitacionService;
+
+	@Autowired
+	private IEmailService emailService;
 
 	@GetMapping("/verReservacion/{codReservacion}")
 	public ResponseEntity<?> detailReservacion(@PathVariable("codReservacion") Long codReservacion) {
@@ -64,11 +71,49 @@ public class ReservacionController {
 	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO) {
 
 		Map<String, Object> response = new HashMap<>();
+		String body = "";
+		long millisecondsPerDay = 24 * 60 * 60 * 1000; // Milisegundos por día
+		long diffMilliseconds = reservacionDTO.getFechaSalida().getTime() - reservacionDTO.getFechaEntrada().getTime();
+		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
+
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Ocupada")) {
+
+			response.put("mensaje", "La habitacion que desea asignar esta ocupada por otro huesped!");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Reservada")) {
+
+			response.put("mensaje", "La habitacion que desea asignar ya se encuentra reservada!");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Aseo")) {
+
+			response.put("mensaje", "La habitacion que desea asignar esta en proceso de limpieza!");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		if (reservacionDTO.getTotalHuespedes() > reservacionDTO.getHabitacion().getMaxPersonasDisponibles()) {
+
+			response.put("mensaje", "La cantidad de acompañantes es demasiado grande para este tipo de habitacion!");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 
 		try {
 
 			Reservacion reservacion = new Reservacion(reservacionDTO.getFechaEntrada(), reservacionDTO.getFechaSalida(),
-					reservacionDTO.getNumAcompañantes(), reservacionDTO.getHabitacion(), reservacionDTO.getHuesped());
+					totalDias, reservacionDTO.getAdultos(), reservacionDTO.getNinos(),
+					reservacionDTO.getTipoDocumento(), reservacionDTO.getNumDocumento(), reservacionDTO.getNombre(),
+					reservacionDTO.getApellido(), reservacionDTO.getEmail(), reservacionDTO.getHabitacion());
+
+			Habitacion habitacion = habitacionService
+					.findByNumHabitacion(reservacionDTO.getHabitacion().getNumHabitacion());
+			habitacion.setEstadoHabitacion("Reservada");
 
 			reservacionService.save(reservacion);
 
@@ -78,7 +123,35 @@ public class ReservacionController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "la reservacion ha sido creada con exito!");
+		try {
+
+			Double precioFinal = reservacionDTO.getHabitacion().getPrecioDia() * totalDias;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			String fechaSalida = dateFormat.format(reservacionDTO.getFechaSalida());
+			String fechaEntrada = dateFormat.format(reservacionDTO.getFechaEntrada());
+
+			body = " Señor@ " + reservacionDTO.getNombre() + " " + reservacionDTO.getApellido()
+					+ " , a continuacion puede observar el detalle de su reserva : \r\n" + " Fecha de Ingreso: "
+					+ fechaEntrada + "\r\n Fecha de salida: " + fechaSalida + "\r\n Adultos: "
+					+ reservacionDTO.getAdultos() + "\r\n Niños: " + reservacionDTO.getNinos() + "\r\n Habitacion: "
+					+ reservacionDTO.getHabitacion().getNumHabitacion() + "\r\nTotal de la Reserva: $" + precioFinal
+					+ " COP";
+
+			emailService.sendEmailReserva(reservacionDTO.getEmail(), body);
+		} catch (Exception e) {
+			response.put("mensaje", "Ha sucedido un error con el envio del correo para el huesped.");
+			response.put("error", e.getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		List<String> menssage = new ArrayList<>();
+
+		menssage.add("La reservacion ha sido creada con exito!");
+		menssage.add("Se ha enviado el detalle de su reserva a su correo electronico !");
+
+		for (int i = 0; i < menssage.size(); i++) {
+
+			response.put("mensaje", menssage);
+		}
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
@@ -137,12 +210,15 @@ public class ReservacionController {
 	 * 
 	 * }
 	 */
-
 	@DeleteMapping("/eliminarReservacion/{codReservacion}")
 	public ResponseEntity<?> deleteReservacion(@PathVariable("codReservacion") Long codReservacion) {
 		Map<String, Object> response = new HashMap<>();
+		Reservacion reservacion = reservacionService.findById(codReservacion);
+		Habitacion habitacion = habitacionService.findByNumHabitacion(reservacion.getHabitacion().getNumHabitacion());
 
 		try {
+
+			habitacion.setEstadoHabitacion("Disponible");
 			reservacionService.delete(codReservacion);
 
 		} catch (DataAccessException e) {

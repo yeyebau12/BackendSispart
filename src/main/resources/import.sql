@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 INSERT INTO role (nombre) VALUES ('ROLE_ADMINISTRADOR');
 INSERT INTO role (nombre) VALUES ('ROLE_RECEPCIONISTA');
 INSERT INTO role (nombre) VALUES ('ROLE_SERVICIOS');
@@ -13,7 +13,7 @@ INSERT INTO  sexo (nom_sexo) VALUES ('O  -');
 INSERT INTO  sexo (nom_sexo) VALUES ('A +');
 INSERT INTO  sexo (nom_sexo) VALUES ('A  -');
 
-=======
+
 INSERT INTO database_sispart.role (nombre) VALUE('ROLE_ADMINISTRADOR');
 INSERT INTO database_sispart.role (nombre) VALUE('ROLE_RECEPCIONISTA');
 
@@ -25,10 +25,6 @@ INSERT INTO database_sispart.tipos_de_sangre (nom_tipo_sangre) VALUES ('A-');
 INSERT INTO `database_sispart`.`sexo` (`nom_sexo`) VALUES ('MASCULINO');
 INSERT INTO `database_sispart`.`sexo` (`nom_sexo`) VALUES ('FEMENINO');
 
-INSERT INTO `database_sispart`.`tipos_de_documentos` (`nom_tipo_documento`) VALUES ('Registro Civil');
-INSERT INTO `database_sispart`.`tipos_de_documentos` (`nom_tipo_documento`) VALUES ('Tarjeta de Identidad');
-INSERT INTO `database_sispart`.`tipos_de_documentos` (`nom_tipo_documento`) VALUES ('Cedula de Ciudadania');
-INSERT INTO `database_sispart`.`tipos_de_documentos` (`nom_tipo_documento`) VALUES ('Cedula de Extranjeria');
 
 INSERT INTO database_sispart.nacionalidad (nombre) VALUES('Afganistán');
 INSERT INTO database_sispart.nacionalidad (nombre) VALUES('Albania');
@@ -235,6 +231,6 @@ INSERT INTO database_sispart.nacionalidad (nombre) VALUES('Zimbabue','ZIMBABUENS
 
 INSERT INTO `database_sispart`.`empleados` (`apellido`, `arl`, `correo`, `direccion`, `edad`, `eps`, `fecha_nacimento`, `nom_contacto_emergencia`, `nombre`, `num_contacto_emergencia`, `num_documento`, `num_telefono`, `cod_sexo`, `tip_documento`, `tipo_sangre`) VALUES ('Maurico', 'SURA', 'die@unbosque.edu.co', 'calle100', '24', 'Compensar', '1999-06-14', 'Juan Mauricio', 'Diego', '3145678399', '1283920034', '324537489', '1', '3', '3');
 
-INSERT INTO `database_sispart`.`huespedes` (`apellido`, `correo`, `direccion`, `estado_huesped`, `lugar_origen`, `nombre`, `num_celular`, `num_documento`, `cod_nacionalidad`, `cod_tip_documento`) VALUES ('Torres', 'sar@huesped.com', 'Calle45', '1', 'Bogotá', 'Sara', '31456734987', '803673893', '43', '3');
->>>>>>> 74cdd1279716485ab5d1adab1d93d5cce34e9365
+INSERT INTO `database_sispart`.`huespedes` (`apellido`, `correo`, `estado_huesped`, `lugar_origen`, `nombre`, `num_celular`, `num_documento`, `cod_nacionalidad`, `cod_tip_documento`) VALUES ('Torres', 'sar@huesped.com', '1', 'Bogotá', 'Sara', '31456734987', '803673893', '43', '3');
+
 

@@ -13,6 +13,7 @@ public interface IReservacionService {
 	//public Reservacion findByHuespedAndFechaEntrada(Huesped huesped, Date fechaEntrada);
 
 	public Reservacion findById(Long codResrvacion);
+	
 
 	public void save(Reservacion reservacion);
 

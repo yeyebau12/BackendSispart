@@ -1,13 +1,20 @@
 package com.proyecto.apartahotel.sispart.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "habitacion")
@@ -28,17 +35,23 @@ public class Habitacion implements Serializable {
 	@Column(name = "max_personas_habitacion", nullable = false)
 	private Integer maxPersonasDisponibles;
 	@Column(name = "precio_habitacion", nullable = false)
-	private Integer precioHabitacion;
+	private Double precioDia;
 	@Column(name = "estado_habitacion", nullable = false)
 	private String estadoHabitacion;
 	private String imagenHabitacion;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitacion", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = { "habitacion", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private List<Factura> facturas;
+
 	public Habitacion() {
 
+		this.facturas = new ArrayList<>();
+		;
 	}
 
 	public Habitacion(Long codHabitacion, String nombreHabitacion, String descripHabitacion, Integer numHabitacion,
-			Integer pisoHabitacion, Integer maxPersonasDisponibles, Integer precioHabitacion, String estadoHabitacion) {
+			Integer pisoHabitacion, Integer maxPersonasDisponibles, Double precioDia, String estadoHabitacion) {
 
 		this.codHabitacion = codHabitacion;
 		this.nombreHabitacion = nombreHabitacion;
@@ -46,20 +59,20 @@ public class Habitacion implements Serializable {
 		this.numHabitacion = numHabitacion;
 		this.pisoHabitacion = pisoHabitacion;
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
-		this.precioHabitacion = precioHabitacion;
+		this.precioDia = precioDia;
 		this.estadoHabitacion = estadoHabitacion;
 
 	}
 
 	public Habitacion(String nombreHabitacion, String descripHabitacion, Integer numHabitacion, Integer pisoHabitacion,
-			Integer maxPersonasDisponibles, Integer precioHabitacion, String estadoHabitacion) {
+			Integer maxPersonasDisponibles, Double precioDia, String estadoHabitacion) {
 
 		this.nombreHabitacion = nombreHabitacion;
 		this.descripHabitacion = descripHabitacion;
 		this.numHabitacion = numHabitacion;
 		this.pisoHabitacion = pisoHabitacion;
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
-		this.precioHabitacion = precioHabitacion;
+		this.precioDia = precioDia;
 		this.estadoHabitacion = estadoHabitacion;
 
 	}
@@ -112,12 +125,20 @@ public class Habitacion implements Serializable {
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
 	}
 
-	public Integer getPrecioHabitacion() {
-		return precioHabitacion;
+	public Double getPrecioDia() {
+		return precioDia;
 	}
 
-	public void setPrecioHabitacion(Integer precioHabitacion) {
-		this.precioHabitacion = precioHabitacion;
+	public void setPrecioDia(Double precioDia) {
+		this.precioDia = precioDia;
+	}
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
 	}
 
 	public String getEstadoHabitacion() {

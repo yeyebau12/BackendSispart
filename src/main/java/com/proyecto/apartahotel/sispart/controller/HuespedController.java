@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.HuespedDTO;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
-import com.proyecto.apartahotel.sispart.service.interfa.IHuespedServiceImpl;
+import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
 
 @RestController
 @RequestMapping("/huespedes")
 public class HuespedController {
 
 	@Autowired
-	private IHuespedServiceImpl huespedService;
+	private IHuespedService huespedService;
 
 	@GetMapping("/listarHuespedes")
 	public ResponseEntity<?> findAll() {
@@ -134,7 +134,7 @@ public class HuespedController {
 
 		try {
 
-			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(), huespedDTO.getDireccion(),
+			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(),
 					huespedDTO.getNumCelular(), huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(),
 					huespedDTO.getNumDocumento(), huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(),
 					huespedDTO.getNomContactoEmergencia(), huespedDTO.getNumContactoEmergencia());
@@ -196,7 +196,6 @@ public class HuespedController {
 			Huesped huesped = huespedService.getOne(codHuesped);
 			huesped.setNombre(huespedDTO.getNombre());
 			huesped.setApellido(huespedDTO.getApellido());
-			huesped.setDireccion(huesped.getDireccion());
 			huesped.setNumCelular(huespedDTO.getNumCelular());
 			huesped.setCorreo(huespedDTO.getCorreo());
 			huesped.setTipoDocumento(huespedDTO.getTipoDocumento());

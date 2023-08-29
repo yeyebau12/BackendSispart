@@ -137,7 +137,7 @@ public class habitacionesController {
 			Habitacion habitacion = new Habitacion(habitacionDTO.getNombreHabitacion(),
 					habitacionDTO.getDescripHabitacion(), habitacionDTO.getNumHabitacion(),
 					habitacionDTO.getPisoHabitacion(), habitacionDTO.getMaxPersonasDisponibles(),
-					habitacionDTO.getPrecioHabitacion(), habitacionDTO.getEstadoHabitacion());
+					habitacionDTO.getPrecioDia(), habitacionDTO.getEstadoHabitacion());
 
 			habitacionService.save(habitacion);
 
@@ -195,7 +195,7 @@ public class habitacionesController {
 			habitacion.setNumHabitacion(habitacionDTO.getNumHabitacion());
 			habitacion.setPisoHabitacion(habitacionDTO.getPisoHabitacion());
 			habitacion.setMaxPersonasDisponibles(habitacionDTO.getMaxPersonasDisponibles());
-			habitacion.setPrecioHabitacion(habitacionDTO.getPrecioHabitacion());
+			habitacion.setPrecioDia(habitacionDTO.getPrecioDia());
 			habitacion.setEstadoHabitacion(habitacionDTO.getEstadoHabitacion());
 
 			habitacionService.save(habitacion);

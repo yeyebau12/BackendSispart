@@ -22,8 +22,6 @@ public class HuespedDTO {
 	private String nombre;
 	@NotEmpty
 	private String apellido;
-	@NotEmpty
-	private String direccion;
 	@NotNull
 	private Long numCelular;
 	@Email
@@ -42,23 +40,20 @@ public class HuespedDTO {
 	private Long numContactoEmergencia;
 	private boolean estadoHuesped = true;
 	private List<Factura> facturas;
-	private List<Reservacion> reservacion;
 
 	public HuespedDTO() {
 
 		this.facturas = new ArrayList<>();
-		this.reservacion = new ArrayList<>();
 
 	}
 
-	public HuespedDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotEmpty String direccion,
-			@NotNull Long numCelular, @Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento,
-			@NotNull Long numDocumento, @NotNull Nacionalidad nacionalidad, @NotEmpty String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+	public HuespedDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotNull Long numCelular,
+			@Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento,
+			@NotNull Nacionalidad nacionalidad, @NotEmpty String lugarOrigen, String nomContactoEmergencia,
+			Long numContactoEmergencia) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.direccion = direccion;
 		this.numCelular = numCelular;
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
@@ -67,7 +62,7 @@ public class HuespedDTO {
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-		
+
 	}
 
 	public String getNombre() {
@@ -84,14 +79,6 @@ public class HuespedDTO {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
 	}
 
 	public Long getNumCelular() {
@@ -172,14 +159,6 @@ public class HuespedDTO {
 
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
-	}
-
-	public List<Reservacion> getReservacion() {
-		return reservacion;
-	}
-
-	public void setReservacion(List<Reservacion> reservacion) {
-		this.reservacion = reservacion;
 	}
 
 }

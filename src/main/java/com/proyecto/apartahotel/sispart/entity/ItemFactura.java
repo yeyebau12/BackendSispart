@@ -27,8 +27,8 @@ public class ItemFactura implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_producto")
 	private Producto producto;
-
 	
+
 	
 	public Long getCodItemFactura() {
 		return codItemFactura;

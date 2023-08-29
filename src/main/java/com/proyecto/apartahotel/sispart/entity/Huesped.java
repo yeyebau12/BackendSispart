@@ -33,8 +33,6 @@ public class Huesped implements Serializable {
 	private String nombre;
 	@Column(length = 30, nullable = false)
 	private String apellido;
-	@Column(length = 30, nullable = false)
-	private String direccion;
 
 	@Column(name = "num_celular")
 	private Long numCelular;
@@ -64,29 +62,28 @@ public class Huesped implements Serializable {
 	@Column(name = "estado_Huesped")
 	private boolean estadoHuesped = true;;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private List<Factura> facturas;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private List<Reservacion> reservacion;
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade =
+	 * CascadeType.ALL)
+	 * 
+	 * @JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer",
+	 * "handler" }, allowSetters = true) private List<Factura> facturas;
+	 */
 
 	public Huesped() {
 
-		this.facturas = new ArrayList<>();
-		this.reservacion = new ArrayList<>();
+		// this.facturas = new ArrayList<>();
 
 	}
 
-	public Huesped(Long codHuesped, String nombre, String apellido, String direccion, Long numCelular, String correo,
+	public Huesped(Long codHuesped, String nombre, String apellido, Long numCelular, String correo,
 			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
 			String nomContactoEmergencia, Long numContactoEmergencia) {
 
 		this.codHuesped = codHuesped;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.direccion = direccion;
+
 		this.numCelular = numCelular;
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
@@ -98,12 +95,11 @@ public class Huesped implements Serializable {
 
 	}
 
-	public Huesped(String nombre, String apellido, String direccion, Long numCelular, String correo,
-			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+	public Huesped(String nombre, String apellido, Long numCelular, String correo, TipDocumento tipoDocumento,
+			Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen, String nomContactoEmergencia,
+			Long numContactoEmergencia) {
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.direccion = direccion;
 		this.numCelular = numCelular;
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
@@ -137,14 +133,6 @@ public class Huesped implements Serializable {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
 	}
 
 	public Long getNumCelular() {
@@ -219,21 +207,11 @@ public class Huesped implements Serializable {
 		this.estadoHuesped = estadoHuesped;
 	}
 
-	public List<Factura> getFacturas() {
-		return facturas;
-	}
-
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
-	}
-
-	public List<Reservacion> getReservacion() {
-		return reservacion;
-	}
-
-	public void setReservacion(List<Reservacion> reservacion) {
-		this.reservacion = reservacion;
-	}
+	/*
+	 * public List<Factura> getFacturas() { return facturas; }
+	 * 
+	 * public void setFacturas(List<Factura> facturas) { this.facturas = facturas; }
+	 */
 
 	private static final long serialVersionUID = 2556030903210616284L;
 

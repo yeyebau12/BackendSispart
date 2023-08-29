@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
-public interface IHuespedServiceImpl {
+public interface IHuespedService {
 
 	public List<Huesped> findAll();
 

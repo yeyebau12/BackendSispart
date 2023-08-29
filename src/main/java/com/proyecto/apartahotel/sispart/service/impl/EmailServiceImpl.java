@@ -26,7 +26,7 @@ public class EmailServiceImpl implements IEmailService {
 		MimeMessage message = javaMailSender.createMimeMessage();
 		try {
 			MimeMessageHelper messemail = new MimeMessageHelper(message, true);
-			
+
 			messemail.setFrom(email);
 			messemail.setTo(emailTo);
 			messemail.setSubject("SEGURIDAD:Credenciales de empleado para la plataforma SISPART.");
@@ -35,6 +35,26 @@ public class EmailServiceImpl implements IEmailService {
 					+ "persona(s) a quien(es) se dirige. Si el lector de esta transmisión\r\n"
 					+ "electrónica no es el destinatario, se le notifica que cualquier distribución\r\n"
 					+ "o copia de la misma está estrictamente prohibida.");
+
+			javaMailSender.send(message);
+		} catch (Exception e) {
+
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	@Override
+	public void sendEmailReserva(String emailTo, String body) {
+
+		MimeMessage message = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper messemail = new MimeMessageHelper(message, true);
+
+			messemail.setFrom(email);
+			messemail.setTo(emailTo);
+			messemail.setSubject("Detalle de su reserva !.");
+			messemail.setText(body);
 
 			javaMailSender.send(message);
 		} catch (Exception e) {
