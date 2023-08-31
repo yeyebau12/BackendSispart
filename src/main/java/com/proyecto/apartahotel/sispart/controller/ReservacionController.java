@@ -10,6 +10,9 @@ import javax.mail.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.ReservacionDTO;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
+import com.proyecto.apartahotel.sispart.entity.Producto;
 import com.proyecto.apartahotel.sispart.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.service.interfa.IEmailService;
 import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
@@ -41,6 +45,56 @@ public class ReservacionController {
 
 	@Autowired
 	private IEmailService emailService;
+	
+	
+	@GetMapping("/listarReservas")
+	public ResponseEntity<?> findAll() {
+
+		List<Reservacion> findAll = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+
+			findAll = reservacionService.findAll();
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al listar los registros de la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (findAll.isEmpty()) {
+			response.put("mensaje", "No existen registros en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<List<Reservacion>>(findAll, HttpStatus.OK);
+	}
+	
+	@GetMapping("/listarReservas/page/{page}")
+	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
+
+		Pageable pageable = PageRequest.of(page, 5);
+		Page<Reservacion> findAll = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+
+			findAll = reservacionService.findAll(pageable);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al listar los registros de la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (findAll.isEmpty()) {
+			response.put("mensaje", "No existen registros en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Page<Reservacion>>(findAll, HttpStatus.OK);
+	}
 
 	@GetMapping("/verReservacion/{codReservacion}")
 	public ResponseEntity<?> detailReservacion(@PathVariable("codReservacion") Long codReservacion) {

@@ -31,7 +31,7 @@ import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
 
 @RestController
 @RequestMapping("/habitacion")
-public class habitacionesController {
+public class HabitacionController {
 
 	@Autowired
 	private IHabitacionesService habitacionService;

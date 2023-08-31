@@ -18,18 +18,17 @@ import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class HuespedDTO {
 
-	@NotEmpty
+	
 	private String nombre;
-	@NotEmpty
+	
 	private String apellido;
 	@NotNull
 	private Long numCelular;
 	@Email
-	@NotEmpty
 	private String correo;
-	@NotNull
+	
 	private TipDocumento tipoDocumento;
-	@NotNull
+	
 	private Long numDocumento;
 	@NotNull
 	private Nacionalidad nacionalidad;

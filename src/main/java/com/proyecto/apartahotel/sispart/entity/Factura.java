@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -62,15 +63,15 @@ public class Factura implements Serializable {
 	 * 
 	 * @JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer",
 	 * "handler" }, allowSetters = true)
+	 * 
+	 * @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 	 */
-
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_huesped")
 	private Huesped huesped;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codHabitacion")
+	@JoinColumn(name = "cod_habitacion")
 	@JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Habitacion habitacion;
 

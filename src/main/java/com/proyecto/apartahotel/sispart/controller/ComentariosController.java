@@ -26,7 +26,7 @@ import com.proyecto.apartahotel.sispart.entity.Comentarios;
 import com.proyecto.apartahotel.sispart.service.interfa.IComentarioService;
 
 @RestController
-@RequestMapping("/Comentarios")
+@RequestMapping("/comentarios")
 public class ComentariosController {
 
 	@Autowired

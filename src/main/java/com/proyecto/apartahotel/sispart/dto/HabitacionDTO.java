@@ -3,6 +3,8 @@ package com.proyecto.apartahotel.sispart.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.proyecto.apartahotel.sispart.entity.Factura;
+
 public class HabitacionDTO {
 
 	@NotEmpty
@@ -20,9 +22,12 @@ public class HabitacionDTO {
 
 	private String estadoHabitacion;
 	private String imagenHabitacion;
+	
+	private Factura facturas;
 
 	public HabitacionDTO() {
 
+		this.facturas = new Factura();
 	}
 
 	public HabitacionDTO(@NotEmpty String nombreHabitacion, @NotEmpty String descripHabitacion,

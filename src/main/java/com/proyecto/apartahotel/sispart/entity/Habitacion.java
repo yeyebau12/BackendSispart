@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,13 +42,13 @@ public class Habitacion implements Serializable {
 	private String imagenHabitacion;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitacion", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = { "habitacion", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Factura> facturas;
 
 	public Habitacion() {
 
 		this.facturas = new ArrayList<>();
-		;
+
 	}
 
 	public Habitacion(Long codHabitacion, String nombreHabitacion, String descripHabitacion, Integer numHabitacion,

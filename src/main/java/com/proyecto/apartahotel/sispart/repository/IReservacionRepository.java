@@ -13,9 +13,9 @@ import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 @Repository
 public interface IReservacionRepository extends JpaRepository<Reservacion, Long> {
 
-	//public Optional<Reservacion> findByHuespedAndFechaEntrada(Huesped huesped, Date fechaEntrada);
+	public Reservacion findByTipoDocumentoAndNumDocumentoAndFechaEntrada(TipDocumento tipDocumento,Long numDocumento, Date fechaEntrada);
 
-	//public boolean existsByHuespedAndFechaEntrada(Huesped huesped, Date fechaEntrada);
+	public boolean existsByTipoDocumentoAndNumDocumentoAndFechaEntrada(TipDocumento tipDocumento, Long numDocumento,Date fechaEntrada);
 	
 	/*
 	 * public Optional<Reservacion>
