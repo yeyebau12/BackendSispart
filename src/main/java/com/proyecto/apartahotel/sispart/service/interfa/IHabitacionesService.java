@@ -7,13 +7,14 @@ import org.springframework.data.domain.Pageable;
 
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 
-
 public interface IHabitacionesService {
 
 	public List<Habitacion> findAll();
 
+	public List<Habitacion> findByEstadoHabitacion(String estadoHabitacion);
+
 	public Page<Habitacion> findAll(Pageable pageable);
-	
+
 	public Habitacion findByNumHabitacion(Integer numHabitacion);
 
 	public Habitacion findByCodHabitacion(Long codHabitacion);

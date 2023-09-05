@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
+import com.proyecto.apartahotel.sispart.repository.IHabitacionesRepository;
 import com.proyecto.apartahotel.sispart.repository.IReservacionRepository;
 import com.proyecto.apartahotel.sispart.service.interfa.IReservacionService;
 
@@ -19,6 +21,9 @@ public class ReservacionServiceImpl implements IReservacionService {
 
 	@Autowired
 	private IReservacionRepository reservacionRepository;
+
+	@Autowired
+	private IHabitacionesRepository habitacionRepository;
 
 	@Override
 	public List<Reservacion> findAll() {
@@ -71,5 +76,7 @@ public class ReservacionServiceImpl implements IReservacionService {
 		return reservacionRepository.existsByTipoDocumentoAndNumDocumentoAndFechaEntrada(tipDocumento, numDocumento,
 				fechaEntrada);
 	}
+
+
 
 }

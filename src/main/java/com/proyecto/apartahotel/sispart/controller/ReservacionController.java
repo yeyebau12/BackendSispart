@@ -45,8 +45,7 @@ public class ReservacionController {
 
 	@Autowired
 	private IEmailService emailService;
-	
-	
+
 	@GetMapping("/listarReservas")
 	public ResponseEntity<?> findAll() {
 
@@ -70,7 +69,7 @@ public class ReservacionController {
 
 		return new ResponseEntity<List<Reservacion>>(findAll, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/listarReservas/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -136,7 +135,7 @@ public class ReservacionController {
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Reservada")) {
 
 			response.put("mensaje", "La habitacion que desea asignar ya se encuentra reservada!");

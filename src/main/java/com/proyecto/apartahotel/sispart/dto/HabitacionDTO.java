@@ -1,8 +1,11 @@
 package com.proyecto.apartahotel.sispart.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.proyecto.apartahotel.sispart.entity.Checkin;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 
 public class HabitacionDTO {
@@ -22,12 +25,12 @@ public class HabitacionDTO {
 
 	private String estadoHabitacion;
 	private String imagenHabitacion;
-	
-	private Factura facturas;
+
+	//private Factura facturas;
 
 	public HabitacionDTO() {
 
-		this.facturas = new Factura();
+		//this.facturas = new Factura();
 	}
 
 	public HabitacionDTO(@NotEmpty String nombreHabitacion, @NotEmpty String descripHabitacion,
@@ -84,8 +87,6 @@ public class HabitacionDTO {
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
 	}
 
-
-
 	public Double getPrecioDia() {
 		return precioDia;
 	}
@@ -109,5 +110,13 @@ public class HabitacionDTO {
 	public void setImagenHabitacion(String imagenHabitacion) {
 		this.imagenHabitacion = imagenHabitacion;
 	}
+
+/*	public Factura getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(Factura facturas) {
+		this.facturas = facturas;
+	}*/
 
 }

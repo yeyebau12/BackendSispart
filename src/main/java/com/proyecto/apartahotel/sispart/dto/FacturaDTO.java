@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.proyecto.apartahotel.sispart.entity.Checkout;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.ItemFactura;
@@ -36,26 +37,25 @@ public class FacturaDTO {
 	@JsonFormat(pattern = "HH:mm:ss", timezone = "GMT-5")
 	private Date horaCreacion;
 
-	@NotEmpty
-	private Huesped huesped;
-	
-	@NotEmpty
-	private Habitacion habitacion;
+	/*
+	 * @NotEmpty private Habitacion habitacion;
+	 */
+	private Checkout checkout;
+
+	private String estado;
 
 	public FacturaDTO() {
 
 		this.itemFactura = new ArrayList<>();
 	}
 
-	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, Date fechaCreacion,
-			Date horaCreacion, @NotEmpty Huesped huesped, @NotEmpty Habitacion habitacion) {
+	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, @NotEmpty Checkout checkout,
+			String estado) {
 
 		this.descripcion = descripcion;
 		this.itemFactura = itemFactura;
-		this.fechaCreacion = fechaCreacion;
-		this.horaCreacion = horaCreacion;
-		this.huesped = huesped;
-		this.habitacion = habitacion;
+		this.checkout = checkout;
+		this.estado = estado;
 
 	}
 
@@ -91,22 +91,20 @@ public class FacturaDTO {
 		this.horaCreacion = horaCreacion;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public Checkout getCheckout() {
+		return checkout;
 	}
 
-	public void setHuesped(Huesped huesped) {
-		this.huesped = huesped;
+	public void setCheckout(Checkout checkout) {
+		this.checkout = checkout;
 	}
 
-	public Habitacion getHabitacion() {
-		return habitacion;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setHabitacion(Habitacion habitacion) {
-		this.habitacion = habitacion;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-	
-	
 
 }

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.proyecto.apartahotel.sispart.entity.Checkin;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Nacionalidad;
 import com.proyecto.apartahotel.sispart.entity.Reservacion;
@@ -18,17 +19,16 @@ import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class HuespedDTO {
 
-	
 	private String nombre;
-	
+
 	private String apellido;
 	@NotNull
 	private Long numCelular;
 	@Email
 	private String correo;
-	
+
 	private TipDocumento tipoDocumento;
-	
+
 	private Long numDocumento;
 	@NotNull
 	private Nacionalidad nacionalidad;
@@ -159,5 +159,11 @@ public class HuespedDTO {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
+
+	/*
+	 * public List<Checkin> getCheckin() { return checkin; }
+	 * 
+	 * public void setCheckin(List<Checkin> checkin) { this.checkin = checkin; }
+	 */
 
 }

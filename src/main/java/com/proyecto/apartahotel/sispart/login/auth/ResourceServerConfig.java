@@ -24,15 +24,21 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/loginEmpleado/registroLoginEmpleado").permitAll()
 				.antMatchers("/tipoDocumento/**").permitAll().antMatchers("/nacionalidad/**").permitAll()
-				 .antMatchers("/loginEmpleado/**").permitAll().antMatchers(HttpMethod.POST, "/empleados/crearEmpleado")
+				.antMatchers("/loginEmpleado/**").permitAll().antMatchers(HttpMethod.POST, "/empleados/crearEmpleado")
 				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.PUT, "/empleados/actualizarEmpleado/{codEmpleado}")
 				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.GET, "/empleados/listarEmpleados").permitAll()
 				.antMatchers(HttpMethod.GET, "/huespedes/listarHuespedes").hasAnyRole("ADMINISTRADOR")
 				.antMatchers(HttpMethod.POST, "/huespedes/crearHuesped").hasAnyRole("ADMINISTRADOR")
 				.antMatchers(HttpMethod.DELETE, "/empleados/eliminarEmpleado/{codEmpleado}").hasAnyRole("ADMINISTRADOR")
-				/*.antMatchers(HttpMethod.GET, "/loginEmpleado/listarLoginEmpleados").hasAnyRole("ADMINISTRADOR")*/
-				.antMatchers(HttpMethod.POST, "/comentarios/crearComentario").permitAll().antMatchers("/reservaciones/**").permitAll().antMatchers("/comentarios/**").permitAll().anyRequest().authenticated()
-				.and().cors().configurationSource(corsConfigurationSource());
+				/*
+				 * .antMatchers(HttpMethod.GET,
+				 * "/loginEmpleado/listarLoginEmpleados").hasAnyRole("ADMINISTRADOR")
+				 */
+				.antMatchers(HttpMethod.POST, "/comentarios/crearComentario").permitAll()
+				.antMatchers("/reservaciones/**").permitAll().antMatchers("/comentarios/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/habitacion/verHabitacion/{codHabitacion}",
+						"/habitacion/listarHabitaciones/estado/{estadoHabitacion}")
+				.permitAll().anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
 	}
 
 	@Bean

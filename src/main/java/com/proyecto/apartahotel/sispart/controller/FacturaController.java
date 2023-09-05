@@ -66,13 +66,14 @@ public class FacturaController {
 
 		Map<String, Object> response = new HashMap<>();
 
-		
 		try {
 
-			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getHuesped(),
-					facturaDTO.getHabitacion(), facturaDTO.getItemFactura());
-
+			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getCheckout(),
+					facturaDTO.getItemFactura(), facturaDTO.getEstado());
+			
 			facturaService.saveFactura(factura);
+			
+			
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro de la factura en la base de datos");

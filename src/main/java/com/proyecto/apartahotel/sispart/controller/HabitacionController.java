@@ -59,7 +59,31 @@ public class HabitacionController {
 
 		return new ResponseEntity<List<Habitacion>>(findAll, HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/listarHabitaciones/estado/{estadoHabitacion}")
+	public ResponseEntity<?> findByEstadoHabitacion(@PathVariable("estadoHabitacion") String estadoHabitacion) {
+
+		List<Habitacion> findByEstado = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+
+			findByEstado = habitacionService.findByEstadoHabitacion(estadoHabitacion);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al listar los registros de la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (findByEstado.isEmpty()) {
+			response.put("mensaje", "No existen registros en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<List<Habitacion>>(findByEstado, HttpStatus.OK);
+	}
+
 	@GetMapping("/listarHabitaciones/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 

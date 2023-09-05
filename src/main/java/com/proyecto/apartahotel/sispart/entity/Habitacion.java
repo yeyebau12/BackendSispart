@@ -41,13 +41,17 @@ public class Habitacion implements Serializable {
 	private String estadoHabitacion;
 	private String imagenHabitacion;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "habitacion", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private List<Factura> facturas;
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "habitacion", cascade =
+	 * CascadeType.ALL)
+	 * 
+	 * @JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer",
+	 * "handler" }, allowSetters = true) private List<Factura> facturas;
+	 */
 
 	public Habitacion() {
 
-		this.facturas = new ArrayList<>();
+		// this.facturas = new ArrayList<>();
 
 	}
 
@@ -134,14 +138,11 @@ public class Habitacion implements Serializable {
 		this.precioDia = precioDia;
 	}
 
-	public List<Factura> getFacturas() {
-		return facturas;
-	}
-
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
-	}
-
+	/*
+	 * public List<Factura> getFacturas() { return facturas; }
+	 * 
+	 * public void setFacturas(List<Factura> facturas) { this.facturas = facturas; }
+	 */
 	public String getEstadoHabitacion() {
 		return estadoHabitacion;
 	}

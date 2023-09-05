@@ -62,17 +62,13 @@ public class Huesped implements Serializable {
 	@Column(name = "estado_Huesped")
 	private boolean estadoHuesped = true;;
 
-	/*
-	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade =
-	 * CascadeType.ALL)
-	 * 
-	 * @JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer",
-	 * "handler" }, allowSetters = true) private List<Factura> facturas;
-	 */
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private List<Factura> facturas;
 
 	public Huesped() {
 
-		// this.facturas = new ArrayList<>();
+		this.facturas = new ArrayList<>();
 
 	}
 
@@ -207,11 +203,13 @@ public class Huesped implements Serializable {
 		this.estadoHuesped = estadoHuesped;
 	}
 
-	/*
-	 * public List<Factura> getFacturas() { return facturas; }
-	 * 
-	 * public void setFacturas(List<Factura> facturas) { this.facturas = facturas; }
-	 */
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
 
 	private static final long serialVersionUID = 2556030903210616284L;
 

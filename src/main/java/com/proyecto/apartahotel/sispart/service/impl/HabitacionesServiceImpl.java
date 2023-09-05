@@ -25,11 +25,17 @@ public class HabitacionesServiceImpl implements IHabitacionesService {
 
 		return habitacionRepository.findAll();
 	}
-	
+
 	@Override
 	public Page<Habitacion> findAll(Pageable pageable) {
-		
+
 		return habitacionRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<Habitacion> findByEstadoHabitacion(String estadoHabitacion) {
+
+		return habitacionRepository.findByEstadoHabitacion(estadoHabitacion);
 	}
 
 	@Override
@@ -66,7 +72,5 @@ public class HabitacionesServiceImpl implements IHabitacionesService {
 
 		return habitacionRepository.existsById(codHabitacion);
 	}
-
-
 
 }
