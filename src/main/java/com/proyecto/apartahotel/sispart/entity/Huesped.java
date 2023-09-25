@@ -2,7 +2,7 @@ package com.proyecto.apartahotel.sispart.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,15 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
 
 @Entity
 @Table(name = "huespedes")
@@ -78,9 +71,9 @@ public class Huesped implements Serializable {
 
 	}
 
-	public Huesped(Long codHuesped, String nombre, String apellido,
-			Long numCelular, String correo, TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad,
-			String lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia) {
+	public Huesped(Long codHuesped, String nombre, String apellido, Long numCelular, String correo,
+			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
+			String nomContactoEmergencia, Long numContactoEmergencia) {
 
 		this.codHuesped = codHuesped;
 		this.nombre = nombre;
@@ -93,13 +86,12 @@ public class Huesped implements Serializable {
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-		
 
 	}
 
-	public Huesped( String nombre, String apellido, Long numCelular, String correo,
-			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+	public Huesped(String nombre, String apellido, Long numCelular, String correo, TipDocumento tipoDocumento,
+			Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen, String nomContactoEmergencia,
+			Long numContactoEmergencia) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numCelular = numCelular;
@@ -110,7 +102,6 @@ public class Huesped implements Serializable {
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-	
 
 	}
 

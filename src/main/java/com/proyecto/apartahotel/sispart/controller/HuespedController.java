@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.HuespedDTO;
-import com.proyecto.apartahotel.sispart.entity.Habitacion;
+
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
-import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
+
 import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
 
 @RestController
