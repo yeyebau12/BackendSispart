@@ -36,6 +36,7 @@ public class FacturaController {
 
 	private IHuespedService huespedService;
 
+	
 	@GetMapping("/verFactura/{codFactura}")
 	public ResponseEntity<?> verFactura(@PathVariable("codFactura") Long codFactura) {
 
@@ -68,7 +69,7 @@ public class FacturaController {
 
 		try {
 
-			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getCheckout(),
+			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getHuesped(),
 					facturaDTO.getItemFactura(), facturaDTO.getEstado());
 			
 			facturaService.saveFactura(factura);
@@ -100,7 +101,7 @@ public class FacturaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "la factura ha sido eliminado con exito!");
+		response.put("mensaje", "la factura ha sido eliminada con exito!");
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 

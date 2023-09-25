@@ -25,7 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.HuespedDTO;
+import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
+import com.proyecto.apartahotel.sispart.entity.TipDocumento;
+import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
 import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
 
 @RestController
@@ -48,7 +51,7 @@ public class HuespedController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los registros de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
 		if (findAll.isEmpty()) {
@@ -73,7 +76,7 @@ public class HuespedController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los registros de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
 		if (findAll.isEmpty()) {
@@ -85,7 +88,7 @@ public class HuespedController {
 	}
 
 	@GetMapping("/verhuesped/{codHuesped}")
-	public ResponseEntity<?> detailEmpleado(@PathVariable("codHuesped") Long codHuesped) {
+	public ResponseEntity<?> detailHuesped(@PathVariable("codHuesped") Long codHuesped) {
 
 		Huesped huesped = null;
 		Map<String, Object> response = new HashMap<>();
@@ -101,6 +104,32 @@ public class HuespedController {
 		}
 
 		if (!huespedService.existsById(codHuesped)) {
+			response.put("mensaje", "El huesped no existe en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Huesped>(huesped, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/verhuesped/{tipDocumento}/{numDocumento}")
+	public ResponseEntity<?> viewHuesped(@PathVariable("tipDocumento") TipDocumento tipDocumento,
+			@PathVariable("numDocumento") Long numDocumento) {
+
+		Huesped huesped = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+
+			huesped = huespedService.getByTipoDocumentoAndNumDocumento(tipDocumento, numDocumento);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		if (!huespedService.existsByTipoDocumentoAndNumDocumento(tipDocumento, numDocumento)) {
 			response.put("mensaje", "El huesped no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
@@ -134,10 +163,10 @@ public class HuespedController {
 
 		try {
 
-			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(),
-					huespedDTO.getNumCelular(), huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(),
-					huespedDTO.getNumDocumento(), huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(),
-					huespedDTO.getNomContactoEmergencia(), huespedDTO.getNumContactoEmergencia());
+			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(), huespedDTO.getNumCelular(),
+					huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(), huespedDTO.getNumDocumento(),
+					huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(), huespedDTO.getNomContactoEmergencia(),
+					huespedDTO.getNumContactoEmergencia());
 
 			huespedService.save(huesped);
 

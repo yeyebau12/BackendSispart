@@ -13,8 +13,8 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.proyecto.apartahotel.sispart.entity.Checkout;
-import com.proyecto.apartahotel.sispart.entity.Habitacion;
+
+
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.ItemFactura;
 
@@ -37,10 +37,8 @@ public class FacturaDTO {
 	@JsonFormat(pattern = "HH:mm:ss", timezone = "GMT-5")
 	private Date horaCreacion;
 
-	/*
-	 * @NotEmpty private Habitacion habitacion;
-	 */
-	private Checkout checkout;
+	@NotEmpty
+	private Huesped huesped;
 
 	private String estado;
 
@@ -49,12 +47,12 @@ public class FacturaDTO {
 		this.itemFactura = new ArrayList<>();
 	}
 
-	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, @NotEmpty Checkout checkout,
+	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, @NotEmpty Huesped huesped,
 			String estado) {
 
 		this.descripcion = descripcion;
 		this.itemFactura = itemFactura;
-		this.checkout = checkout;
+		this.huesped = huesped;
 		this.estado = estado;
 
 	}
@@ -91,12 +89,12 @@ public class FacturaDTO {
 		this.horaCreacion = horaCreacion;
 	}
 
-	public Checkout getCheckout() {
-		return checkout;
+	public Huesped getHuesped() {
+		return huesped;
 	}
 
-	public void setCheckout(Checkout checkout) {
-		this.checkout = checkout;
+	public void setHuesped(Huesped huesped) {
+		this.huesped = huesped;
 	}
 
 	public String getEstado() {

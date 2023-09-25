@@ -5,21 +5,24 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Checkin implements Serializable {
+@Table(name = "check_in")
+public class CheckIn implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +33,7 @@ public class Checkin implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
-	private Date fechaIngreso;
+	private Date fechaEntrada;
 
 	@Column(name = "fecha_salida", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -38,33 +41,35 @@ public class Checkin implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
 	private Date fechaSalida;
 
-	@ManyToOne
-	@JoinColumn(name = "cod_huesped")
-	private Huesped huesped;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_huesped", nullable = false)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private Huesped codHuesped;
 
-	@OneToOne
-	@JoinColumn(name = "cod_habitacion")
-	private Habitacion habitacion;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_habitacion", nullable = false)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private Habitacion codHabitacion;
 
-	public Checkin() {
+	public CheckIn() {
 
 	}
 
-	public Checkin(Long codCheckin, Date fechaIngreso, Date fechaSalida, Huesped huesped, Habitacion habitacion) {
-
+	public CheckIn(Long codCheckin, Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion) {
+		super();
 		this.codCheckin = codCheckin;
-		this.fechaIngreso = fechaIngreso;
+		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
-		this.huesped = huesped;
-		this.habitacion = habitacion;
+		this.codHuesped = codHuesped;
+		this.codHabitacion = codHabitacion;
 	}
 
-	public Checkin(Date fechaIngreso, Date fechaSalida, Huesped huesped, Habitacion habitacion) {
-
-		this.fechaIngreso = fechaIngreso;
+	public CheckIn(Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion) {
+		super();
+		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
-		this.huesped = huesped;
-		this.habitacion = habitacion;
+		this.codHuesped = codHuesped;
+		this.codHabitacion = codHabitacion;
 	}
 
 	public Long getCodCheckin() {
@@ -75,12 +80,12 @@ public class Checkin implements Serializable {
 		this.codCheckin = codCheckin;
 	}
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
+	public Date getFechaEntrada() {
+		return fechaEntrada;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaEntrada(Date fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
 	}
 
 	public Date getFechaSalida() {
@@ -91,22 +96,22 @@ public class Checkin implements Serializable {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public Huesped getCodHuesped() {
+		return codHuesped;
 	}
 
-	public void setHuesped(Huesped huesped) {
-		this.huesped = huesped;
+	public void setCodHuesped(Huesped codHuesped) {
+		this.codHuesped = codHuesped;
 	}
 
-	public Habitacion getHabitacion() {
-		return habitacion;
+	public Habitacion getCodHabitacion() {
+		return codHabitacion;
 	}
 
-	public void setHabitacion(Habitacion habitacion) {
-		this.habitacion = habitacion;
+	public void setCodHabitacion(Habitacion codHabitacion) {
+		this.codHabitacion = codHabitacion;
 	}
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -763212033771895092L;
 
 }

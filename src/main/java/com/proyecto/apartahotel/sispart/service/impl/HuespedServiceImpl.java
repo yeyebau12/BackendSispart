@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.repository.IHuespedRepository;
@@ -25,13 +26,14 @@ public class HuespedServiceImpl implements IHuespedService {
 
 		return huespedRepository.findAll();
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Huesped> findAll(Pageable pageable) {
-		
+
 		return huespedRepository.findAll(pageable);
 	}
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -78,9 +80,5 @@ public class HuespedServiceImpl implements IHuespedService {
 
 		return huespedRepository.existsByTipoDocumentoAndNumDocumento(tipDocumento, numDocumento);
 	}
-
-
-
-
 
 }

@@ -2,52 +2,40 @@ package com.proyecto.apartahotel.sispart.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 
-public class CheckInDTO {
+public class CheckinDTO {
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
-	private Date fechaIngreso;
-
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
+	@NotNull
+	private Date fechaEntrada;
+	@NotNull
 	private Date fechaSalida;
+	private Huesped codHuesped;
+	@NotNull
+	private Habitacion codHabitacion;
 
-	private Huesped huesped;
-
-	private Habitacion habitacion;
-
-	public CheckInDTO() {
+	public CheckinDTO() {
 
 	}
 
-	public CheckInDTO(Date fechaIngreso, Date fechaSalida, Huesped huesped, Habitacion habitacion) {
+	public CheckinDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, @NotNull Huesped codHuesped,
+			@NotNull Habitacion codHabitacion) {
 
-		this.fechaIngreso = fechaIngreso;
+		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
-		this.huesped = huesped;
-		this.habitacion = habitacion;
+		this.codHuesped = codHuesped;
+		this.codHabitacion = codHabitacion;
 	}
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
+	public Date getFechaEntrada() {
+		return fechaEntrada;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaEntrada(Date fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
 	}
 
 	public Date getFechaSalida() {
@@ -58,20 +46,22 @@ public class CheckInDTO {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public Huesped getCodHuesped() {
+		return codHuesped;
 	}
 
-	public void setHuesped(Huesped huesped) {
-		this.huesped = huesped;
+	public void setCodHuesped(Huesped codHuesped) {
+		this.codHuesped = codHuesped;
 	}
 
-	public Habitacion getHabitacion() {
-		return habitacion;
+	public Habitacion getCodHabitacion() {
+		return codHabitacion;
 	}
 
-	public void setHabitacion(Habitacion habitacion) {
-		this.habitacion = habitacion;
+	public void setCodHabitacion(Habitacion codHabitacion) {
+		this.codHabitacion = codHabitacion;
 	}
+	
+	
 
 }

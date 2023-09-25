@@ -1,34 +1,39 @@
 package com.proyecto.apartahotel.sispart.dto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.proyecto.apartahotel.sispart.entity.Checkin;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.proyecto.apartahotel.sispart.entity.Factura;
+import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Nacionalidad;
-import com.proyecto.apartahotel.sispart.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class HuespedDTO {
 
+	@NotEmpty
 	private String nombre;
 
+	@NotEmpty
 	private String apellido;
 	@NotNull
 	private Long numCelular;
 	@Email
+	@NotEmpty
 	private String correo;
 
+	@NotNull
 	private TipDocumento tipoDocumento;
 
+	@NotNull
 	private Long numDocumento;
 	@NotNull
 	private Nacionalidad nacionalidad;
@@ -37,6 +42,7 @@ public class HuespedDTO {
 
 	private String nomContactoEmergencia;
 	private Long numContactoEmergencia;
+
 	private boolean estadoHuesped = true;
 	private List<Factura> facturas;
 
@@ -46,10 +52,11 @@ public class HuespedDTO {
 
 	}
 
-	public HuespedDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotNull Long numCelular,
-			@Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento,
-			@NotNull Nacionalidad nacionalidad, @NotEmpty String lugarOrigen, String nomContactoEmergencia,
-			Long numContactoEmergencia) {
+	public HuespedDTO(@NotEmpty Date fechaEntrada, @NotEmpty Date fechaSalida, @NotEmpty String nombre,
+			@NotEmpty String apellido, @NotNull Long numCelular, @Email @NotEmpty String correo,
+			@NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento, @NotNull Nacionalidad nacionalidad,
+			@NotEmpty String lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia,
+			Habitacion codHabitacion) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -159,11 +166,5 @@ public class HuespedDTO {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
-
-	/*
-	 * public List<Checkin> getCheckin() { return checkin; }
-	 * 
-	 * public void setCheckin(List<Checkin> checkin) { this.checkin = checkin; }
-	 */
 
 }

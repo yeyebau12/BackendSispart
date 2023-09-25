@@ -1,9 +1,7 @@
 package com.proyecto.apartahotel.sispart.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -68,9 +66,10 @@ public class Reservacion implements Serializable {
 	@Column(length = 50, nullable = false)
 	private String email;
 
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_habitacion")
+	@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Habitacion habitacion;
 
 	public Reservacion() {

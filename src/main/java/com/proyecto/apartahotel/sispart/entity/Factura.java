@@ -84,7 +84,7 @@ public class Factura implements Serializable {
 		this.estado = estado;
 	}
 
-	public Factura(String descripcion, Checkout checkout, List<ItemFactura> itemFactura, String estado) {
+	public Factura(String descripcion, Huesped huesped, List<ItemFactura> itemFactura, String estado) {
 
 		this.descripcion = descripcion;
 		this.huesped = huesped;

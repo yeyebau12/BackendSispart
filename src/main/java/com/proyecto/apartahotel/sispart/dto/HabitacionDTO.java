@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.proyecto.apartahotel.sispart.entity.Checkin;
+
 import com.proyecto.apartahotel.sispart.entity.Factura;
 
 public class HabitacionDTO {
