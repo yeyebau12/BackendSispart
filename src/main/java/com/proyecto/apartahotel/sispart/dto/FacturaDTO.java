@@ -9,12 +9,12 @@ import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-
+import com.proyecto.apartahotel.sispart.entity.CheckIn;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.ItemFactura;
 
@@ -37,8 +37,8 @@ public class FacturaDTO {
 	@JsonFormat(pattern = "HH:mm:ss", timezone = "GMT-5")
 	private Date horaCreacion;
 
-	@NotEmpty
-	private Huesped huesped;
+	@NotNull
+	private CheckIn checkIn;
 
 	private String estado;
 
@@ -47,12 +47,12 @@ public class FacturaDTO {
 		this.itemFactura = new ArrayList<>();
 	}
 
-	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, @NotEmpty Huesped huesped,
+	public FacturaDTO(@NotEmpty String descripcion, List<ItemFactura> itemFactura, @NotNull CheckIn checkin,
 			String estado) {
 
 		this.descripcion = descripcion;
 		this.itemFactura = itemFactura;
-		this.huesped = huesped;
+		this.checkIn = checkin;
 		this.estado = estado;
 
 	}
@@ -89,12 +89,12 @@ public class FacturaDTO {
 		this.horaCreacion = horaCreacion;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public CheckIn getCheckIn() {
+		return checkIn;
 	}
 
-	public void setHuesped(Huesped huesped) {
-		this.huesped = huesped;
+	public void setCheckIn(CheckIn checkIn) {
+		this.checkIn = checkIn;
 	}
 
 	public String getEstado() {

@@ -57,9 +57,9 @@ public class Factura implements Serializable {
 	private String estado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cod_huesped")
+	@JoinColumn(name = "cod_checkin")
 	@JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private Huesped huesped;
+	private CheckIn checkin;
 
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY)
@@ -75,19 +75,19 @@ public class Factura implements Serializable {
 		this.itemFactura = new ArrayList<>();
 	}
 
-	public Factura(Long codFactura, String descripcion, Huesped huesped, List<ItemFactura> itemFactura, String estado) {
+	public Factura(Long codFactura, String descripcion, CheckIn checkin, List<ItemFactura> itemFactura, String estado) {
 
 		this.codFactura = codFactura;
 		this.descripcion = descripcion;
-		this.huesped = huesped;
+		this.checkin = checkin;
 		this.itemFactura = itemFactura;
 		this.estado = estado;
 	}
 
-	public Factura(String descripcion, Huesped huesped, List<ItemFactura> itemFactura, String estado) {
+	public Factura(String descripcion, CheckIn checkin, List<ItemFactura> itemFactura, String estado) {
 
 		this.descripcion = descripcion;
-		this.huesped = huesped;
+		this.checkin = checkin;
 		this.itemFactura = itemFactura;
 		this.estado = estado;
 	}
@@ -131,12 +131,12 @@ public class Factura implements Serializable {
 		this.horaCreacion = horaCreacion;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public CheckIn getCheckin() {
+		return checkin;
 	}
 
-	public void setHuesped(Huesped huesped) {
-		this.huesped = huesped;
+	public void setCheckin(CheckIn checkin) {
+		this.checkin = checkin;
 	}
 
 	public List<ItemFactura> getItemFactura() {

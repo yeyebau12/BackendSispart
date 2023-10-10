@@ -69,7 +69,7 @@ public class FacturaController {
 
 		try {
 
-			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getHuesped(),
+			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getCheckIn(),
 					facturaDTO.getItemFactura(), facturaDTO.getEstado());
 			
 			facturaService.saveFactura(factura);

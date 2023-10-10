@@ -41,15 +41,15 @@ public class CheckoutController {
 			
 		}
 		
-		if(!habitacion.getEstadoHabitacion().equalsIgnoreCase("Ocupada")) {
+		if(!habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Ocupada")) {
 			response.put("mensaje", "La habitacion no esta ocupada");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
 		try {
 
-			habitacion.setEstadoHabitacion("Limpieza");
-			habitacionService.save(habitacion);
+			//habitacion.setEstadoHabitacion("Limpieza");
+			//habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");

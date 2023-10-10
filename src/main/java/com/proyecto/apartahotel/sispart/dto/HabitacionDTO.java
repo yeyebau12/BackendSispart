@@ -5,13 +5,14 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-
+import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Factura;
+import com.proyecto.apartahotel.sispart.entity.TipoHabitacion;
 
 public class HabitacionDTO {
 
-	@NotEmpty
-	private String nombreHabitacion;
+	@NotNull
+	private TipoHabitacion nombreHabitacion;
 	@NotEmpty
 	private String descripHabitacion;
 	@NotNull
@@ -20,38 +21,35 @@ public class HabitacionDTO {
 	private Integer pisoHabitacion;
 	@NotNull
 	private Integer maxPersonasDisponibles;
-	@NotNull
-	private Double precioDia;
 
-	private String estadoHabitacion;
+	private EstadoHabitacion estadoHabitacion;
 	private String imagenHabitacion;
 
-	//private Factura facturas;
+	// private Factura facturas;
 
 	public HabitacionDTO() {
 
-		//this.facturas = new Factura();
+		// this.facturas = new Factura();
 	}
 
-	public HabitacionDTO(@NotEmpty String nombreHabitacion, @NotEmpty String descripHabitacion,
+	public HabitacionDTO(@NotNull TipoHabitacion nombreHabitacion, @NotEmpty String descripHabitacion,
 			@NotNull Integer numHabitacion, @NotNull Integer pisoHabitacion, @NotNull Integer maxPersonasDisponibles,
-			@NotNull Double precioDia, String estadoHabitacion, String imagenHabitacion) {
+			EstadoHabitacion estadoHabitacion, String imagenHabitacion) {
 
 		this.nombreHabitacion = nombreHabitacion;
 		this.descripHabitacion = descripHabitacion;
 		this.numHabitacion = numHabitacion;
 		this.pisoHabitacion = pisoHabitacion;
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
-		this.precioDia = precioDia;
 		this.estadoHabitacion = estadoHabitacion;
 		this.imagenHabitacion = imagenHabitacion;
 	}
 
-	public String getNombreHabitacion() {
+	public TipoHabitacion getNombreHabitacion() {
 		return nombreHabitacion;
 	}
 
-	public void setNombreHabitacion(String nombreHabitacion) {
+	public void setNombreHabitacion(TipoHabitacion nombreHabitacion) {
 		this.nombreHabitacion = nombreHabitacion;
 	}
 
@@ -87,19 +85,11 @@ public class HabitacionDTO {
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
 	}
 
-	public Double getPrecioDia() {
-		return precioDia;
-	}
-
-	public void setPrecioDia(Double precioDia) {
-		this.precioDia = precioDia;
-	}
-
-	public String getEstadoHabitacion() {
+	public EstadoHabitacion getEstadoHabitacion() {
 		return estadoHabitacion;
 	}
 
-	public void setEstadoHabitacion(String estadoHabitacion) {
+	public void setEstadoHabitacion(EstadoHabitacion estadoHabitacion) {
 		this.estadoHabitacion = estadoHabitacion;
 	}
 
@@ -111,12 +101,10 @@ public class HabitacionDTO {
 		this.imagenHabitacion = imagenHabitacion;
 	}
 
-/*	public Factura getFacturas() {
-		return facturas;
-	}
-
-	public void setFacturas(Factura facturas) {
-		this.facturas = facturas;
-	}*/
+	/*
+	 * public Factura getFacturas() { return facturas; }
+	 * 
+	 * public void setFacturas(Factura facturas) { this.facturas = facturas; }
+	 */
 
 }

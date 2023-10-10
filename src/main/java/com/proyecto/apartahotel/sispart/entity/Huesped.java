@@ -2,7 +2,7 @@ package com.proyecto.apartahotel.sispart.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -35,6 +40,7 @@ public class Huesped implements Serializable {
 
 	@Column(name = "num_celular")
 	private Long numCelular;
+
 	@Column(length = 50, nullable = false)
 	private String correo;
 
@@ -45,12 +51,19 @@ public class Huesped implements Serializable {
 	@Column(name = "num_documento", length = 30, nullable = false)
 	private Long numDocumento;
 
+	@Column(name = "fecha_nacimiento", nullable = false)
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
+	private Date fechaNacimiento;
+
 	@ManyToOne
 	@JoinColumn(name = "cod_nacionalidad", nullable = false)
 	private Nacionalidad nacionalidad;
 
-	@Column(name = "lugar_origen", length = 30, nullable = false)
-	private String lugarOrigen;
+	@ManyToOne
+	@JoinColumn(name = "cod_region", nullable = false)
+	private Region lugarOrigen;
 
 	@Column(name = "nom_contacto_emergencia", length = 30)
 	private String nomContactoEmergencia;
@@ -61,19 +74,17 @@ public class Huesped implements Serializable {
 	@Column(name = "estado_Huesped")
 	private boolean estadoHuesped = true;;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = { "huesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private List<Factura> facturas;
+
 
 	public Huesped() {
 
-		this.facturas = new ArrayList<>();
+		
 
 	}
 
 	public Huesped(Long codHuesped, String nombre, String apellido, Long numCelular, String correo,
-			TipDocumento tipoDocumento, Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
+			TipDocumento tipoDocumento, Long numDocumento, Date fechaNacimiento, Nacionalidad nacionalidad,
+			Region lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia) {
 
 		this.codHuesped = codHuesped;
 		this.nombre = nombre;
@@ -82,27 +93,30 @@ public class Huesped implements Serializable {
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-
+		this.estadoHuesped = estadoHuesped;
 	}
 
 	public Huesped(String nombre, String apellido, Long numCelular, String correo, TipDocumento tipoDocumento,
-			Long numDocumento, Nacionalidad nacionalidad, String lugarOrigen, String nomContactoEmergencia,
-			Long numContactoEmergencia) {
+			Long numDocumento, Date fechaNacimiento, Nacionalidad nacionalidad, Region lugarOrigen,
+			String nomContactoEmergencia, Long numContactoEmergencia) {
+	
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numCelular = numCelular;
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-
+		this.estadoHuesped = estadoHuesped;
 	}
 
 	public Long getCodHuesped() {
@@ -161,6 +175,14 @@ public class Huesped implements Serializable {
 		this.numDocumento = numDocumento;
 	}
 
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public Nacionalidad getNacionalidad() {
 		return nacionalidad;
 	}
@@ -169,11 +191,11 @@ public class Huesped implements Serializable {
 		this.nacionalidad = nacionalidad;
 	}
 
-	public String getLugarOrigen() {
+	public Region getLugarOrigen() {
 		return lugarOrigen;
 	}
 
-	public void setLugarOrigen(String lugarOrigen) {
+	public void setLugarOrigen(Region lugarOrigen) {
 		this.lugarOrigen = lugarOrigen;
 	}
 
@@ -201,13 +223,6 @@ public class Huesped implements Serializable {
 		this.estadoHuesped = estadoHuesped;
 	}
 
-	public List<Factura> getFacturas() {
-		return facturas;
-	}
-
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
-	}
 
 	private static final long serialVersionUID = 2556030903210616284L;
 

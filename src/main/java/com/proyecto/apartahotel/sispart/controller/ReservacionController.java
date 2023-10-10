@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.apartahotel.sispart.dto.EstadoHabitacionDTO;
+import com.proyecto.apartahotel.sispart.dto.HabitacionDTO;
 import com.proyecto.apartahotel.sispart.dto.ReservacionDTO;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Producto;
@@ -121,7 +123,8 @@ public class ReservacionController {
 	}
 
 	@PostMapping("/crearReservacion")
-	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO) {
+	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO,
+			@RequestBody HabitacionDTO habitacionDTO) {
 
 		Map<String, Object> response = new HashMap<>();
 		String body = "";
@@ -129,21 +132,21 @@ public class ReservacionController {
 		long diffMilliseconds = reservacionDTO.getFechaSalida().getTime() - reservacionDTO.getFechaEntrada().getTime();
 		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
 
-		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Ocupada")) {
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().getNombre().equalsIgnoreCase("Ocupada")) {
 
 			response.put("mensaje", "La habitacion que desea asignar esta ocupada por otro huesped!");
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Reservada")) {
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().getNombre().equalsIgnoreCase("Reservada")) {
 
 			response.put("mensaje", "La habitacion que desea asignar ya se encuentra reservada!");
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
-		if (reservacionDTO.getHabitacion().getEstadoHabitacion().equalsIgnoreCase("Aseo")) {
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().getNombre().equalsIgnoreCase("Limpieza")) {
 
 			response.put("mensaje", "La habitacion que desea asignar esta en proceso de limpieza!");
 
@@ -166,9 +169,11 @@ public class ReservacionController {
 
 			Habitacion habitacion = habitacionService
 					.findByNumHabitacion(reservacionDTO.getHabitacion().getNumHabitacion());
-			habitacion.setEstadoHabitacion("Reservada");
+
+			//habitacion.setEstadoHabitacion(habitacionDTO.getEstadoHabitacion());
 
 			reservacionService.save(reservacion);
+			//habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro de la reservacion en la base de datos");
@@ -178,7 +183,7 @@ public class ReservacionController {
 
 		try {
 
-			Double precioFinal = reservacionDTO.getHabitacion().getPrecioDia() * totalDias;
+			Double precioFinal = reservacionDTO.getHabitacion().getNombreHabitacion().getPrecioDia() * totalDias;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			String fechaSalida = dateFormat.format(reservacionDTO.getFechaSalida());
 			String fechaEntrada = dateFormat.format(reservacionDTO.getFechaEntrada());
@@ -271,7 +276,7 @@ public class ReservacionController {
 
 		try {
 
-			habitacion.setEstadoHabitacion("Disponible");
+			//habitacion.setEstadoHabitacion("Disponible");
 			reservacionService.delete(codReservacion);
 
 		} catch (DataAccessException e) {

@@ -18,7 +18,7 @@ public class Nacionalidad implements Serializable {
 	@Column(name = "cod_nacion")
 	private int codNacion;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 60, nullable = false)
 	private String nombre;
 
 	public Nacionalidad() {

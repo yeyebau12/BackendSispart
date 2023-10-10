@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,20 +27,26 @@ public class Habitacion implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codHabitacion;
 
-	@Column(length = 50, nullable = false)
-	private String nombreHabitacion;
+	@ManyToOne
+	@JoinColumn(name = "cod_tipo_habitacion", nullable = false)
+	private TipoHabitacion nombreHabitacion;
+
 	@Column(nullable = false)
 	private String descripHabitacion;
+
 	@Column(name = "num_habitacion", nullable = false)
 	private Integer numHabitacion;
+
 	@Column(name = "piso_habitacion", nullable = false)
 	private Integer pisoHabitacion;
+
 	@Column(name = "max_personas_habitacion", nullable = false)
 	private Integer maxPersonasDisponibles;
-	@Column(name = "precio_habitacion", nullable = false)
-	private Double precioDia;
-	@Column(name = "estado_habitacion", nullable = false)
-	private String estadoHabitacion;
+
+	@ManyToOne
+	@JoinColumn(name = "cod_estado_habitacion", nullable = false)
+	private EstadoHabitacion estadoHabitacion;
+
 	private String imagenHabitacion;
 
 	/*
@@ -55,8 +63,9 @@ public class Habitacion implements Serializable {
 
 	}
 
-	public Habitacion(Long codHabitacion, String nombreHabitacion, String descripHabitacion, Integer numHabitacion,
-			Integer pisoHabitacion, Integer maxPersonasDisponibles, Double precioDia, String estadoHabitacion) {
+	public Habitacion(Long codHabitacion, TipoHabitacion nombreHabitacion, String descripHabitacion,
+			Integer numHabitacion, Integer pisoHabitacion, Integer maxPersonasDisponibles,
+			EstadoHabitacion estadoHabitacion) {
 
 		this.codHabitacion = codHabitacion;
 		this.nombreHabitacion = nombreHabitacion;
@@ -64,20 +73,18 @@ public class Habitacion implements Serializable {
 		this.numHabitacion = numHabitacion;
 		this.pisoHabitacion = pisoHabitacion;
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
-		this.precioDia = precioDia;
 		this.estadoHabitacion = estadoHabitacion;
 
 	}
 
-	public Habitacion(String nombreHabitacion, String descripHabitacion, Integer numHabitacion, Integer pisoHabitacion,
-			Integer maxPersonasDisponibles, Double precioDia, String estadoHabitacion) {
+	public Habitacion(TipoHabitacion nombreHabitacion, String descripHabitacion, Integer numHabitacion,
+			Integer pisoHabitacion, Integer maxPersonasDisponibles, EstadoHabitacion estadoHabitacion) {
 
 		this.nombreHabitacion = nombreHabitacion;
 		this.descripHabitacion = descripHabitacion;
 		this.numHabitacion = numHabitacion;
 		this.pisoHabitacion = pisoHabitacion;
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
-		this.precioDia = precioDia;
 		this.estadoHabitacion = estadoHabitacion;
 
 	}
@@ -88,14 +95,6 @@ public class Habitacion implements Serializable {
 
 	public void setCodHabitacion(Long codHabitacion) {
 		this.codHabitacion = codHabitacion;
-	}
-
-	public String getNombreHabitacion() {
-		return nombreHabitacion;
-	}
-
-	public void setNombreHabitacion(String nombreHabitacion) {
-		this.nombreHabitacion = nombreHabitacion;
 	}
 
 	public String getDescripHabitacion() {
@@ -130,29 +129,30 @@ public class Habitacion implements Serializable {
 		this.maxPersonasDisponibles = maxPersonasDisponibles;
 	}
 
-	public Double getPrecioDia() {
-		return precioDia;
-	}
-
-	public void setPrecioDia(Double precioDia) {
-		this.precioDia = precioDia;
-	}
-
 	/*
 	 * public List<Factura> getFacturas() { return facturas; }
 	 * 
 	 * public void setFacturas(List<Factura> facturas) { this.facturas = facturas; }
 	 */
-	public String getEstadoHabitacion() {
-		return estadoHabitacion;
-	}
-
-	public void setEstadoHabitacion(String estadoHabitacion) {
-		this.estadoHabitacion = estadoHabitacion;
-	}
 
 	public String getImagenHabitacion() {
 		return imagenHabitacion;
+	}
+
+	public TipoHabitacion getNombreHabitacion() {
+		return nombreHabitacion;
+	}
+
+	public void setNombreHabitacion(TipoHabitacion nombreHabitacion) {
+		this.nombreHabitacion = nombreHabitacion;
+	}
+
+	public EstadoHabitacion getEstadoHabitacion() {
+		return estadoHabitacion;
+	}
+
+	public void setEstadoHabitacion(EstadoHabitacion estadoHabitacion) {
+		this.estadoHabitacion = estadoHabitacion;
 	}
 
 	public void setImagenHabitacion(String imagenHabitacion) {

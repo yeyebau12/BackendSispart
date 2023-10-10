@@ -164,7 +164,7 @@ public class HuespedController {
 		try {
 
 			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(), huespedDTO.getNumCelular(),
-					huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(), huespedDTO.getNumDocumento(),
+					huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(), huespedDTO.getNumDocumento(),huespedDTO.getFechaNacimiento(),
 					huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(), huespedDTO.getNomContactoEmergencia(),
 					huespedDTO.getNumContactoEmergencia());
 

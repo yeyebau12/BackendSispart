@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Nacionalidad;
+import com.proyecto.apartahotel.sispart.entity.Region;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class HuespedDTO {
@@ -35,40 +36,44 @@ public class HuespedDTO {
 
 	@NotNull
 	private Long numDocumento;
+
+	@NotNull
+	private Date fechaNacimiento;
+
 	@NotNull
 	private Nacionalidad nacionalidad;
 	@NotEmpty
-	private String lugarOrigen;
+	private Region lugarOrigen;
 
 	private String nomContactoEmergencia;
 	private Long numContactoEmergencia;
 
 	private boolean estadoHuesped = true;
-	private List<Factura> facturas;
+	
 
 	public HuespedDTO() {
 
-		this.facturas = new ArrayList<>();
+		
 
 	}
 
-	public HuespedDTO(@NotEmpty Date fechaEntrada, @NotEmpty Date fechaSalida, @NotEmpty String nombre,
-			@NotEmpty String apellido, @NotNull Long numCelular, @Email @NotEmpty String correo,
-			@NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento, @NotNull Nacionalidad nacionalidad,
-			@NotEmpty String lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia,
-			Habitacion codHabitacion) {
-
+	public HuespedDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotNull Long numCelular,
+			@Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento,
+			@NotNull Date fechaNacimiento, @NotNull Nacionalidad nacionalidad, @NotEmpty Region lugarOrigen,
+			String nomContactoEmergencia, Long numContactoEmergencia) {
+		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numCelular = numCelular;
 		this.correo = correo;
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-
+		this.estadoHuesped = estadoHuesped;
 	}
 
 	public String getNombre() {
@@ -119,6 +124,14 @@ public class HuespedDTO {
 		this.numDocumento = numDocumento;
 	}
 
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public Nacionalidad getNacionalidad() {
 		return nacionalidad;
 	}
@@ -127,11 +140,11 @@ public class HuespedDTO {
 		this.nacionalidad = nacionalidad;
 	}
 
-	public String getLugarOrigen() {
+	public Region getLugarOrigen() {
 		return lugarOrigen;
 	}
 
-	public void setLugarOrigen(String lugarOrigen) {
+	public void setLugarOrigen(Region lugarOrigen) {
 		this.lugarOrigen = lugarOrigen;
 	}
 
@@ -157,14 +170,6 @@ public class HuespedDTO {
 
 	public void setEstadoHuesped(boolean estadoHuesped) {
 		this.estadoHuesped = estadoHuesped;
-	}
-
-	public List<Factura> getFacturas() {
-		return facturas;
-	}
-
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
 	}
 
 }

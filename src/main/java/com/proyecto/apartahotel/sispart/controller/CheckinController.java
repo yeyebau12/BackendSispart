@@ -143,19 +143,19 @@ public class CheckinController {
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 
-		} else if (habitacion.getEstadoHabitacion().equalsIgnoreCase("Ocupado")) {
+		} else if (habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Ocupado")) {
 
 			response.put("mensaje", "La habitacion se encuentra Ocupada. ");
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 
-		} else if (habitacion.getEstadoHabitacion().equalsIgnoreCase("Limpieza")) {
+		} else if (habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Limpieza")) {
 
 			response.put("mensaje", "La habitacion se encuentra en limpieza. ");
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 
-		}else if (habitacion.getEstadoHabitacion().equalsIgnoreCase("Reservada")) {
+		}else if (habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Reservada")) {
 
 			response.put("mensaje", "La habitacion ya se encuentra reservada. ");
 
@@ -179,10 +179,10 @@ public class CheckinController {
 			CheckIn checkin = new CheckIn(checkinDTO.getFechaEntrada(), checkinDTO.getFechaSalida(), huesped,
 					checkinDTO.getCodHabitacion());
 
-			habitacion.setEstadoHabitacion("Ocupado");
+			//habitacion.setEstadoHabitacion("Ocupado");
 
 			checkinService.save(checkin);
-			habitacionService.save(habitacion);
+			//habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro del huesped en la base de datos");
