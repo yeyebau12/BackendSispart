@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.HabitacionDTO;
+import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
@@ -61,7 +62,7 @@ public class HabitacionController {
 	}
 
 	@GetMapping("/listarHabitaciones/estado/{estadoHabitacion}")
-	public ResponseEntity<?> findByEstadoHabitacion(@PathVariable("estadoHabitacion") String estadoHabitacion) {
+	public ResponseEntity<?> findByEstadoHabitacion(@PathVariable("estadoHabitacion") EstadoHabitacion estadoHabitacion) {
 
 		List<Habitacion> findByEstado = null;
 		Map<String, Object> response = new HashMap<>();

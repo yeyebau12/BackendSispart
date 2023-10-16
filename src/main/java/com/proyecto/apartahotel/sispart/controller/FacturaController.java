@@ -24,8 +24,10 @@ import com.proyecto.apartahotel.sispart.dto.FacturaDTO;
 import com.proyecto.apartahotel.sispart.dto.HabitacionDTO;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
+import com.proyecto.apartahotel.sispart.entity.Producto;
 import com.proyecto.apartahotel.sispart.service.interfa.IFacturaService;
 import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
+import com.proyecto.apartahotel.sispart.service.interfa.IProductoService;
 
 @RestController
 @RequestMapping("/factura")
@@ -34,7 +36,7 @@ public class FacturaController {
 	@Autowired
 	private IFacturaService facturaService;
 
-	private IHuespedService huespedService;
+	private IProductoService productoService;
 
 	
 	@GetMapping("/verFactura/{codFactura}")
@@ -73,7 +75,6 @@ public class FacturaController {
 					facturaDTO.getItemFactura(), facturaDTO.getEstado());
 			
 			facturaService.saveFactura(factura);
-			
 			
 
 		} catch (DataAccessException e) {

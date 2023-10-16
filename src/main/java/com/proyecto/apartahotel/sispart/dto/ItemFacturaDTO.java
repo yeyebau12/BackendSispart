@@ -32,5 +32,9 @@ public class ItemFacturaDTO {
 	public Double getSubtotal() {
 		return cantidad.doubleValue() * producto.getPrecio();
 	}
+	
+	public Integer getCantidadTotal() {
+		return producto.getCantidad() - cantidad;
+	}
 
 }

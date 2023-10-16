@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 
 public interface IHabitacionesService {
 
 	public List<Habitacion> findAll();
 
-	public List<Habitacion> findByEstadoHabitacion(String estadoHabitacion);
+	public List<Habitacion> findByEstadoHabitacion(EstadoHabitacion estadoHabitacion);
 
 	public Page<Habitacion> findAll(Pageable pageable);
 

@@ -27,7 +27,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				.antMatchers("/loginEmpleado/**").permitAll().antMatchers(HttpMethod.POST, "/empleados/crearEmpleado")
 				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.PUT, "/empleados/actualizarEmpleado/{codEmpleado}")
 				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.GET, "/empleados/listarEmpleados").permitAll()
-				.antMatchers(HttpMethod.GET, "/huespedes/listarHuespedes").hasAnyRole("ADMINISTRADOR")
+				.antMatchers(HttpMethod.GET, "/huespedes/listarHuespedes").permitAll()
 				.antMatchers(HttpMethod.POST, "/huespedes/crearHuesped").hasAnyRole("ADMINISTRADOR")
 				.antMatchers(HttpMethod.DELETE, "/empleados/eliminarEmpleado/{codEmpleado}").hasAnyRole("ADMINISTRADOR")
 				/*

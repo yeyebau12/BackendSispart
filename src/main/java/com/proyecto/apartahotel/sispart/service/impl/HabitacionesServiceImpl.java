@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.repository.IFacturaRepository;
@@ -33,7 +34,7 @@ public class HabitacionesServiceImpl implements IHabitacionesService {
 	}
 
 	@Override
-	public List<Habitacion> findByEstadoHabitacion(String estadoHabitacion) {
+	public List<Habitacion> findByEstadoHabitacion(EstadoHabitacion estadoHabitacion) {
 
 		return habitacionRepository.findByEstadoHabitacion(estadoHabitacion);
 	}

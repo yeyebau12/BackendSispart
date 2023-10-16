@@ -56,6 +56,10 @@ public class ItemFactura implements Serializable {
 		return cantidad.doubleValue() * producto.getPrecio();
 	}
 
+	public Integer getCantidadTotal() {
+		return producto.getCantidad() - cantidad;
+	}
+
 	private static final long serialVersionUID = -3246483580270125182L;
 
 }
