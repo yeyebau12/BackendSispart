@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.apartahotel.sispart.dto.CheckinDTO;
+import com.proyecto.apartahotel.sispart.dto.CheckInDTO;
 import com.proyecto.apartahotel.sispart.entity.CheckIn;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
@@ -121,7 +121,7 @@ public class CheckinController {
 	}
 
 	@PostMapping("/crearCheckin/{tipDocumento}/{numDocumento}")
-	public ResponseEntity<?> createdCheckin(@Valid @RequestBody CheckinDTO checkinDTO,
+	public ResponseEntity<?> createdCheckin(@Valid @RequestBody CheckInDTO checkinDTO,
 			@PathVariable("tipDocumento") TipDocumento tipDocumento, @PathVariable("numDocumento") Long numDocumento,
 			BindingResult result) {
 

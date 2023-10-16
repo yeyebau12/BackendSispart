@@ -10,7 +10,7 @@ import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 
-public class CheckinDTO {
+public class CheckInDTO {
 
 	@NotNull
 	private Date fechaEntrada;
@@ -22,11 +22,11 @@ public class CheckinDTO {
 
 	private List<Factura> facturas;
 
-	public CheckinDTO() {
+	public CheckInDTO() {
 		this.facturas = new ArrayList<>();
 	}
 
-	public CheckinDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, @NotNull Huesped codHuesped,
+	public CheckInDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, @NotNull Huesped codHuesped,
 			@NotNull Habitacion codHabitacion) {
 
 		this.fechaEntrada = fechaEntrada;
