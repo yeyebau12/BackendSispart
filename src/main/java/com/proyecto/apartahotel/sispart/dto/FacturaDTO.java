@@ -38,7 +38,7 @@ public class FacturaDTO {
 	private Date horaCreacion;
 
 	@NotNull
-	private CheckIn checkIn;
+	private CheckIn checkin;
 
 	private String estado;
 
@@ -52,7 +52,7 @@ public class FacturaDTO {
 
 		this.descripcion = descripcion;
 		this.itemFactura = itemFactura;
-		this.checkIn = checkin;
+		this.checkin = checkin;
 		this.estado = estado;
 
 	}
@@ -89,12 +89,12 @@ public class FacturaDTO {
 		this.horaCreacion = horaCreacion;
 	}
 
-	public CheckIn getCheckIn() {
-		return checkIn;
+	public CheckIn getCheckin() {
+		return checkin;
 	}
 
-	public void setCheckIn(CheckIn checkIn) {
-		this.checkIn = checkIn;
+	public void setCheckin(CheckIn checkin) {
+		this.checkin = checkin;
 	}
 
 	public String getEstado() {

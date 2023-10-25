@@ -69,7 +69,6 @@ public class Reservacion implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_habitacion")
-	@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Habitacion habitacion;
 
 	public Reservacion() {

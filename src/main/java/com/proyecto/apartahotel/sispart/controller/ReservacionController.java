@@ -123,8 +123,7 @@ public class ReservacionController {
 	}
 
 	@PostMapping("/crearReservacion")
-	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO,
-			@RequestBody HabitacionDTO habitacionDTO) {
+	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO) {
 
 		Map<String, Object> response = new HashMap<>();
 		String body = "";
@@ -132,7 +131,7 @@ public class ReservacionController {
 		long diffMilliseconds = reservacionDTO.getFechaSalida().getTime() - reservacionDTO.getFechaEntrada().getTime();
 		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
 
-		if (reservacionDTO.getHabitacion().getEstadoHabitacion().getNombre().equalsIgnoreCase("Ocupada")) {
+		/*if (reservacionDTO.getHabitacion().getEstadoHabitacion().getNombre().equalsIgnoreCase("Ocupada")) {
 
 			response.put("mensaje", "La habitacion que desea asignar esta ocupada por otro huesped!");
 
@@ -158,7 +157,7 @@ public class ReservacionController {
 			response.put("mensaje", "La cantidad de acompañantes es demasiado grande para este tipo de habitacion!");
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+		}*/
 
 		try {
 
@@ -167,13 +166,10 @@ public class ReservacionController {
 					reservacionDTO.getTipoDocumento(), reservacionDTO.getNumDocumento(), reservacionDTO.getNombre(),
 					reservacionDTO.getApellido(), reservacionDTO.getEmail(), reservacionDTO.getHabitacion());
 
-			Habitacion habitacion = habitacionService
-					.findByNumHabitacion(reservacionDTO.getHabitacion().getNumHabitacion());
-
-			//habitacion.setEstadoHabitacion(habitacionDTO.getEstadoHabitacion());
+			// habitacion.setEstadoHabitacion(habitacionDTO.getEstadoHabitacion());
 
 			reservacionService.save(reservacion);
-			//habitacionService.save(habitacion);
+			// habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro de la reservacion en la base de datos");
@@ -276,7 +272,7 @@ public class ReservacionController {
 
 		try {
 
-			//habitacion.setEstadoHabitacion("Disponible");
+			// habitacion.setEstadoHabitacion("Disponible");
 			reservacionService.delete(codReservacion);
 
 		} catch (DataAccessException e) {

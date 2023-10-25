@@ -48,7 +48,7 @@ public class Huesped implements Serializable {
 	@JoinColumn(name = "cod_tip_documento", nullable = false)
 	private TipDocumento tipoDocumento;
 
-	@Column(name = "num_documento", length = 30, nullable = false)
+	@Column(name = "num_documento", length = 30, nullable = false, unique = true)
 	private Long numDocumento;
 
 	@Column(name = "fecha_nacimiento", nullable = false)
@@ -74,11 +74,13 @@ public class Huesped implements Serializable {
 	@Column(name = "estado_Huesped")
 	private boolean estadoHuesped = true;;
 
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "codHuesped", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = { "codHuesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private List<CheckIn> checkin;
 
 	public Huesped() {
 
-		
+		this.checkin = new ArrayList<>();
 
 	}
 
@@ -98,13 +100,13 @@ public class Huesped implements Serializable {
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-		this.estadoHuesped = estadoHuesped;
+
 	}
 
 	public Huesped(String nombre, String apellido, Long numCelular, String correo, TipDocumento tipoDocumento,
 			Long numDocumento, Date fechaNacimiento, Nacionalidad nacionalidad, Region lugarOrigen,
 			String nomContactoEmergencia, Long numContactoEmergencia) {
-	
+
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numCelular = numCelular;
@@ -116,7 +118,7 @@ public class Huesped implements Serializable {
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
 		this.numContactoEmergencia = numContactoEmergencia;
-		this.estadoHuesped = estadoHuesped;
+
 	}
 
 	public Long getCodHuesped() {
@@ -223,6 +225,13 @@ public class Huesped implements Serializable {
 		this.estadoHuesped = estadoHuesped;
 	}
 
+	public List<CheckIn> getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(List<CheckIn> checkin) {
+		this.checkin = checkin;
+	}
 
 	private static final long serialVersionUID = 2556030903210616284L;
 

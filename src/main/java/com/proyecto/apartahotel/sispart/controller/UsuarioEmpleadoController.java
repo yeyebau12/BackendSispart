@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.UsuarioEmpleadoDTO;
 import com.proyecto.apartahotel.sispart.entity.Empleado;
+import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.entity.UsuarioEmpleado;
 import com.proyecto.apartahotel.sispart.service.interfa.IEmailService;
 import com.proyecto.apartahotel.sispart.service.interfa.IEmpleadoService;
@@ -65,18 +67,17 @@ public class UsuarioEmpleadoController {
 		return new ResponseEntity<List<UsuarioEmpleado>>(findAll, HttpStatus.OK);
 	}
 
-	@PostMapping("/registroLoginEmpleado")
-	public ResponseEntity<?> createLogin(@Valid @RequestBody UsuarioEmpleadoDTO usuarioEmpleadoDto,
+	@PostMapping("/registroLoginEmpleado/{tipDocumento}/{numDocumento}")
+	public ResponseEntity<?> createLogin(@PathVariable("tipDocumento") TipDocumento tipDocumento,
+			@PathVariable("numDocumento") Long numDocumento, @Valid @RequestBody UsuarioEmpleadoDTO usuarioEmpleadoDto,
 			BindingResult result) {
 
 		String body = "";
-		Empleado empleado = empleadoService.findByTipDocumentoAndNumDocumento(usuarioEmpleadoDto.getTipDocumento(),
-				usuarioEmpleadoDto.getNumDocumento());
-
 		Map<String, Object> response = new HashMap<>();
+		
+		Empleado empleado = empleadoService.findByTipDocumentoAndNumDocumento(tipDocumento, numDocumento);
 
-		if (!empleadoService.exitsTipDocumentoAndNumDocumento(usuarioEmpleadoDto.getTipDocumento(),
-				usuarioEmpleadoDto.getNumDocumento())) {
+		if (!empleadoService.exitsTipDocumentoAndNumDocumento(tipDocumento, numDocumento)) {
 
 			response.put("mensaje", "El empleado no se encuentra registrado en la base de datos de empleados");
 
@@ -97,14 +98,16 @@ public class UsuarioEmpleadoController {
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
+
 		try {
+
+
 
 			String contraseña = passwordEncoder.encode(usuarioEmpleadoDto.getContrasena());
 			String confirContraseña = passwordEncoder.encode(usuarioEmpleadoDto.getConfirContrasena());
 
-			UsuarioEmpleado usuarioEmpleado = new UsuarioEmpleado(usuarioEmpleadoDto.getTipDocumento(),
-					usuarioEmpleadoDto.getNumDocumento(), usuarioEmpleadoDto.getUserName(), contraseña,
-					confirContraseña, usuarioEmpleadoDto.getRol());
+			UsuarioEmpleado usuarioEmpleado = new UsuarioEmpleado(empleado, usuarioEmpleadoDto.getUserName(),
+					contraseña, confirContraseña, usuarioEmpleadoDto.getRol());
 
 			usuarioEmpleadoService.save(usuarioEmpleado);
 
@@ -134,7 +137,5 @@ public class UsuarioEmpleadoController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
-	
 
 }

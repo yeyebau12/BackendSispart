@@ -3,6 +3,7 @@ package com.proyecto.apartahotel.sispart.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
@@ -18,11 +19,7 @@ import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class UsuarioEmpleadoDTO {
 
-	@NotNull
-	private TipDocumento tipDocumento;
-
-	@NotNull
-	private Long numDocumento;
+	private Empleado empleado;
 
 	@NotEmpty
 	private String userName;
@@ -48,33 +45,23 @@ public class UsuarioEmpleadoDTO {
 
 	}
 
-	public UsuarioEmpleadoDTO(@NotEmpty TipDocumento tipDocumento, @NotEmpty Long numDocumento,
-			@NotEmpty String userName, @NotEmpty @Size(min = 4, max = 10) String contrasena,
-			@NotEmpty @Size(min = 4, max = 10) String confirContrasena, Boolean enabled,
-			List<Role> rol) {
-		this.tipDocumento = tipDocumento;
-		this.numDocumento = numDocumento;
+	public UsuarioEmpleadoDTO(Empleado empleado, @NotEmpty String userName,
+			@NotEmpty @Size(min = 4, max = 10) String contrasena,
+			@NotEmpty @Size(min = 4, max = 10) String confirContrasena, List<Role> rol) {
+		this.empleado = empleado;
 		this.userName = userName;
 		this.contrasena = contrasena;
 		this.confirContrasena = confirContrasena;
-		this.enabled = enabled;
 		this.rol = rol;
 	}
+	
 
-	public TipDocumento getTipDocumento() {
-		return tipDocumento;
+	public Empleado getEmpleado() {
+		return empleado;
 	}
 
-	public void setTipDocumento(TipDocumento tipDocuemnto) {
-		this.tipDocumento = tipDocuemnto;
-	}
-
-	public Long getNumDocumento() {
-		return numDocumento;
-	}
-
-	public void setNumDocumento(Long numDocumento) {
-		this.numDocumento = numDocumento;
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 	public String getUserName() {

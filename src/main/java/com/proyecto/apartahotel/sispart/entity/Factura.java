@@ -44,8 +44,8 @@ public class Factura implements Serializable {
 
 	@Column(name = "fecha_creacion", nullable = false)
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@JsonFormat(pattern = "dd-MM-yyyy", timezone = "GMT-5")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
 	private Date fechaCreacion;
 
 	@Column(name = "hora_creacion", nullable = false)
@@ -57,7 +57,7 @@ public class Factura implements Serializable {
 	private String estado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cod_checkin")
+	@JoinColumn(name = "cod_checkin", nullable = false)
 	@JsonIgnoreProperties(value = { "facturas", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private CheckIn checkin;
 

@@ -154,7 +154,8 @@ public class EmpleadoController {
 					empleadoDTO.getTipDocumento(), empleadoDTO.getNumDocumento(), edad, empleadoDTO.getNumTelefono(),
 					empleadoDTO.getCorreo(), empleadoDTO.getFechaNacimiento(), empleadoDTO.getDireccion(),
 					empleadoDTO.getNomContactoEmergencia(), empleadoDTO.getNumContactoEmergencia(),
-					empleadoDTO.getEps(), empleadoDTO.getArl(), empleadoDTO.getSexo(), empleadoDTO.getTipoSangre());
+					empleadoDTO.getEps(), empleadoDTO.getArl(), empleadoDTO.getSexo(), empleadoDTO.getTipoSangre(),
+					empleadoDTO.getFechaIngreso(), empleadoDTO.getFechaSalida());
 
 			empleadoService.save(empleado);
 
@@ -175,7 +176,7 @@ public class EmpleadoController {
 			@PathVariable("codEmpleado") Long codEmpelado, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
-		
+
 		Calendar calendarActual = Calendar.getInstance();
 		Calendar calendarNacimiento = new GregorianCalendar();
 
@@ -210,7 +211,7 @@ public class EmpleadoController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 
 		}
-		
+
 		calendarNacimiento.setTime(empleadoDTO.getFechaNacimiento());
 
 		int edad = calendarActual.get(Calendar.YEAR) - calendarNacimiento.get(Calendar.YEAR);
@@ -238,6 +239,8 @@ public class EmpleadoController {
 			empleado.setArl(empleadoDTO.getArl());
 			empleado.setSexo(empleadoDTO.getSexo());
 			empleado.setTipoSangre(empleadoDTO.getTipoSangre());
+			empleado.setFechaIngreso(empleadoDTO.getFechaIngreso());
+			empleadoDTO.setFechaSalida(empleadoDTO.getFechaSalida());
 
 			empleadoService.save(empleado);
 

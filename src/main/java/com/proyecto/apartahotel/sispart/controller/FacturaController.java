@@ -36,9 +36,7 @@ public class FacturaController {
 	@Autowired
 	private IFacturaService facturaService;
 
-	private IProductoService productoService;
 
-	
 	@GetMapping("/verFactura/{codFactura}")
 	public ResponseEntity<?> verFactura(@PathVariable("codFactura") Long codFactura) {
 
@@ -71,11 +69,10 @@ public class FacturaController {
 
 		try {
 
-			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getCheckIn(),
+			Factura factura = new Factura(facturaDTO.getDescripcion(), facturaDTO.getCheckin(),
 					facturaDTO.getItemFactura(), facturaDTO.getEstado());
-			
+
 			facturaService.saveFactura(factura);
-			
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro de la factura en la base de datos");

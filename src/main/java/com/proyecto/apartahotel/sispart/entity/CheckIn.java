@@ -47,7 +47,7 @@ public class CheckIn implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_huesped", nullable = false)
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	@JsonIgnoreProperties(value = { "checkin", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Huesped codHuesped;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -66,7 +66,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public CheckIn(Long codCheckin, Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion) {
-		super();
+		
 		this.codCheckin = codCheckin;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
@@ -75,7 +75,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public CheckIn(Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion) {
-		super();
+		
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
