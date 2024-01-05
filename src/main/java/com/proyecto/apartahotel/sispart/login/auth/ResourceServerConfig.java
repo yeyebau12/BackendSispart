@@ -22,24 +22,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/loginEmpleado/registroLoginEmpleado").permitAll()
-				.antMatchers("/tipoDocumento/**").permitAll().antMatchers("/nacionalidad/**").permitAll()
-				.antMatchers("/loginEmpleado/**").permitAll().antMatchers(HttpMethod.POST, "/empleados/crearEmpleado")
-				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.PUT, "/empleados/actualizarEmpleado/{codEmpleado}")
-				.hasAnyRole("ADMINISTRADOR").antMatchers(HttpMethod.GET, "/empleados/listarEmpleados").permitAll()
-				.antMatchers(HttpMethod.GET, "/huespedes/listarHuespedes").hasAnyRole("ADMINISTRADOR")
-				.antMatchers(HttpMethod.POST, "/huespedes/crearHuesped").hasAnyRole("ADMINISTRADOR")
-				.antMatchers(HttpMethod.DELETE, "/empleados/eliminarEmpleado/{codEmpleado}").hasAnyRole("ADMINISTRADOR")
-				.antMatchers("/checkin/**").hasAnyRole("ADMINISTRADOR").antMatchers("/factura/**").hasAnyRole("ADMINISTRADOR")
-				/*
-				 * .antMatchers(HttpMethod.GET,
-				 * "/loginEmpleado/listarLoginEmpleados").hasAnyRole("ADMINISTRADOR")
-				 */
-				.antMatchers(HttpMethod.POST, "/comentarios/crearComentario").permitAll()
-				.antMatchers("/reservaciones/**").permitAll().antMatchers("/comentarios/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/habitacion/verHabitacion/{codHabitacion}",
-						"/habitacion/listarHabitaciones/estado/{estadoHabitacion}")
-				.permitAll().anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
+		http.authorizeRequests().antMatchers("/comentarios/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/habitacion/listarHabitaciones/estado/{estadoHabitacion}").permitAll()
+				.antMatchers(HttpMethod.GET, "/habitacion/verHabitacion/{codHabitacion}").permitAll()
+				.antMatchers(HttpMethod.GET,"/tipoDocumento/listarTipoDocumentos").permitAll()
+				.anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
 	}
 
 	@Bean
@@ -47,7 +34,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 		CorsConfiguration corsConfig = new CorsConfiguration();
 		corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
-		corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPIONS"));
 		corsConfig.setAllowCredentials(true);
 		corsConfig.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
 

@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +48,7 @@ public class ReservacionController {
 	@Autowired
 	private IEmailService emailService;
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarReservas")
 	public ResponseEntity<?> findAll() {
 
@@ -72,6 +73,7 @@ public class ReservacionController {
 		return new ResponseEntity<List<Reservacion>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarReservas/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -97,6 +99,7 @@ public class ReservacionController {
 		return new ResponseEntity<Page<Reservacion>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/verReservacion/{codReservacion}")
 	public ResponseEntity<?> detailReservacion(@PathVariable("codReservacion") Long codReservacion) {
 
@@ -122,6 +125,7 @@ public class ReservacionController {
 
 	}
 
+	
 	@PostMapping("/crearReservacion")
 	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO) {
 
@@ -264,6 +268,7 @@ public class ReservacionController {
 	 * 
 	 * }
 	 */
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@DeleteMapping("/eliminarReservacion/{codReservacion}")
 	public ResponseEntity<?> deleteReservacion(@PathVariable("codReservacion") Long codReservacion) {
 		Map<String, Object> response = new HashMap<>();

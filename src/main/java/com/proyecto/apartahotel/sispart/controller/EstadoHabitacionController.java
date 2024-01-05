@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ public class EstadoHabitacionController {
 	@Autowired
 	private IEstadoHabitacionService estadoHabitacionService;
 	
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarEstadoHabitacion")
 	public ResponseEntity<?> findAll() {
 

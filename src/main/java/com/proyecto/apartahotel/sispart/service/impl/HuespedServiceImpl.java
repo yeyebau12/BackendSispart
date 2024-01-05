@@ -1,5 +1,7 @@
 package com.proyecto.apartahotel.sispart.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,6 @@ public class HuespedServiceImpl implements IHuespedService {
 
 		return huespedRepository.findAll(pageable);
 	}
-
 
 	@Override
 	@Transactional(readOnly = true)
@@ -79,6 +80,25 @@ public class HuespedServiceImpl implements IHuespedService {
 	public boolean existsByTipoDocumentoAndNumDocumento(TipDocumento tipDocumento, Long numDocumento) {
 
 		return huespedRepository.existsByTipoDocumentoAndNumDocumento(tipDocumento, numDocumento);
+	}
+
+	@Override
+	public Integer calcularEdad(Date fechaNacimiento) {
+		Calendar fechaActual = Calendar.getInstance();
+		Calendar fechaNacimientoC = Calendar.getInstance();
+
+		fechaNacimientoC.setTime(fechaNacimiento);
+
+		Integer diff = fechaActual.get(Calendar.YEAR) - fechaNacimientoC.get(Calendar.YEAR);
+
+		if (fechaActual.get(Calendar.MONTH) < fechaNacimientoC.get(Calendar.MONTH)
+				|| fechaActual.get(Calendar.MONTH) == fechaNacimientoC.get(Calendar.MONTH)
+						&& fechaActual.get(Calendar.DAY_OF_MONTH) < fechaNacimientoC.get(Calendar.DAY_OF_MONTH)) {
+
+			diff--;
+		}
+
+		return diff;
 	}
 
 }

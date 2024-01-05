@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ public class RegionController {
 	@Autowired
 	private IRegionService regionService;
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
+	@GetMapping("/listarRegiones")
 	public ResponseEntity<?> findAllRegion() {
 
 		List<Region> findAll = null;
@@ -47,6 +50,7 @@ public class RegionController {
 		return new ResponseEntity<List<Region>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/regionByNacion/{codNacionalidad}")
 	public ResponseEntity<?> findAllRegionBynacionalidad(@PathVariable("codNacionalidad") Long codNacion) {
 

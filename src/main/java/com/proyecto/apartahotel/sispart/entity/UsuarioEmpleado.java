@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -77,7 +81,8 @@ public class UsuarioEmpleado implements Serializable {
 		this.rol = rol;
 	}
 
-	public UsuarioEmpleado(Empleado empleado, String userName, String contrasena, String confirContrasena, List<Role> rol) {
+	public UsuarioEmpleado(Empleado empleado, String userName, String contrasena, String confirContrasena,
+			List<Role> rol) {
 
 		this.empleado = empleado;
 		this.userName = userName;

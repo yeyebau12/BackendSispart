@@ -40,9 +40,11 @@ public class HuespedDTO {
 	@NotNull
 	private Date fechaNacimiento;
 
+	private Integer edad;
+
 	@NotNull
 	private Nacionalidad nacionalidad;
-	@NotEmpty
+	@NotNull
 	private Region lugarOrigen;
 
 	private String nomContactoEmergencia;
@@ -59,9 +61,9 @@ public class HuespedDTO {
 
 	public HuespedDTO(@NotEmpty String nombre, @NotEmpty String apellido, @NotNull Long numCelular,
 			@Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento,
-			@NotNull Date fechaNacimiento, @NotNull Nacionalidad nacionalidad, @NotEmpty Region lugarOrigen,
-			String nomContactoEmergencia, Long numContactoEmergencia) {
-		super();
+			@NotNull Date fechaNacimiento, @NotNull Integer edad, @NotNull Nacionalidad nacionalidad,
+			@NotNull Region lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia) {
+	
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numCelular = numCelular;
@@ -69,6 +71,7 @@ public class HuespedDTO {
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
 		this.fechaNacimiento = fechaNacimiento;
+		this.edad = edad;
 		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
@@ -130,6 +133,14 @@ public class HuespedDTO {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
 	}
 
 	public Nacionalidad getNacionalidad() {

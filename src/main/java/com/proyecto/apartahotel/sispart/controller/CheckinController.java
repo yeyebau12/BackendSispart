@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class CheckinController {
 	@Autowired
 	private IHabitacionesService habitacionService;
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarCheckin")
 	public ResponseEntity<?> findAll() {
 
@@ -70,6 +72,7 @@ public class CheckinController {
 
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarCheckin/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -95,6 +98,7 @@ public class CheckinController {
 		return new ResponseEntity<Page<CheckIn>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/verCheckin/{codCheckin}")
 	public ResponseEntity<?> detailCheckin(@PathVariable("codCheckin") Long codCheckin) {
 
@@ -120,48 +124,13 @@ public class CheckinController {
 
 	}
 
-	@PostMapping("/crearCheckin/{tipDocumento}/{numDocumento}")
-	public ResponseEntity<?> createdCheckin(@Valid @RequestBody CheckInDTO checkinDTO,
-			@PathVariable("tipDocumento") TipDocumento tipDocumento, @PathVariable("numDocumento") Long numDocumento,
-			BindingResult result) {
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
+	@PostMapping("/crearCheckin")
+	public ResponseEntity<?> createdCheckin(@Valid @RequestBody CheckInDTO checkinDTO, BindingResult result) {
 
-		Huesped huesped = null;
-		Habitacion habitacion = habitacionService.findByCodHabitacion(checkinDTO.getCodHabitacion().getCodHabitacion());
-		;
 		Map<String, Object> response = new HashMap<>();
 
-		if (!huespedService.existsByTipoDocumentoAndNumDocumento(tipDocumento, numDocumento)) {
-
-			response.put("mensaje", "El huesped identificado con : " + tipDocumento.getNomTipoDocumento() + ": "
-					+ numDocumento + " no se encuentra registrado ");
-
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-
-		} else if (!habitacionService.existsById(checkinDTO.getCodHabitacion().getCodHabitacion())) {
-
-			response.put("mensaje", "No se encuentra la habitación ");
-
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-
-		} else if (habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Ocupado")) {
-
-			response.put("mensaje", "La habitacion se encuentra Ocupada. ");
-
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-
-		} else if (habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Limpieza")) {
-
-			response.put("mensaje", "La habitacion se encuentra en limpieza. ");
-
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-
-		}else if (habitacion.getEstadoHabitacion().getNombre().equalsIgnoreCase("Reservada")) {
-
-			response.put("mensaje", "La habitacion ya se encuentra reservada. ");
-
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-
-		} else if (result.hasErrors()) {
+		if (result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors().stream()
 					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
@@ -174,15 +143,13 @@ public class CheckinController {
 
 		try {
 
-			huesped = huespedService.getByTipoDocumentoAndNumDocumento(tipDocumento, numDocumento);
+			CheckIn checkin = new CheckIn(checkinDTO.getFechaEntrada(), checkinDTO.getFechaSalida(),
+					checkinDTO.getCodHuesped(), checkinDTO.getCodHabitacion());
 
-			CheckIn checkin = new CheckIn(checkinDTO.getFechaEntrada(), checkinDTO.getFechaSalida(), huesped,
-					checkinDTO.getCodHabitacion());
-
-			//habitacion.setEstadoHabitacion("Ocupado");
+			// habitacion.setEstadoHabitacion("Ocupado");
 
 			checkinService.save(checkin);
-			//habitacionService.save(habitacion);
+			// habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro del huesped en la base de datos");
@@ -196,5 +163,4 @@ public class CheckinController {
 
 	}
 
-	
 }

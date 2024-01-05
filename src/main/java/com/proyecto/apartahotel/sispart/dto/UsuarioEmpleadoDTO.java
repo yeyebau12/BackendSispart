@@ -3,11 +3,10 @@ package com.proyecto.apartahotel.sispart.dto;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,7 +14,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proyecto.apartahotel.sispart.entity.Empleado;
 import com.proyecto.apartahotel.sispart.entity.Role;
-import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class UsuarioEmpleadoDTO {
 
@@ -54,7 +52,6 @@ public class UsuarioEmpleadoDTO {
 		this.confirContrasena = confirContrasena;
 		this.rol = rol;
 	}
-	
 
 	public Empleado getEmpleado() {
 		return empleado;

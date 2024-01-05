@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class FacturaController {
 	@Autowired
 	private IFacturaService facturaService;
 
-
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/verFactura/{codFactura}")
 	public ResponseEntity<?> verFactura(@PathVariable("codFactura") Long codFactura) {
 
@@ -62,6 +63,7 @@ public class FacturaController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@PostMapping("/crearFactura")
 	public ResponseEntity<?> createdFactura(@RequestBody FacturaDTO facturaDTO) {
 
@@ -86,6 +88,7 @@ public class FacturaController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@DeleteMapping("/eliminarFactura/{codFactura}")
 	public ResponseEntity<?> deleteFactura(@PathVariable("codFactura") Long codFactura) {
 		Map<String, Object> response = new HashMap<>();

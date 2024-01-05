@@ -2,6 +2,7 @@ package com.proyecto.apartahotel.sispart.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,8 +58,11 @@ public class Huesped implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
 	private Date fechaNacimiento;
 
+	@Column(nullable = false)
+	private Integer edad;
+
 	@ManyToOne
-	@JoinColumn(name = "cod_nacionalidad", nullable = false)
+	@JoinColumn(name = "cod_nacionalidad" ,nullable = false)
 	private Nacionalidad nacionalidad;
 
 	@ManyToOne
@@ -72,7 +76,7 @@ public class Huesped implements Serializable {
 	private Long numContactoEmergencia;
 
 	@Column(name = "estado_Huesped")
-	private boolean estadoHuesped = true;;
+	private boolean estadoHuesped = true;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "codHuesped", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = { "codHuesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
@@ -85,8 +89,8 @@ public class Huesped implements Serializable {
 	}
 
 	public Huesped(Long codHuesped, String nombre, String apellido, Long numCelular, String correo,
-			TipDocumento tipoDocumento, Long numDocumento, Date fechaNacimiento, Nacionalidad nacionalidad,
-			Region lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia) {
+			TipDocumento tipoDocumento, Long numDocumento, Date fechaNacimiento, Integer edad,
+			Nacionalidad nacionalidad, Region lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia) {
 
 		this.codHuesped = codHuesped;
 		this.nombre = nombre;
@@ -96,6 +100,7 @@ public class Huesped implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
 		this.fechaNacimiento = fechaNacimiento;
+		this.edad = edad;
 		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
@@ -104,7 +109,7 @@ public class Huesped implements Serializable {
 	}
 
 	public Huesped(String nombre, String apellido, Long numCelular, String correo, TipDocumento tipoDocumento,
-			Long numDocumento, Date fechaNacimiento, Nacionalidad nacionalidad, Region lugarOrigen,
+			Long numDocumento, Date fechaNacimiento, Integer edad, Nacionalidad nacionalidad, Region lugarOrigen,
 			String nomContactoEmergencia, Long numContactoEmergencia) {
 
 		this.nombre = nombre;
@@ -114,6 +119,7 @@ public class Huesped implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
 		this.fechaNacimiento = fechaNacimiento;
+		this.edad = edad;
 		this.nacionalidad = nacionalidad;
 		this.lugarOrigen = lugarOrigen;
 		this.nomContactoEmergencia = nomContactoEmergencia;
@@ -183,6 +189,14 @@ public class Huesped implements Serializable {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
 	}
 
 	public Nacionalidad getNacionalidad() {

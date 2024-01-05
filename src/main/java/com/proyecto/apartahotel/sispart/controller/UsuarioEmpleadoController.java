@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,7 @@ public class UsuarioEmpleadoController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@GetMapping("/listarLoginEmpleados")
 	public ResponseEntity<?> findAll() {
 
@@ -67,6 +69,7 @@ public class UsuarioEmpleadoController {
 		return new ResponseEntity<List<UsuarioEmpleado>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@PostMapping("/registroLoginEmpleado/{tipDocumento}/{numDocumento}")
 	public ResponseEntity<?> createLogin(@PathVariable("tipDocumento") TipDocumento tipDocumento,
 			@PathVariable("numDocumento") Long numDocumento, @Valid @RequestBody UsuarioEmpleadoDTO usuarioEmpleadoDto,

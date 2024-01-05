@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class HuespedController {
 	@Autowired
 	private IHuespedService huespedService;
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarHuespedes")
 	public ResponseEntity<?> findAll() {
 
@@ -62,6 +64,7 @@ public class HuespedController {
 		return new ResponseEntity<List<Huesped>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarHuespedes/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -87,6 +90,7 @@ public class HuespedController {
 		return new ResponseEntity<Page<Huesped>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/verhuesped/{codHuesped}")
 	public ResponseEntity<?> detailHuesped(@PathVariable("codHuesped") Long codHuesped) {
 
@@ -112,6 +116,7 @@ public class HuespedController {
 
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/verhuesped/{tipDocumento}/{numDocumento}")
 	public ResponseEntity<?> viewHuesped(@PathVariable("tipDocumento") TipDocumento tipDocumento,
 			@PathVariable("numDocumento") Long numDocumento) {
@@ -138,10 +143,12 @@ public class HuespedController {
 
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@PostMapping("/crearHuesped")
 	public ResponseEntity<?> createdEmpleado(@Valid @RequestBody HuespedDTO huespedDTO, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
+		Integer edad = huespedService.calcularEdad(huespedDTO.getFechaNacimiento());
 
 		if (huespedService.existsByTipoDocumentoAndNumDocumento(huespedDTO.getTipoDocumento(),
 				huespedDTO.getNumDocumento())) {
@@ -164,10 +171,11 @@ public class HuespedController {
 		try {
 
 			Huesped huesped = new Huesped(huespedDTO.getNombre(), huespedDTO.getApellido(), huespedDTO.getNumCelular(),
-					huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(), huespedDTO.getNumDocumento(),huespedDTO.getFechaNacimiento(),
-					huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(), huespedDTO.getNomContactoEmergencia(),
-					huespedDTO.getNumContactoEmergencia());
+					huespedDTO.getCorreo(), huespedDTO.getTipoDocumento(), huespedDTO.getNumDocumento(),
+					huespedDTO.getFechaNacimiento(), edad, huespedDTO.getNacionalidad(), huespedDTO.getLugarOrigen(),
+					huespedDTO.getNomContactoEmergencia(), huespedDTO.getNumContactoEmergencia());
 
+			huespedDTO.setEdad(edad);
 			huespedService.save(huesped);
 
 		} catch (DataAccessException e) {
@@ -182,6 +190,7 @@ public class HuespedController {
 
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@PutMapping("/actualizarHuesped/{codHuesped}")
 	public ResponseEntity<?> updateHuesped(@Valid @RequestBody HuespedDTO huespedDTO,
 			@PathVariable("codHuesped") Long codHuesped, BindingResult result) {
@@ -249,6 +258,7 @@ public class HuespedController {
 
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@DeleteMapping("/eliminarhuesped/{codHuesped}")
 	public ResponseEntity<?> deleteHuesped(@PathVariable("codHuesped") Long codHuesped) {
 		Map<String, Object> response = new HashMap<>();

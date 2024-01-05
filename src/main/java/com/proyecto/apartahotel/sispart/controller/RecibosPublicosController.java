@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class RecibosPublicosController {
 	@Autowired
 	private IRecibosPublicosService reciboPublicoService;
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@GetMapping("/listarRecibosPublicos")
 	public ResponseEntity<?> findAll() {
 
@@ -59,6 +61,7 @@ public class RecibosPublicosController {
 		return new ResponseEntity<List<RecibosPublicos>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@GetMapping("/listarRecibosPublicos/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -84,6 +87,7 @@ public class RecibosPublicosController {
 		return new ResponseEntity<Page<RecibosPublicos>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@GetMapping("/verRecibosPublicos/{codRecibo}")
 	public ResponseEntity<?> detailHuesped(@PathVariable("codRecibo") Long codRecibo) {
 
@@ -109,6 +113,7 @@ public class RecibosPublicosController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@PostMapping("/crearReciboPublico")
 	public ResponseEntity<?> createdReciboPublico(@Valid @RequestBody RecibosPublicosDTO recibosPublicosDTO,
 			BindingResult result) {
@@ -144,6 +149,7 @@ public class RecibosPublicosController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@DeleteMapping("/eliminarRegistro/{codRegistro}")
 	public ResponseEntity<?> deleteHuesped(@PathVariable("codRegistro") Long codRegistro) {
 		Map<String, Object> response = new HashMap<>();

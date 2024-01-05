@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class HabitacionController {
 	@Autowired
 	private IHabitacionesService habitacionService;
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarHabitaciones")
 	public ResponseEntity<?> findAll() {
 
@@ -61,6 +63,7 @@ public class HabitacionController {
 		return new ResponseEntity<List<Habitacion>>(findAll, HttpStatus.OK);
 	}
 
+	
 	@GetMapping("/listarHabitaciones/estado/{estadoHabitacion}")
 	public ResponseEntity<?> findByEstadoHabitacion(@PathVariable("estadoHabitacion") EstadoHabitacion estadoHabitacion) {
 
@@ -85,6 +88,7 @@ public class HabitacionController {
 		return new ResponseEntity<List<Habitacion>>(findByEstado, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarHabitaciones/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -110,6 +114,7 @@ public class HabitacionController {
 		return new ResponseEntity<Page<Habitacion>>(findAll, HttpStatus.OK);
 	}
 
+	
 	@GetMapping("/verHabitacion/{codHabitacion}")
 	public ResponseEntity<?> detailHabitacion(@PathVariable("codHabitacion") Long codHabitacion) {
 
@@ -135,6 +140,7 @@ public class HabitacionController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@PostMapping("/crearHabitacion")
 	public ResponseEntity<?> createdHabitacion(@Valid @RequestBody HabitacionDTO habitacionDTO, BindingResult result) {
 
@@ -178,6 +184,7 @@ public class HabitacionController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@PutMapping("/actualizarHabitacion/{codHabitacion}")
 	public ResponseEntity<?> updateHabitacion(@Valid @RequestBody HabitacionDTO habitacionDTO,
 			@PathVariable("codHabitacion") Long codHabitacion, BindingResult result) {
@@ -236,6 +243,7 @@ public class HabitacionController {
 
 	}
 
+	@Secured({"ROLE_ADMINISTRADOR"})
 	@DeleteMapping("/eliminarHabitacion/{codHabitacion}")
 	public ResponseEntity<?> deleteHabitacion(@PathVariable("codHabitacion") Long codHabitacion) {
 		Map<String, Object> response = new HashMap<>();

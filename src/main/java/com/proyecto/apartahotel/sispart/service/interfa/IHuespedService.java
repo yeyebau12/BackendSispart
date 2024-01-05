@@ -1,5 +1,6 @@
 package com.proyecto.apartahotel.sispart.service.interfa;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +30,7 @@ public interface IHuespedService {
 	public boolean existsById(Long codHuesped);
 
 	public boolean existsByTipoDocumentoAndNumDocumento(TipDocumento tipoDocumento, Long numDocumento);
+	
+	public Integer calcularEdad(Date fechaNacimiento);
 
 }
