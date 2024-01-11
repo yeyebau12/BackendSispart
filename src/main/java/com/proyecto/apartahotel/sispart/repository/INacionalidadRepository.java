@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.apartahotel.sispart.entity.Nacionalidad;
 
 @Repository
-public interface INacionalidadRepository extends JpaRepository<Nacionalidad, Long> {
+public interface INacionalidadRepository extends JpaRepository<Nacionalidad, Integer> {
 
 }

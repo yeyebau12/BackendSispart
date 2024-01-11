@@ -38,7 +38,7 @@ public class HabitacionController {
 	@Autowired
 	private IHabitacionesService habitacionService;
 
-	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarHabitaciones")
 	public ResponseEntity<?> findAll() {
 
@@ -63,9 +63,9 @@ public class HabitacionController {
 		return new ResponseEntity<List<Habitacion>>(findAll, HttpStatus.OK);
 	}
 
-	
 	@GetMapping("/listarHabitaciones/estado/{estadoHabitacion}")
-	public ResponseEntity<?> findByEstadoHabitacion(@PathVariable("estadoHabitacion") EstadoHabitacion estadoHabitacion) {
+	public ResponseEntity<?> findByEstadoHabitacion(
+			@PathVariable("estadoHabitacion") EstadoHabitacion estadoHabitacion) {
 
 		List<Habitacion> findByEstado = null;
 		Map<String, Object> response = new HashMap<>();
@@ -81,14 +81,14 @@ public class HabitacionController {
 		}
 
 		if (findByEstado.isEmpty()) {
-			response.put("mensaje", "No existen registros en la base de datos");
+			response.put("mensaje", "No hay habitaciones disponibles");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<List<Habitacion>>(findByEstado, HttpStatus.OK);
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarHabitaciones/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -114,7 +114,6 @@ public class HabitacionController {
 		return new ResponseEntity<Page<Habitacion>>(findAll, HttpStatus.OK);
 	}
 
-	
 	@GetMapping("/verHabitacion/{codHabitacion}")
 	public ResponseEntity<?> detailHabitacion(@PathVariable("codHabitacion") Long codHabitacion) {
 
@@ -140,7 +139,7 @@ public class HabitacionController {
 
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR"})
+	@Secured({ "ROLE_ADMINISTRADOR" })
 	@PostMapping("/crearHabitacion")
 	public ResponseEntity<?> createdHabitacion(@Valid @RequestBody HabitacionDTO habitacionDTO, BindingResult result) {
 
@@ -184,7 +183,7 @@ public class HabitacionController {
 
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR"})
+	@Secured({ "ROLE_ADMINISTRADOR" })
 	@PutMapping("/actualizarHabitacion/{codHabitacion}")
 	public ResponseEntity<?> updateHabitacion(@Valid @RequestBody HabitacionDTO habitacionDTO,
 			@PathVariable("codHabitacion") Long codHabitacion, BindingResult result) {
@@ -243,7 +242,7 @@ public class HabitacionController {
 
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR"})
+	@Secured({ "ROLE_ADMINISTRADOR" })
 	@DeleteMapping("/eliminarHabitacion/{codHabitacion}")
 	public ResponseEntity<?> deleteHabitacion(@PathVariable("codHabitacion") Long codHabitacion) {
 		Map<String, Object> response = new HashMap<>();

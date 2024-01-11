@@ -16,6 +16,7 @@ public class CheckInDTO {
 	private Date fechaEntrada;
 	@NotNull
 	private Date fechaSalida;
+	
 	private Huesped codHuesped;
 	@NotNull
 	private Habitacion codHabitacion;

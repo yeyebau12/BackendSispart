@@ -35,14 +35,17 @@ public class Empleado implements Serializable {
 
 	@Column(length = 30, nullable = false)
 	private String nombre;
+	
 	@Column(length = 30, nullable = false)
 	private String apellido;
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY) // , cascade = CascadeType.ALL)
 	@JoinColumn(name = "tip_documento", nullable = false)
 	private TipDocumento tipDocumento;
+	
 	@Column(name = "num_documento", length = 20, nullable = false)
 	private Long numDocumento;
+	
 	@Column(length = 10)
 	private Integer edad;
 	@Column(name = "num_telefono", length = 20, nullable = false)

@@ -199,6 +199,15 @@ public class Reservacion implements Serializable {
 
 		return total;
 	}
+	
+	public Double getTotalPersona() {
+		Double total = 0.00;
+
+		total = getTotalHuespedes() * habitacion.getNombreHabitacion().getPrecioDia();
+
+		return total;
+	}
+
 
 	private static final long serialVersionUID = -5479277631957553285L;
 

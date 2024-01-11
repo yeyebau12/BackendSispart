@@ -130,6 +130,12 @@ public class CheckinController {
 
 		Map<String, Object> response = new HashMap<>();
 
+		if (checkinDTO.getCodHuesped().isEstadoHuesped() == false) {
+			response.put("mensaje",
+					"El husped se encuentra inactivo por el adminitrador,no puede hospedarse en el apartahotel");
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
 		if (result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors().stream()
