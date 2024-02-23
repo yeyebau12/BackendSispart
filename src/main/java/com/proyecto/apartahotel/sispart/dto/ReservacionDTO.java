@@ -164,12 +164,17 @@ public class ReservacionDTO {
 		return adultos + ninos;
 	}
 	
-	public Double getTotalReservacion() {
+	//Metodo para dar el precio total de la reserva
+	public Double getTotalPersona(Double precioxAcompanante ) {
+		
 		Double total = 0.00;
+		Double total2 = 0.00;
+		
+		total = (getTotalHuespedes() -1) * precioxAcompanante;
+		total2 = total + getHabitacion().getNombreHabitacion().getPrecioXPersona();
 
-		total = totalDias.doubleValue() * habitacion.getNombreHabitacion().getPrecioXPersona();
-
-		return total;
+		return total2;
 	}
+
 
 }

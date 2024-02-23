@@ -67,7 +67,7 @@ public class Reservacion implements Serializable {
 	private String email;
 
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "cod_habitacion")
 	private Habitacion habitacion;
 
@@ -192,21 +192,15 @@ public class Reservacion implements Serializable {
 		return adultos + ninos;
 	}
 
-	public Double getTotalReservacion() {
-		Double total = 0.00;
 
-		total = totalDias.doubleValue() * habitacion.getNombreHabitacion().getPrecioXPersona();
-
-		return total;
-	}
 	
-	//modificar
-	public Double getTotalPersona() {
+	//Metodo para dar el precio total de la reserva
+	public Double getTotalPersona(Double precioxAcompanante ) {
 		
 		Double total = 0.00;
 		Double total2 = 0.00;
-		total = getTotalHuespedes() -1 * 15000.00;
 		
+		total = (getTotalHuespedes() -1) * precioxAcompanante;
 		total2 = total + getHabitacion().getNombreHabitacion().getPrecioXPersona();
 
 		return total2;
