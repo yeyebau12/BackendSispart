@@ -50,6 +50,7 @@ public class ReservacionDTO {
 
 	private Habitacion habitacion;
 
+
 	public ReservacionDTO() {
 
 	}
@@ -158,23 +159,27 @@ public class ReservacionDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
 	public Integer getTotalHuespedes() {
 
 		return adultos + ninos;
 	}
-	
-	//Metodo para dar el precio total de la reserva
-	public Double getTotalPersona(Double precioxAcompanante ) {
-		
+
+	// Metodo para dar el precio total de la reserva
+	public Double getTotalPersona() {
+
 		Double total = 0.00;
-		Double total2 = 0.00;
-		
-		total = (getTotalHuespedes() -1) * precioxAcompanante;
-		total2 = total + getHabitacion().getNombreHabitacion().getPrecioXPersona();
 
-		return total2;
+		if (getTotalHuespedes() > 1) {
+
+			total = ((getTotalHuespedes() - 1) * getHabitacion().getNombreHabitacion().getPrecioXAcompanante())
+					+ getHabitacion().getNombreHabitacion().getPrecioXPersona();
+
+		} else
+			total = getHabitacion().getNombreHabitacion().getPrecioXPersona();
+
+		return total;
 	}
-
 
 }

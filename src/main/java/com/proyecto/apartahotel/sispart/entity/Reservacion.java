@@ -66,7 +66,6 @@ public class Reservacion implements Serializable {
 	@Column(length = 50, nullable = false)
 	private String email;
 
-	
 	@ManyToOne
 	@JoinColumn(name = "cod_habitacion")
 	private Habitacion habitacion;
@@ -192,20 +191,21 @@ public class Reservacion implements Serializable {
 		return adultos + ninos;
 	}
 
+	// Metodo para dar el precio total de la reserva
+	public Double getTotalPersona() {
 
-	
-	//Metodo para dar el precio total de la reserva
-	public Double getTotalPersona(Double precioxAcompanante ) {
-		
 		Double total = 0.00;
-		Double total2 = 0.00;
-		
-		total = (getTotalHuespedes() -1) * precioxAcompanante;
-		total2 = total + getHabitacion().getNombreHabitacion().getPrecioXPersona();
 
-		return total2;
+		if (getTotalHuespedes() > 1) {
+
+			total = (((getTotalHuespedes() - 1) * getHabitacion().getNombreHabitacion().getPrecioXAcompanante())
+					+ getHabitacion().getNombreHabitacion().getPrecioXPersona()) * this.totalDias;
+
+		} else
+			total = getHabitacion().getNombreHabitacion().getPrecioXPersona() * this.totalDias;
+
+		return total;
 	}
-
 
 	private static final long serialVersionUID = -5479277631957553285L;
 

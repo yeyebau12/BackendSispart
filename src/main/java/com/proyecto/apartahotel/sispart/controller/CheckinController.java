@@ -136,6 +136,34 @@ public class CheckinController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 
+		if (checkinDTO.getCodHabitacion().getEstadoHabitacion().getCodEstadoHabitacion() == 2) {
+
+			response.put("mensaje", "La habitacion que desea asignar esta ocupada por otro huesped!");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+		}
+
+		if (checkinDTO.getCodHabitacion().getEstadoHabitacion().getCodEstadoHabitacion() == 3) {
+
+			response.put("mensaje", "La habitacion que desea asignar ya se encuentra reservada!");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+		}
+
+		if (checkinDTO.getCodHabitacion().getEstadoHabitacion().getCodEstadoHabitacion() == 4) {
+
+			response.put("mensaje", "La habitacion que desea asignar esta en proceso de limpieza!");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+		}
+
+		if (checkinDTO.getTotalAcompañantes() > checkinDTO.getCodHabitacion().getMaxPersonasDisponibles()) {
+
+			response.put("mensaje", "La cantidad de acompañantes es demasiado grande para este tipo de habitacion!");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+		}
+
 		if (result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors().stream()
@@ -153,10 +181,13 @@ public class CheckinController {
 					checkinDTO.getCodHuesped(), checkinDTO.getCodHabitacion(), checkinDTO.getNumAdultos(),
 					checkinDTO.getNumNinos());
 
-			// habitacion.setEstadoHabitacion("Ocupado");
+			Habitacion habitacion = habitacionService
+					.findByCodHabitacion(checkinDTO.getCodHabitacion().getCodHabitacion());
+			
+			habitacion.setEstadoHabitacion(null);
 
 			checkinService.save(checkin);
-			// habitacionService.save(habitacion);
+			habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro del huesped en la base de datos");

@@ -145,7 +145,7 @@ public class HuespedController {
 
 	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@PostMapping("/crearHuesped")
-	public ResponseEntity<?> createdEmpleado(@Valid @RequestBody HuespedDTO huespedDTO, BindingResult result) {
+	public ResponseEntity<?> createdHuesped(@Valid @RequestBody HuespedDTO huespedDTO, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
 		Integer edad = huespedService.calcularEdad(huespedDTO.getFechaNacimiento());
