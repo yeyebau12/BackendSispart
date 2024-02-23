@@ -183,7 +183,7 @@ public class ReservacionController {
 
 		try {
 
-			Double precioFinal = reservacionDTO.getHabitacion().getNombreHabitacion().getPrecioDia() * totalDias;
+			Double precioFinal = reservacionDTO.getHabitacion().getNombreHabitacion().getPrecioXPersona() * totalDias;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			String fechaSalida = dateFormat.format(reservacionDTO.getFechaSalida());
 			String fechaEntrada = dateFormat.format(reservacionDTO.getFechaEntrada());

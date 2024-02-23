@@ -21,24 +21,24 @@ public class TipoHabitacion implements Serializable {
 	@Column(length = 60, nullable = false)
 	private String nombre;
 
-	@Column(name = "precio_día", nullable = false)
-	private Double precioDia;
+	@Column(name = "precio_persona", nullable = false)
+	private Double precioXPersona;
 
 	public TipoHabitacion() {
 
 	}
 
-	public TipoHabitacion(Long codTipoHabitacion, String nombre, double precioDia) {
+	public TipoHabitacion(Long codTipoHabitacion, String nombre, double precioXPersona) {
 
 		this.codTipoHabitacion = codTipoHabitacion;
 		this.nombre = nombre;
-		this.precioDia = precioDia;
+		this.precioXPersona = precioXPersona;
 	}
 
-	public TipoHabitacion(String nombre, double precioDia) {
+	public TipoHabitacion(String nombre, double precioXPersona) {
 
 		this.nombre = nombre;
-		this.precioDia = precioDia;
+		this.precioXPersona = precioXPersona;
 	}
 
 	public Long getCodTipoHabitacion() {
@@ -57,12 +57,12 @@ public class TipoHabitacion implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Double getPrecioDia() {
-		return precioDia;
+	public Double getPrecioXPersona() {
+		return precioXPersona;
 	}
 
-	public void setPrecioDia(Double precioDia) {
-		this.precioDia = precioDia;
+	public void setPrecioXPersona(Double precioXPersona) {
+		this.precioXPersona = precioXPersona;
 	}
 
 	private static final long serialVersionUID = -4032596186669313168L;

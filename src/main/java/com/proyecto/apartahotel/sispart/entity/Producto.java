@@ -47,6 +47,8 @@ public class Producto implements Serializable {
 	@Column(name = "hora_registro", nullable = false)
 	private Date horaRegistro;
 
+	
+	
 	public Producto() {
 
 	}

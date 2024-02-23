@@ -9,16 +9,16 @@ public class TipoHabitacionDTO {
 	private String nombre;
 
 	@NotNull
-	private Double preciDia;
+	private Double  precioXPersona;
 
 	public TipoHabitacionDTO() {
 
 	}
 
-	public TipoHabitacionDTO(@NotEmpty String nombre, @NotNull Double preciDia) {
+	public TipoHabitacionDTO(@NotEmpty String nombre, @NotNull Double  precioXPersona) {
 
 		this.nombre = nombre;
-		this.preciDia = preciDia;
+		this.precioXPersona =  precioXPersona;
 	}
 
 	public String getNombre() {
@@ -29,12 +29,13 @@ public class TipoHabitacionDTO {
 		this.nombre = nombre;
 	}
 
-	public Double getPreciDia() {
-		return preciDia;
+	public Double getPrecioXPersona() {
+		return precioXPersona;
 	}
 
-	public void setPreciDia(Double preciDia) {
-		this.preciDia = preciDia;
+	public void setPrecioXPersona(Double precioXPersona) {
+		this.precioXPersona = precioXPersona;
 	}
+
 
 }

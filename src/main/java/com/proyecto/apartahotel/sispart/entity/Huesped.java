@@ -2,7 +2,6 @@ package com.proyecto.apartahotel.sispart.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -75,13 +74,15 @@ public class Huesped implements Serializable {
 
 	@Column(name = "num_contacto_emergencia", length = 30)
 	private Long numContactoEmergencia;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "codHuesped", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = { "codHuesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	private List<CheckIn> checkin;
 
 	@Column(name = "estado_Huesped")
 	private boolean estadoHuesped = true;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "codHuesped", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = { "codHuesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private List<CheckIn> checkin;
+
 
 	public Huesped() {
 

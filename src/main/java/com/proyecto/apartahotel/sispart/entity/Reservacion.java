@@ -195,17 +195,21 @@ public class Reservacion implements Serializable {
 	public Double getTotalReservacion() {
 		Double total = 0.00;
 
-		total = totalDias.doubleValue() * habitacion.getNombreHabitacion().getPrecioDia();
+		total = totalDias.doubleValue() * habitacion.getNombreHabitacion().getPrecioXPersona();
 
 		return total;
 	}
 	
+	//modificar
 	public Double getTotalPersona() {
+		
 		Double total = 0.00;
+		Double total2 = 0.00;
+		total = getTotalHuespedes() -1 * 15000.00;
+		
+		total2 = total + getHabitacion().getNombreHabitacion().getPrecioXPersona();
 
-		total = getTotalHuespedes() * habitacion.getNombreHabitacion().getPrecioDia();
-
-		return total;
+		return total2;
 	}
 
 

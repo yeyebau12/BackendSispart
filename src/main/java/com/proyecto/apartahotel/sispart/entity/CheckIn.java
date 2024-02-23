@@ -55,6 +55,12 @@ public class CheckIn implements Serializable {
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Habitacion codHabitacion;
 
+	@Column(name = "num_adultos", nullable = false)
+	private Integer numAdultos;
+
+	@Column(name = "num_ninos", nullable = false)
+	private Integer numNinos;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "checkin", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = { "checkin", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Factura> facturas;
@@ -65,21 +71,28 @@ public class CheckIn implements Serializable {
 
 	}
 
-	public CheckIn(Long codCheckin, Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion) {
-		
+	public CheckIn(Long codCheckin, Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion,
+			Integer numAdultos, Integer numNinos) {
 		this.codCheckin = codCheckin;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
 		this.codHabitacion = codHabitacion;
+		this.numAdultos = numAdultos;
+		this.numNinos = numNinos;
+
 	}
 
-	public CheckIn(Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion) {
-		
+	public CheckIn(Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion,
+			Integer numAdultos, Integer numNinos) {
+
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
 		this.codHabitacion = codHabitacion;
+		this.numAdultos = numAdultos;
+		this.numNinos = numNinos;
+
 	}
 
 	public Long getCodCheckin() {
@@ -122,6 +135,22 @@ public class CheckIn implements Serializable {
 		this.codHabitacion = codHabitacion;
 	}
 
+	public Integer getNumAdultos() {
+		return numAdultos;
+	}
+
+	public void setNumAdultos(Integer numAdultos) {
+		this.numAdultos = numAdultos;
+	}
+
+	public Integer getNumNinos() {
+		return numNinos;
+	}
+
+	public void setNumNinos(Integer numNinos) {
+		this.numNinos = numNinos;
+	}
+
 	public List<Factura> getFacturas() {
 		return facturas;
 	}
@@ -129,6 +158,27 @@ public class CheckIn implements Serializable {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
+
+	public Integer getTotalAcompañantes() {
+
+		Integer total = 0;
+
+		total = getNumAdultos() + getNumNinos();
+
+		return total;
+
+	}
+
+	public Double getTotal() {
+
+		Double total = 0.00;
+		
+		total = getCodHabitacion().getNombreHabitacion().getPrecioXPersona() * getTotalAcompañantes();
+
+		return total;
+	}
+	
+
 
 	private static final long serialVersionUID = -763212033771895092L;
 

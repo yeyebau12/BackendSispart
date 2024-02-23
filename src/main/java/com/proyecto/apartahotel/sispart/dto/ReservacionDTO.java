@@ -167,7 +167,7 @@ public class ReservacionDTO {
 	public Double getTotalReservacion() {
 		Double total = 0.00;
 
-		total = totalDias.doubleValue() * habitacion.getNombreHabitacion().getPrecioDia();
+		total = totalDias.doubleValue() * habitacion.getNombreHabitacion().getPrecioXPersona();
 
 		return total;
 	}

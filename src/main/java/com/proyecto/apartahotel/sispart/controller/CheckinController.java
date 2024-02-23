@@ -150,7 +150,8 @@ public class CheckinController {
 		try {
 
 			CheckIn checkin = new CheckIn(checkinDTO.getFechaEntrada(), checkinDTO.getFechaSalida(),
-					checkinDTO.getCodHuesped(), checkinDTO.getCodHabitacion());
+					checkinDTO.getCodHuesped(), checkinDTO.getCodHabitacion(), checkinDTO.getNumAdultos(),
+					checkinDTO.getNumNinos());
 
 			// habitacion.setEstadoHabitacion("Ocupado");
 

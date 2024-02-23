@@ -16,10 +16,17 @@ public class CheckInDTO {
 	private Date fechaEntrada;
 	@NotNull
 	private Date fechaSalida;
-	
+
 	private Huesped codHuesped;
+
 	@NotNull
 	private Habitacion codHabitacion;
+
+	@NotNull
+	private Integer numAdultos;
+
+	@NotNull
+	private Integer numNinos;
 
 	private List<Factura> facturas;
 
@@ -27,13 +34,16 @@ public class CheckInDTO {
 		this.facturas = new ArrayList<>();
 	}
 
-	public CheckInDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, @NotNull Huesped codHuesped,
-			@NotNull Habitacion codHabitacion) {
+	public CheckInDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, Huesped codHuesped,
+			@NotNull Habitacion codHabitacion, @NotNull Integer numAdultos, @NotNull Integer numNinos) {
 
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
 		this.codHabitacion = codHabitacion;
+		this.numAdultos = numAdultos;
+		this.numNinos = numNinos;
+
 	}
 
 	public Date getFechaEntrada() {
@@ -68,12 +78,47 @@ public class CheckInDTO {
 		this.codHabitacion = codHabitacion;
 	}
 
+	public Integer getNumAdultos() {
+		return numAdultos;
+	}
+
+	public void setNumAdultos(Integer numAdultos) {
+		this.numAdultos = numAdultos;
+	}
+
+	public Integer getNumNinos() {
+		return numNinos;
+	}
+
+	public void setNumNinos(Integer numNinos) {
+		this.numNinos = numNinos;
+	}
+
 	public List<Factura> getFacturas() {
 		return facturas;
 	}
 
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
+	}
+	
+	public Integer getTotalAcompañantes() {
+
+		Integer total = 0;
+
+		total = getNumAdultos() + getNumNinos();
+
+		return total;
+
+	}
+
+	public Double getTotal() {
+
+		Double total = 0.00;
+		
+		total = getCodHabitacion().getNombreHabitacion().getPrecioXPersona() * getTotalAcompañantes();
+
+		return total;
 	}
 
 }
