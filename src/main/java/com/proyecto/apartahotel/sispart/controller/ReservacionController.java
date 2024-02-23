@@ -157,7 +157,7 @@ public class ReservacionController {
 
 		}
 
-		if (reservacionDTO.getTotalHuespedes() > reservacionDTO.getHabitacion().getMaxPersonasDisponibles()) {
+		if (reservacionDTO.getTotalHuespedes() >= reservacionDTO.getHabitacion().getMaxPersonasDisponibles()) {
 
 			response.put("mensaje", "La cantidad de acompañantes es demasiado grande para este tipo de habitacion!");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
@@ -173,7 +173,7 @@ public class ReservacionController {
 
 			Habitacion habitacion = habitacionService
 					.findByCodHabitacion(reservacionDTO.getHabitacion().getCodHabitacion());
-			habitacion.setEstadoHabitacion(null);
+			//habitacion.setEstadoHabitacion(null);
 
 			reservacionService.save(reservacion);
 			habitacionService.save(habitacion);

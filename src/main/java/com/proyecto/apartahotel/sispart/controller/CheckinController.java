@@ -184,7 +184,7 @@ public class CheckinController {
 			Habitacion habitacion = habitacionService
 					.findByCodHabitacion(checkinDTO.getCodHabitacion().getCodHabitacion());
 			
-			habitacion.setEstadoHabitacion(null);
+			//habitacion.setEstadoHabitacion(null);
 
 			checkinService.save(checkin);
 			habitacionService.save(habitacion);

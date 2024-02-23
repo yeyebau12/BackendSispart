@@ -1,13 +1,7 @@
 package com.proyecto.apartahotel.sispart.dto;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
@@ -16,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
-import com.proyecto.apartahotel.sispart.entity.Huesped;
+
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 
 public class ReservacionDTO {
@@ -49,7 +43,6 @@ public class ReservacionDTO {
 	private String email;
 
 	private Habitacion habitacion;
-
 
 	public ReservacionDTO() {
 
@@ -159,7 +152,6 @@ public class ReservacionDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 
 	public Integer getTotalHuespedes() {
 
