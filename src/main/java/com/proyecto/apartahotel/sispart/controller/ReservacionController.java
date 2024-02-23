@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.security.PermitAll;
 import javax.mail.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,7 @@ public class ReservacionController {
 	}
 
 	
+
 	@PostMapping("/crearReservacion")
 	public ResponseEntity<?> createdReservacion(@RequestBody ReservacionDTO reservacionDTO) {
 
