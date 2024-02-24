@@ -169,16 +169,23 @@ public class CheckIn implements Serializable {
 
 	}
 
-	public Double getTotal() {
+	public Double getTotalPersona() {
 
+		long millisecondsPerDay = 24 * 60 * 60 * 1000; // Milisegundos por día
+		long diffMilliseconds = getFechaSalida().getTime() - getFechaEntrada().getTime();
+		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
 		Double total = 0.00;
-		
-		total = getCodHabitacion().getNombreHabitacion().getPrecioXPersona() * getTotalAcompañantes();
+
+		if (getTotalAcompañantes() > 1) {
+
+			total = (((getTotalAcompañantes() - 1) * getCodHabitacion().getNombreHabitacion().getPrecioXAcompanante())
+					+ getCodHabitacion().getNombreHabitacion().getPrecioXPersona()) * totalDias;
+
+		} else
+			total = getCodHabitacion().getNombreHabitacion().getPrecioXPersona() * totalDias;
 
 		return total;
 	}
-	
-
 
 	private static final long serialVersionUID = -763212033771895092L;
 
