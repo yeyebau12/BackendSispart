@@ -25,6 +25,7 @@ import com.proyecto.apartahotel.sispart.dto.FacturaDTO;
 import com.proyecto.apartahotel.sispart.dto.HabitacionDTO;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
+import com.proyecto.apartahotel.sispart.entity.ItemFactura;
 import com.proyecto.apartahotel.sispart.entity.Producto;
 import com.proyecto.apartahotel.sispart.service.interfa.IFacturaService;
 import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
@@ -37,7 +38,10 @@ public class FacturaController {
 	@Autowired
 	private IFacturaService facturaService;
 
-	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
+	@Autowired
+	private IProductoService productoService;
+
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/verFactura/{codFactura}")
 	public ResponseEntity<?> verFactura(@PathVariable("codFactura") Long codFactura) {
 
@@ -63,7 +67,7 @@ public class FacturaController {
 
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@PostMapping("/crearFactura")
 	public ResponseEntity<?> createdFactura(@RequestBody FacturaDTO facturaDTO) {
 
@@ -76,6 +80,19 @@ public class FacturaController {
 
 			facturaService.saveFactura(factura);
 
+			int tamañoLista = facturaDTO.getItemFactura().size();
+			
+			if (tamañoLista > 0) {
+				ItemFactura ultimoItem = facturaDTO.getItemFactura().get(tamañoLista - 1);
+				Long codigoProductoUltimoItem = ultimoItem.getProducto().getCodProducto();
+				Producto producto = productoService.findByCodProducto(codigoProductoUltimoItem);
+				Integer totalM = producto.getCantidad() - facturaDTO.getItemFactura().get(tamañoLista -1).getCantidad();
+				producto.setCantidad(totalM);
+				productoService.save(producto);
+			}
+
+			
+			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro de la factura en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -88,7 +105,7 @@ public class FacturaController {
 
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@DeleteMapping("/eliminarFactura/{codFactura}")
 	public ResponseEntity<?> deleteFactura(@PathVariable("codFactura") Long codFactura) {
 		Map<String, Object> response = new HashMap<>();
