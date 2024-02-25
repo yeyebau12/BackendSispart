@@ -1,18 +1,15 @@
 package com.proyecto.apartahotel.sispart.controller;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import javax.validation.Valid;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.FacturaDTO;
-import com.proyecto.apartahotel.sispart.dto.HabitacionDTO;
+
 import com.proyecto.apartahotel.sispart.entity.Factura;
-import com.proyecto.apartahotel.sispart.entity.Habitacion;
+
 import com.proyecto.apartahotel.sispart.entity.ItemFactura;
 import com.proyecto.apartahotel.sispart.entity.Producto;
 import com.proyecto.apartahotel.sispart.service.interfa.IFacturaService;
-import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
+
 import com.proyecto.apartahotel.sispart.service.interfa.IProductoService;
 
 @RestController
@@ -81,18 +78,17 @@ public class FacturaController {
 			facturaService.saveFactura(factura);
 
 			int tamañoLista = facturaDTO.getItemFactura().size();
-			
+
 			if (tamañoLista > 0) {
 				ItemFactura ultimoItem = facturaDTO.getItemFactura().get(tamañoLista - 1);
 				Long codigoProductoUltimoItem = ultimoItem.getProducto().getCodProducto();
 				Producto producto = productoService.findByCodProducto(codigoProductoUltimoItem);
-				Integer totalM = producto.getCantidad() - facturaDTO.getItemFactura().get(tamañoLista -1).getCantidad();
+				Integer totalM = producto.getCantidad()
+						- facturaDTO.getItemFactura().get(tamañoLista - 1).getCantidad();
 				producto.setCantidad(totalM);
 				productoService.save(producto);
 			}
 
-			
-			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro de la factura en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

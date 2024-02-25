@@ -67,6 +67,7 @@ com\proyecto\apartahotel\sispart\controller\ComentariosController.class
 com\proyecto\apartahotel\sispart\service\impl\EmpleadoServiceImpl.class
 com\proyecto\apartahotel\sispart\entity\RecibosPublicos.class
 com\proyecto\apartahotel\sispart\service\impl\UsuarioEmpleadoServiceImpl.class
+com\proyecto\apartahotel\sispart\repository\ITipoHabitacionRepository.class
 com\proyecto\apartahotel\sispart\repository\IReservacionRepository.class
 com\proyecto\apartahotel\sispart\entity\Region.class
 com\proyecto\apartahotel\sispart\repository\IComentarioRepository.class
@@ -81,6 +82,7 @@ com\proyecto\apartahotel\sispart\controller\EstadoHabitacionController.class
 com\proyecto\apartahotel\sispart\dto\HabitacionDTO.class
 com\proyecto\apartahotel\sispart\entity\TipDocumento.class
 com\proyecto\apartahotel\sispart\entity\Role.class
+com\proyecto\apartahotel\sispart\controller\TipoHabitacionController.class
 com\proyecto\apartahotel\sispart\dto\ReservacionDTO.class
 com\proyecto\apartahotel\sispart\service\interfa\IHuespedService.class
 com\proyecto\apartahotel\sispart\ProyectoSispartUnbosqueApplication.class
@@ -101,12 +103,14 @@ com\proyecto\apartahotel\sispart\repository\ITipDocumentoRepository.class
 com\proyecto\apartahotel\sispart\repository\ISexoRepository.class
 com\proyecto\apartahotel\sispart\controller\ActividadController.class
 com\proyecto\apartahotel\sispart\service\impl\SexoServiceImpl.class
+com\proyecto\apartahotel\sispart\service\impl\TipoHabitacionServiceImpl.class
 com\proyecto\apartahotel\sispart\controller\HabitacionController.class
 com\proyecto\apartahotel\sispart\dto\EmpleadoDTO.class
 com\proyecto\apartahotel\sispart\dto\UsuarioEmpleadoDTO.class
 com\proyecto\apartahotel\sispart\controller\MetodoPagoController.class
 com\proyecto\apartahotel\sispart\repository\INacionalidadRepository.class
 com\proyecto\apartahotel\sispart\service\interfa\IActividadService.class
+com\proyecto\apartahotel\sispart\service\interfa\ITipoHabitacionService.class
 com\proyecto\apartahotel\sispart\controller\HuespedController.class
 com\proyecto\apartahotel\sispart\controller\NacionalidadController.class
 com\proyecto\apartahotel\sispart\service\impl\EmailServiceImpl.class
