@@ -1,4 +1,4 @@
-package com.proyecto.apartahotel.sispart.controller;
+ package com.proyecto.apartahotel.sispart.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -238,6 +238,7 @@ public class HuespedController {
 			huesped.setCorreo(huespedDTO.getCorreo());
 			huesped.setTipoDocumento(huespedDTO.getTipoDocumento());
 			huesped.setNumDocumento(huespedDTO.getNumDocumento());
+			huesped.setFechaNacimiento(huespedDTO.getFechaNacimiento());
 			huesped.setNacionalidad(huespedDTO.getNacionalidad());
 			huesped.setLugarOrigen(huespedDTO.getLugarOrigen());
 			huesped.setNomContactoEmergencia(huespedDTO.getNomContactoEmergencia());
