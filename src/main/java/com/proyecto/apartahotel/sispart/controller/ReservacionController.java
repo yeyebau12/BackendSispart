@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.security.PermitAll;
 import javax.mail.Message;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -136,7 +139,7 @@ public class ReservacionController {
 		long diffMilliseconds = reservacionDTO.getFechaSalida().getTime() - reservacionDTO.getFechaEntrada().getTime();
 		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
 
-		if (reservacionDTO.getHabitacion().getEstadoHabitacion().getCodEstadoHabitacion() ==2) {
+		if (reservacionDTO.getHabitacion().getEstadoHabitacion().getCodEstadoHabitacion() == 2) {
 
 			response.put("mensaje", "La habitacion que desea asignar esta ocupada por otro huesped!");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
@@ -173,7 +176,7 @@ public class ReservacionController {
 
 			Habitacion habitacion = habitacionService
 					.findByCodHabitacion(reservacionDTO.getHabitacion().getCodHabitacion());
-			//habitacion.setEstadoHabitacion(null);
+			// habitacion.setEstadoHabitacion(null);
 
 			reservacionService.save(reservacion);
 			habitacionService.save(habitacion);
@@ -219,66 +222,99 @@ public class ReservacionController {
 
 	}
 
-	/*
-	 * @PutMapping("/actualizarReservacion/{codReservacion}") public
-	 * ResponseEntity<?> updateReservacion(@RequestBody ReservacionDTO
-	 * reservacionDTO,
-	 * 
-	 * @PathVariable("codReservacion") Long codReservacion) {
-	 * 
-	 * Map<String, Object> response = new HashMap<>();
-	 * 
-	 * if (!reservacionService.existsById(codReservacion)) {
-	 * 
-	 * response.put("mensaje", " ERROR: la reservacion no existe con el codigo : " +
-	 * codReservacion);
-	 * 
-	 * return new ResponseEntity<Map<String, Object>>(response,
-	 * HttpStatus.NOT_FOUND); }
-	 * 
-	 * if
-	 * (reservacionService.existsByHuespedAndFechaEntrada(reservacionDTO.getHuesped(
-	 * ), reservacionDTO.getFechaEntrada()) && reservacionService
-	 * .findByHuespedAndFechaEntrada(reservacionDTO.getHuesped(),
-	 * reservacionDTO.getFechaEntrada()) .getCodReservacion() != codReservacion) {
-	 * 
-	 * response.put("mensaje",
-	 * "ERROR: No es posible actualizar la reservacion porqué  ya tiene una reservacion igual registrada"
-	 * );
-	 * 
-	 * return new ResponseEntity<Map<String, Object>>(response,
-	 * HttpStatus.BAD_REQUEST); }
-	 * 
-	 * try {
-	 * 
-	 * Reservacion reservacion = reservacionService.findById(codReservacion);
-	 * reservacion.setFechaEntrada(reservacionDTO.getFechaEntrada());
-	 * reservacion.setFechaSalida(reservacionDTO.getFechaSalida());
-	 * reservacion.setNumAcompañantes(reservacionDTO.getNumAcompañantes());
-	 * reservacion.setHabitacion(reservacionDTO.getHabitacion());
-	 * reservacionService.save(reservacion);
-	 * 
-	 * } catch (DataAccessException e) { response.put("mensaje",
-	 * "Error al actualizar el registro del huesped en la base de datos");
-	 * response.put("error",
-	 * e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-	 * return new ResponseEntity<Map<String, Object>>(response,
-	 * HttpStatus.INTERNAL_SERVER_ERROR); }
-	 * 
-	 * response.put("mensaje",
-	 * "El registro del huesped ha sido actualizado exitosamente!");
-	 * 
-	 * return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-	 * 
-	 * }
-	 */
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
+	@PutMapping("/actualizarReservacion/{codReservacion}")
+	public ResponseEntity<?> updateReservacion(@Valid @RequestBody ReservacionDTO reservacionDTO,
+			@PathVariable("codReservacion") Long codReservacion, BindingResult result) {
+		Map<String, Object> response = new HashMap<>();
+		String body = "";
+		long millisecondsPerDay = 24 * 60 * 60 * 1000; // Milisegundos por día
+		long diffMilliseconds = reservacionDTO.getFechaSalida().getTime() - reservacionDTO.getFechaEntrada().getTime();
+		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
+
+		if (!reservacionService.existsById(codReservacion)) {
+			response.put(null,
+					response.put("mensaje", "ERROR: La reservacion no existe con el código: " + codReservacion));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (result.hasErrors()) {
+
+			List<String> errors = result.getFieldErrors().stream()
+					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
+					.collect(Collectors.toList());
+
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+		}
+
+		try {
+			Reservacion reservacion = reservacionService.findById(codReservacion);
+
+			reservacion.setFechaEntrada(reservacionDTO.getFechaEntrada());
+			reservacion.setFechaSalida(reservacionDTO.getFechaSalida());
+			reservacion.setTotalDias(totalDias);
+			reservacion.setAdultos(reservacionDTO.getAdultos());
+			reservacion.setNinos(reservacionDTO.getNinos());
+			reservacion.setTipoDocumento(reservacionDTO.getTipoDocumento());
+			reservacion.setNumDocumento(reservacionDTO.getNumDocumento());
+			reservacion.setNombre(reservacionDTO.getNombre());
+			reservacion.setApellido(reservacionDTO.getApellido());
+			reservacion.setEmail(reservacionDTO.getEmail());
+			reservacion.setHabitacion(reservacionDTO.getHabitacion());
+
+			reservacionService.save(reservacion);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el registro del huesped en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		try {
+
+			Double precioFinal = reservacionDTO.getTotalPersona() * totalDias;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			String fechaSalida = dateFormat.format(reservacionDTO.getFechaSalida());
+			String fechaEntrada = dateFormat.format(reservacionDTO.getFechaEntrada());
+
+			body = " Señor@ " + reservacionDTO.getNombre() + " " + reservacionDTO.getApellido()
+					+ " , su reservacion ha sido actualizada. Los nuevos datos de su reservación son : \r\n"
+					+ " Fecha de Ingreso: " + fechaEntrada + "\r\n Fecha de salida: " + fechaSalida + "\r\n Adultos: "
+					+ reservacionDTO.getAdultos() + "\r\n Niños: " + reservacionDTO.getNinos() + "\r\n Habitacion: "
+					+ reservacionDTO.getHabitacion().getNumHabitacion() + "-"
+					+ reservacionDTO.getHabitacion().getNombreHabitacion().getNombre() + "\r\nTotal de la Reserva: $"
+					+ precioFinal + "COP\r\n"
+					+ "\r\n Nota: Si usted no ha solicitado ningún cambio en su reservación, porfavor ponganse en contacto con nosotros a través del siguiente correo santandereanoapartahotel@gmail.com o al número de celular +57 3107763328";
+
+			emailService.sendEmailReserva(reservacionDTO.getEmail(), body);
+		} catch (Exception e) {
+			response.put("mensaje", "Ha sucedido un error con el envio del correo para el huesped.");
+			response.put("error", e.getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		List<String> menssage = new ArrayList<>();
+
+		menssage.add("La reservacion ha sido actualizada con exito!");
+		menssage.add("Se han enviado los datos actualizados de la reserva al correo electronico del cliente!");
+
+		for (int i = 0; i < menssage.size(); i++) {
+
+			response.put("mensaje", menssage);
+		}
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+
 	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@DeleteMapping("/eliminarReservacion/{codReservacion}")
 	public ResponseEntity<?> deleteReservacion(@PathVariable("codReservacion") Long codReservacion) {
 		Map<String, Object> response = new HashMap<>();
-		Reservacion reservacion = reservacionService.findById(codReservacion);
-		Habitacion habitacion = habitacionService.findByNumHabitacion(reservacion.getHabitacion().getNumHabitacion());
-
+		// Reservacion reservacion = reservacionService.findById(codReservacion);
+		// Habitacion habitacion =
+		// habitacionService.findByNumHabitacion(reservacion.getHabitacion().getNumHabitacion());
 		try {
 
 			// habitacion.setEstadoHabitacion("Disponible");

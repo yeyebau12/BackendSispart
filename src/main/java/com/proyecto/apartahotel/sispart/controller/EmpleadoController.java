@@ -246,7 +246,7 @@ public class EmpleadoController {
 			empleado.setSexo(empleadoDTO.getSexo());
 			empleado.setTipoSangre(empleadoDTO.getTipoSangre());
 			empleado.setFechaIngreso(empleadoDTO.getFechaIngreso());
-			empleadoDTO.setFechaSalida(empleadoDTO.getFechaSalida());
+			empleado.setFechaSalida(empleadoDTO.getFechaSalida());
 
 			empleadoService.save(empleado);
 
