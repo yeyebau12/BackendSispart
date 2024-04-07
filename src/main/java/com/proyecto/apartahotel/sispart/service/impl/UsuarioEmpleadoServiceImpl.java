@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -65,6 +67,37 @@ public class UsuarioEmpleadoServiceImpl implements UserDetailsService, IUsuarioE
 
 		usuarioEmpleadoRepository.save(userEmpleado);
 
+	}
+
+	@Override
+	public Page<UsuarioEmpleado> findAll(Pageable pageable) {
+		return usuarioEmpleadoRepository.findAll(pageable);
+		
+	}
+
+	@Override
+	public UsuarioEmpleado getOne(Long codUsuarioEmpleado) {
+		
+		return usuarioEmpleadoRepository.findById(codUsuarioEmpleado).orElse(null);
+	}
+
+	@Override
+	public void delete(Long codUsuarioEmpleado) {
+		
+		usuarioEmpleadoRepository.deleteById(codUsuarioEmpleado);
+		
+	}
+
+	@Override
+	public boolean existsById(Long codUsuarioEmpleado) {
+		
+		return usuarioEmpleadoRepository.existsById(codUsuarioEmpleado);
+	}
+
+	@Override
+	public boolean existsByUserName(String userName) {
+		
+		return usuarioEmpleadoRepository.existsByUserName(userName);
 	}
 
 }

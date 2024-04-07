@@ -37,7 +37,7 @@ public class UsuarioEmpleado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cod_user_empleado")
-	private Integer codUserEmpleado;
+	private Long codUserEmpleado;
 
 	@OneToOne
 	@JoinColumn(name = "cod_Empleado")
@@ -70,7 +70,7 @@ public class UsuarioEmpleado implements Serializable {
 
 	}
 
-	public UsuarioEmpleado(Integer codUserEmpleado, Empleado empleado, String userName, String contrasena,
+	public UsuarioEmpleado(Long codUserEmpleado, Empleado empleado, String userName, String contrasena,
 			String confirContrasena, List<Role> rol) {
 
 		this.codUserEmpleado = codUserEmpleado;
@@ -96,11 +96,11 @@ public class UsuarioEmpleado implements Serializable {
 		createUser = new Date();
 	}
 
-	public Integer getCodUserEmpleado() {
+	public Long getCodUserEmpleado() {
 		return codUserEmpleado;
 	}
 
-	public void setCodUserEmpleado(Integer codUserEmpleado) {
+	public void setCodUserEmpleado(Long codUserEmpleado) {
 		this.codUserEmpleado = codUserEmpleado;
 	}
 

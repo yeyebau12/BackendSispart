@@ -1,5 +1,6 @@
 package com.proyecto.apartahotel.sispart.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class UsuarioEmpleadoController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Secured({"ROLE_ADMINISTRADOR"})
+	@Secured({ "ROLE_ADMINISTRADOR" })
 	@GetMapping("/listarLoginEmpleados")
 	public ResponseEntity<?> findAll() {
 
@@ -69,18 +70,19 @@ public class UsuarioEmpleadoController {
 		return new ResponseEntity<List<UsuarioEmpleado>>(findAll, HttpStatus.OK);
 	}
 
-	@Secured({"ROLE_ADMINISTRADOR"})
-	@PostMapping("/registroLoginEmpleado/{tipDocumento}/{numDocumento}")
-	public ResponseEntity<?> createLogin(@PathVariable("tipDocumento") TipDocumento tipDocumento,
-			@PathVariable("numDocumento") Long numDocumento, @Valid @RequestBody UsuarioEmpleadoDTO usuarioEmpleadoDto,
+	@Secured({ "ROLE_ADMINISTRADOR" })
+	@PostMapping("/registroLoginEmpleado")
+	public ResponseEntity<?> createLogin(@Valid @RequestBody UsuarioEmpleadoDTO usuarioEmpleadoDto,
 			BindingResult result) {
 
 		String body = "";
 		Map<String, Object> response = new HashMap<>();
-		
-		Empleado empleado = empleadoService.findByTipDocumentoAndNumDocumento(tipDocumento, numDocumento);
 
-		if (!empleadoService.exitsTipDocumentoAndNumDocumento(tipDocumento, numDocumento)) {
+		Empleado empleado = empleadoService.findByTipDocumentoAndNumDocumento(
+				usuarioEmpleadoDto.getEmpleado().getTipDocumento(), usuarioEmpleadoDto.getEmpleado().getNumDocumento());
+
+		if (!empleadoService.exitsTipDocumentoAndNumDocumento(usuarioEmpleadoDto.getEmpleado().getTipDocumento(),
+				usuarioEmpleadoDto.getEmpleado().getNumDocumento())) {
 
 			response.put("mensaje", "El empleado no se encuentra registrado en la base de datos de empleados");
 
@@ -103,8 +105,6 @@ public class UsuarioEmpleadoController {
 		}
 
 		try {
-
-
 
 			String contraseña = passwordEncoder.encode(usuarioEmpleadoDto.getContrasena());
 			String confirContraseña = passwordEncoder.encode(usuarioEmpleadoDto.getConfirContrasena());
@@ -138,7 +138,73 @@ public class UsuarioEmpleadoController {
 		response.put("mensaje",
 				"El e-mail ha sido enviado " + "a " + empleado.getCorreo() + " con las credenciales de acceso!");
 
+		List<String> menssage = new ArrayList<>();
+
+		menssage.add("Los accesos han sido creados con exito!");
+		menssage.add("El e-mail ha sido enviado " + "a " + empleado.getCorreo() + " con las credenciales de acceso!");
+
+		for (int i = 0; i < menssage.size(); i++) {
+
+			response.put("mensaje", menssage);
+		}
+
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR" })
+	@PutMapping("/updateLoginEmpleado/{codUsuarioEmpleado}")
+	public ResponseEntity<?> updatelogin(@RequestBody UsuarioEmpleadoDTO usuarioEmpleadoDTO,
+			@PathVariable("codUsuarioEmpleado") Long codUsuarioEmpleado) {
+
+		Map<String, Object> response = new HashMap<>();
+
+		if (!usuarioEmpleadoService.existsById(codUsuarioEmpleado)) {
+
+			response.put("error", "El usuario del empleado no existe con el codigo : " + codUsuarioEmpleado);
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (usuarioEmpleadoService.existsByUserName(usuarioEmpleadoDTO.getUserName()) && usuarioEmpleadoService
+				.findByUsername(usuarioEmpleadoDTO.getUserName()).getCodUserEmpleado() != codUsuarioEmpleado) {
+
+			response.put("error",
+					"No es posible actualizar el usuario del empleado : " + usuarioEmpleadoDTO.getEmpleado().getNombre()
+							+ " " + usuarioEmpleadoDTO.getEmpleado().getApellido() + " con el user name: "
+							+ usuarioEmpleadoDTO.getUserName()
+							+ ",  porque ya se encuentra registrado en la base de datos");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		if (!usuarioEmpleadoDTO.getContrasena().equals(usuarioEmpleadoDTO.getConfirContrasena())) {
+			response.put("errors", "Las contraseñas no coinciden");
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		try {
+
+			String contrasena = passwordEncoder.encode(usuarioEmpleadoDTO.getContrasena());
+			String confirContrasena = passwordEncoder.encode(usuarioEmpleadoDTO.getConfirContrasena());
+
+			UsuarioEmpleado usuarioEmpleado = usuarioEmpleadoService.getOne(codUsuarioEmpleado);
+			usuarioEmpleado.setUserName(usuarioEmpleadoDTO.getUserName());
+			usuarioEmpleado.setConfirContrasena(confirContrasena);
+			usuarioEmpleado.setContrasena(contrasena);
+			usuarioEmpleado.setEnabled(usuarioEmpleadoDTO.getEnabled());
+			usuarioEmpleado.setRol(usuarioEmpleadoDTO.getRol());
+
+			usuarioEmpleadoService.save(usuarioEmpleado);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el registro del huesped en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("mensaje", "El registro del huesped ha sido actualizado exitosamente!");
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
 }

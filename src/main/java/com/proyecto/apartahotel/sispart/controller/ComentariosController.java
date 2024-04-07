@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.apartahotel.sispart.dto.ComentariosDTO;
 import com.proyecto.apartahotel.sispart.dto.EmpleadoDTO;
 import com.proyecto.apartahotel.sispart.entity.Comentarios;
+import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.service.interfa.IComentarioService;
 
 @RestController
@@ -54,6 +55,23 @@ public class ComentariosController {
 		}
 
 		return new ResponseEntity<List<Comentarios>>(findAll, HttpStatus.OK);
+	}
+
+	@GetMapping("/verComentario/{codComentario}")
+	public ResponseEntity<?> detailComentario(@PathVariable("codComentario") Long codComentario) {
+		Comentarios comentario = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			comentario = comentarioService.getOne(codComentario);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Comentarios>(comentario, HttpStatus.OK);
 	}
 
 	@PostMapping("/crearComentario")
@@ -89,8 +107,8 @@ public class ComentariosController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
-	
+
+	@Secured({ "ROLE_ADMINISTRADOR" })
 	@DeleteMapping("/eliminarComentario/{codComentario}")
 	public ResponseEntity<?> deleteEmpleado(@PathVariable("codComentario") Long codComentario) {
 		Map<String, Object> response = new HashMap<>();

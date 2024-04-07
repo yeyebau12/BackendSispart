@@ -22,6 +22,13 @@ public class ComentarioServiceImpl implements IComentarioService {
 
 		return comentarioRepository.findAll();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Comentarios getOne(Long codComentario) {
+		
+		return comentarioRepository.findById(codComentario).orElse(null);
+	}
 
 	@Override
 	@Transactional
@@ -37,5 +44,7 @@ public class ComentarioServiceImpl implements IComentarioService {
 		comentarioRepository.deleteById(codComentario);
 
 	}
+
+
 
 }

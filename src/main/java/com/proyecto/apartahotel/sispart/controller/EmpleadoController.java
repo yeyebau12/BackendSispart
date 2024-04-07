@@ -188,7 +188,7 @@ public class EmpleadoController {
 
 		if (!empleadoService.existsById(codEmpelado)) {
 
-			response.put("mensaje", " ERROR: El empleado no existe con el codigo de empleado numero: " + codEmpelado);
+			response.put("error", "El empleado no existe con el codigo de empleado numero: " + codEmpelado);
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
@@ -199,8 +199,8 @@ public class EmpleadoController {
 						.findByTipDocumentoAndNumDocumento(empleadoDTO.getTipDocumento(), empleadoDTO.getNumDocumento())
 						.getCodEmpleado() != codEmpelado) {
 
-			response.put("mensaje",
-					"ERROR: No es posible actualizar  el empleado con el documento: "
+			response.put("error",
+					"No es posible actualizar  el empleado con el documento: "
 							+ empleadoDTO.getTipDocumento().getNomTipoDocumento() + ": " + empleadoDTO.getNumDocumento()
 							+ " ,ya se encuentra registrado en la base de datos!");
 

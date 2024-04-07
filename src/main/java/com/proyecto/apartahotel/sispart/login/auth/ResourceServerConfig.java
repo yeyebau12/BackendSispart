@@ -22,7 +22,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/comentarios/**").permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.POST,"/comentarios/crearComentario").permitAll()
 				.antMatchers(HttpMethod.GET, "/habitacion/listarHabitaciones/estado/{estadoHabitacion}").permitAll()
 				.antMatchers(HttpMethod.GET, "/habitacion/verHabitacion/{codHabitacion}").permitAll()
 				.antMatchers(HttpMethod.GET,"/tipoDocumento/listarTipoDocumentos").permitAll()
