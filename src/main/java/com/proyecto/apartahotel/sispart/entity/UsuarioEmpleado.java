@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
-
 
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,7 +39,7 @@ public class UsuarioEmpleado implements Serializable {
 	private Long codUserEmpleado;
 
 	@OneToOne
-	@JoinColumn(name = "cod_Empleado")
+	@JoinColumn(name = "cod_Empleado", unique = true)
 	@JsonIgnoreProperties(value = { "userEmpleado", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Empleado empleado;
 
@@ -68,7 +66,7 @@ public class UsuarioEmpleado implements Serializable {
 	private List<Role> rol;
 
 	public UsuarioEmpleado() {
-		
+
 		this.rol = new ArrayList<>();
 
 	}

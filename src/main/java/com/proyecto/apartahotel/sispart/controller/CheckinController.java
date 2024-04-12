@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.CheckInDTO;
 import com.proyecto.apartahotel.sispart.entity.CheckIn;
+import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
@@ -183,8 +184,12 @@ public class CheckinController {
 
 			Habitacion habitacion = habitacionService
 					.findByCodHabitacion(checkinDTO.getCodHabitacion().getCodHabitacion());
-			
-			//habitacion.setEstadoHabitacion(null);
+
+			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
+			estadoHabitacion.setCodEstadoHabitacion((long) 3);
+			estadoHabitacion.setNombre("OCUPADA");
+
+			habitacion.setEstadoHabitacion(estadoHabitacion);
 
 			checkinService.save(checkin);
 			habitacionService.save(habitacion);
