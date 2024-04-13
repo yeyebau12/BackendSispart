@@ -69,9 +69,54 @@ public class FacturaController {
 
 	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@PostMapping("/crearFactura")
-	public ResponseEntity<?> createdFactura(@RequestBody FacturaDTO facturaDTO) {
+	public ResponseEntity<?> createdFactura(@Valid @RequestBody FacturaDTO facturaDTO, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
+
+		List<ItemFactura> items = facturaDTO.getItemFactura();
+
+		if (result.hasErrors()) {
+
+			List<String> errors = result.getFieldErrors().stream()
+					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
+					.collect(Collectors.toList());
+
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+		}
+
+		if (items != null && !items.isEmpty()) {
+			for (ItemFactura item : items) {
+
+				Long codigoProducto = item.getProducto().getCodProducto();
+				Producto producto = productoService.findByCodProducto(codigoProducto);
+
+				if (producto != null) {
+					
+					 if (item.getCantidad() > producto.getCantidad()) {
+						 
+				            response.put("error", "La cantidad de productos: "+item.getProducto().getNombreProducto()+" de la marca: "+item.getProducto().getMarca()+" es insuficiente en el inventario.");
+				            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+				        }
+
+					Integer totalM = producto.getCantidad() - item.getCantidad();
+					producto.setCantidad(totalM);
+					productoService.save(producto);
+				} else {
+
+					response.put("mensaje", "Producto no encontrado con el código: " + codigoProducto);
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+
+				}
+
+			}
+		} else {
+
+			response.put("mensaje", "La lista de items de la factura está vacía ");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+
+		}
 
 		try {
 
@@ -80,35 +125,8 @@ public class FacturaController {
 
 			facturaService.saveFactura(factura);
 
-			List<ItemFactura> items = facturaDTO.getItemFactura();
-
-			if (items != null && !items.isEmpty()) {
-				for (ItemFactura item : items) {
-
-					Long codigoProducto = item.getProducto().getCodProducto();
-					Producto producto = productoService.findByCodProducto(codigoProducto);
-
-					if (producto != null) {
-
-						Integer totalM = producto.getCantidad() - item.getCantidad();
-						producto.setCantidad(totalM);
-						productoService.save(producto);
-					} else {
-
-						response.put("mensaje", "Producto no encontrado con el código: " + codigoProducto);
-						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-
-					}
-				}
-			} else {
-				
-				response.put("mensaje", "La lista de items de la factura está vacía ");
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-
-			}
-
 		} catch (DataAccessException e) {
-			
+
 			response.put("mensaje", "Error al insertar el registro de la factura en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
