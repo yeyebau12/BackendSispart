@@ -19,8 +19,8 @@ public class ActividadDTO {
 	private String descripcion;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@JsonFormat(pattern = "dd-MM-yyyy", timezone = "GMT-5")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-5")
 	private Date fechaEntrega;
 
 	@Temporal(TemporalType.TIME)
