@@ -37,9 +37,9 @@ public class ActividadServiceImpl implements IActividadService {
 	}
 
 	@Override
-	public Actividad findByEmpleado(Empleado empleado) {
+	public List<Actividad> findByEmpleado(Empleado codEmpleado) {
 
-		return actividadRepository.findByEmpleado(empleado).orElse(null);
+		return actividadRepository.findByEmpleado(codEmpleado);
 	}
 
 	@Override

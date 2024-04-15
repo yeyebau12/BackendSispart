@@ -61,7 +61,7 @@ public class RecibosPublicosController {
 		return new ResponseEntity<List<RecibosPublicos>>(findAll, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@GetMapping("/listarRecibosPublicos/page/{page}")
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
@@ -87,7 +87,7 @@ public class RecibosPublicosController {
 		return new ResponseEntity<Page<RecibosPublicos>>(findAll, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@GetMapping("/verRecibosPublicos/{codRecibo}")
 	public ResponseEntity<?> detailHuesped(@PathVariable("codRecibo") Long codRecibo) {
 
@@ -113,7 +113,7 @@ public class RecibosPublicosController {
 
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@PostMapping("/crearReciboPublico")
 	public ResponseEntity<?> createdReciboPublico(@Valid @RequestBody RecibosPublicosDTO recibosPublicosDTO,
 			BindingResult result) {
@@ -152,7 +152,7 @@ public class RecibosPublicosController {
 
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@DeleteMapping("/eliminarRegistro/{codRegistro}")
 	public ResponseEntity<?> deleteHuesped(@PathVariable("codRegistro") Long codRegistro) {
 		Map<String, Object> response = new HashMap<>();

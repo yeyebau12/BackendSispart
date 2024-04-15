@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.ActividadDTO;
 import com.proyecto.apartahotel.sispart.entity.Actividad;
-
+import com.proyecto.apartahotel.sispart.entity.Empleado;
 import com.proyecto.apartahotel.sispart.service.interfa.IActividadService;
 import com.proyecto.apartahotel.sispart.service.interfa.IEmpleadoService;
 
@@ -39,6 +40,7 @@ public class ActividadController {
 	@Autowired
 	private IEmpleadoService empleadoService;
 
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@GetMapping("/listarActividades")
 	public ResponseEntity<?> findAll() {
 		List<Actividad> findAll = null;
@@ -62,6 +64,32 @@ public class ActividadController {
 		return new ResponseEntity<List<Actividad>>(findAll, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_ASEADOR", "ROLE_RECEPCIONISTA"})
+	@GetMapping("/listarActividades/empleado/{codEmpleado}")
+	public ResponseEntity<?> findAllByEmpleado(@PathVariable("codEmpleado") Empleado codEmpleado ) {
+		List<Actividad> findAll = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+
+			findAll = actividadService.findByEmpleado(codEmpleado);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al listar los registros de la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		if (findAll.isEmpty()) {
+			response.put("mensaje", "No existen registros en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<List<Actividad>>(findAll, HttpStatus.OK);
+	}
+
+	
+	@Secured({ "ROLE_ASEADOR", "ROLE_RECEPCIONISTA","ROLE_ADMINISTRADOR" })
 	@GetMapping("/verActividad/{codActividad}")
 	public ResponseEntity<?> detailActividad(@PathVariable("codActividad") Long codActividad) {
 
@@ -87,6 +115,7 @@ public class ActividadController {
 
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@PostMapping("/crearActividad")
 	public ResponseEntity<?> createActividad(@Valid @RequestBody ActividadDTO actividadDTO, BindingResult result) {
 
@@ -129,6 +158,7 @@ public class ActividadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({ "ROLE_ADMINISTRADOR"})
 	@DeleteMapping("/eliminarActividad/{codActividad}")
 	public ResponseEntity<?> deleteActividad(@PathVariable("codActividad") Long codActividad) {
 		Map<String, Object> response = new HashMap<>();

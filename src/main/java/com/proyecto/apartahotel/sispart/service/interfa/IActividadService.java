@@ -13,7 +13,7 @@ public interface IActividadService {
 
 	public void delete(Long codActividad);
 
-	public Actividad findByEmpleado(Empleado empleado);
+	public List<Actividad> findByEmpleado(Empleado codEmpleado);
 
 	public Actividad findByCodActividad(Long codActividad);
 
