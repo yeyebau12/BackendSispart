@@ -1,5 +1,6 @@
 package com.proyecto.apartahotel.sispart.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,12 +94,17 @@ public class FacturaController {
 				Producto producto = productoService.findByCodProducto(codigoProducto);
 
 				if (producto != null) {
-					
-					 if (item.getCantidad() > producto.getCantidad()) {
-						 
-				            response.put("error", "La cantidad de productos: "+item.getProducto().getNombreProducto()+" de la marca: "+item.getProducto().getMarca()+" es insuficiente en el inventario.");
-				            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-				        }
+
+					if (item.getCantidad() > producto.getCantidad()) {
+
+						List<String> message = new ArrayList<>();
+						message.add(
+								"La cantidad de productos: " + item.getProducto().getNombreProducto() + " de la marca: "
+										+ item.getProducto().getMarca() + " es insuficiente en el inventario.");
+						
+						response.put("error", message);
+						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+					}
 
 					Integer totalM = producto.getCantidad() - item.getCantidad();
 					producto.setCantidad(totalM);

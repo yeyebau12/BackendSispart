@@ -60,4 +60,10 @@ public class ActividadServiceImpl implements IActividadService {
 		return actividadRepository.existsById(codActividad);
 	}
 
+	@Override
+	public Actividad getOne(Long codActividad) {
+		
+		return actividadRepository.findById(codActividad).orElse(null);
+	}
+
 }

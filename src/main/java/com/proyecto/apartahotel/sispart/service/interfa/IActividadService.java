@@ -14,6 +14,8 @@ public interface IActividadService {
 	public void delete(Long codActividad);
 
 	public List<Actividad> findByEmpleado(Empleado codEmpleado);
+	
+	public Actividad getOne(Long codActividad);
 
 	public Actividad findByCodActividad(Long codActividad);
 
