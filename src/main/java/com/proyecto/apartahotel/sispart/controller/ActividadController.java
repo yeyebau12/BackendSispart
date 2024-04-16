@@ -157,7 +157,7 @@ public class ActividadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA", "ROLE_ASEADOR" })
 	@PutMapping("/actualizarHuesped/{codActividad}")
 	public ResponseEntity<?> updateActividad(@Valid @RequestBody ActividadDTO actividadDTO,
 			@PathVariable("codActividad") Long codActividad, BindingResult result) {
