@@ -90,6 +90,7 @@ public class FacturaController {
 		if (items != null && !items.isEmpty()) {
 			for (ItemFactura item : items) {
 
+				List<String> message = new ArrayList<>();
 				Long codigoProducto = item.getProducto().getCodProducto();
 				Producto producto = productoService.findByCodProducto(codigoProducto);
 
@@ -97,18 +98,18 @@ public class FacturaController {
 
 					if (item.getCantidad() > producto.getCantidad()) {
 
-						List<String> message = new ArrayList<>();
-						message.add(
+						response.put("error",
 								"La cantidad de productos: " + item.getProducto().getNombreProducto() + " de la marca: "
 										+ item.getProducto().getMarca() + " es insuficiente en el inventario.");
-						
-						response.put("error", message);
+
+						System.out.print(response);
 						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 					}
 
 					Integer totalM = producto.getCantidad() - item.getCantidad();
 					producto.setCantidad(totalM);
 					productoService.save(producto);
+
 				} else {
 
 					response.put("mensaje", "Producto no encontrado con el código: " + codigoProducto);
@@ -120,7 +121,7 @@ public class FacturaController {
 		} else {
 
 			response.put("mensaje", "La lista de items de la factura está vacía ");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 
 		}
 
@@ -138,7 +139,9 @@ public class FacturaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+		
 		response.put("mensaje", "la factura ha sido creada con exito!");
+		System.out.print(response);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 	}

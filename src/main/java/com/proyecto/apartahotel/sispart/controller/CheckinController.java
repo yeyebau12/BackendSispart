@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import com.proyecto.apartahotel.sispart.entity.CheckIn;
 import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
+import com.proyecto.apartahotel.sispart.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.service.interfa.ICheckinService;
 import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
@@ -186,7 +188,7 @@ public class CheckinController {
 					.findByCodHabitacion(checkinDTO.getCodHabitacion().getCodHabitacion());
 
 			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
-			estadoHabitacion.setCodEstadoHabitacion((long) 3);
+			estadoHabitacion.setCodEstadoHabitacion((long) 2);
 			estadoHabitacion.setNombre("Ocupada");
 
 			habitacion.setEstadoHabitacion(estadoHabitacion);
@@ -203,6 +205,39 @@ public class CheckinController {
 		response.put("mensaje", "El checkin ha sido creado con exito!");
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+
+	}
+
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
+	@DeleteMapping("/eliminarCheckin/{codCheckin}")
+	public ResponseEntity<?> deleteReservacion(@PathVariable("codCheckin") Long codCheckin) {
+		Map<String, Object> response = new HashMap<>();
+		CheckIn checkin = checkinService.getOne(codCheckin);
+
+		try {
+
+			Habitacion habitacion = habitacionService
+					.findByCodHabitacion(checkin.getCodHabitacion().getCodHabitacion());
+
+			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
+			estadoHabitacion.setCodEstadoHabitacion((long) 1);
+			estadoHabitacion.setNombre("Disponible");
+
+			habitacion.setEstadoHabitacion(estadoHabitacion);
+
+			checkinService.delete(codCheckin);
+			habitacionService.save(habitacion);
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al eliminar la reservacion en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("mensaje", "El checkin del huesped: " + checkin.getCodHuesped().getNombre() + " "
+				+ checkin.getCodHuesped().getApellido() + " ha sido eliminada con exito!");
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 
 	}
 

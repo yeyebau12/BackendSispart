@@ -72,7 +72,7 @@ public class ReservacionController {
 
 		if (findAll.isEmpty()) {
 			response.put("mensaje", "No existen registros en la base de datos");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<Reservacion>>(findAll, HttpStatus.OK);
@@ -176,11 +176,11 @@ public class ReservacionController {
 
 			Habitacion habitacion = habitacionService
 					.findByCodHabitacion(reservacionDTO.getHabitacion().getCodHabitacion());
-			
+
 			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
 			estadoHabitacion.setCodEstadoHabitacion((long) 4);
 			estadoHabitacion.setNombre("Reservada");
-			
+
 			habitacion.setEstadoHabitacion(estadoHabitacion);
 
 			reservacionService.save(reservacion);
@@ -231,6 +231,7 @@ public class ReservacionController {
 	@PutMapping("/actualizarReservacion/{codReservacion}")
 	public ResponseEntity<?> updateReservacion(@Valid @RequestBody ReservacionDTO reservacionDTO,
 			@PathVariable("codReservacion") Long codReservacion, BindingResult result) {
+		
 		Map<String, Object> response = new HashMap<>();
 		String body = "";
 		long millisecondsPerDay = 24 * 60 * 60 * 1000; // Milisegundos por día
@@ -253,6 +254,8 @@ public class ReservacionController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 
 		}
+		
+		
 
 		try {
 			Reservacion reservacion = reservacionService.findById(codReservacion);
@@ -267,7 +270,6 @@ public class ReservacionController {
 			reservacion.setNombre(reservacionDTO.getNombre());
 			reservacion.setApellido(reservacionDTO.getApellido());
 			reservacion.setEmail(reservacionDTO.getEmail());
-			reservacion.setHabitacion(reservacionDTO.getHabitacion());
 
 			reservacionService.save(reservacion);
 
@@ -317,13 +319,21 @@ public class ReservacionController {
 	@DeleteMapping("/eliminarReservacion/{codReservacion}")
 	public ResponseEntity<?> deleteReservacion(@PathVariable("codReservacion") Long codReservacion) {
 		Map<String, Object> response = new HashMap<>();
-		// Reservacion reservacion = reservacionService.findById(codReservacion);
-		// Habitacion habitacion =
-		// habitacionService.findByNumHabitacion(reservacion.getHabitacion().getNumHabitacion());
+		Reservacion reservacion = reservacionService.findById(codReservacion);
+
 		try {
 
-			// habitacion.setEstadoHabitacion("Disponible");
+			Habitacion habitacion = habitacionService
+					.findByCodHabitacion(reservacion.getHabitacion().getCodHabitacion());
+
+			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
+			estadoHabitacion.setCodEstadoHabitacion((long) 1);
+			estadoHabitacion.setNombre("Disponible");
+
+			habitacion.setEstadoHabitacion(estadoHabitacion);
+
 			reservacionService.delete(codReservacion);
+			habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar la reservacion en la base de datos");

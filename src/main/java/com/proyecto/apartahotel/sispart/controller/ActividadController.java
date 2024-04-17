@@ -23,10 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.ActividadDTO;
-import com.proyecto.apartahotel.sispart.dto.HuespedDTO;
+
 import com.proyecto.apartahotel.sispart.entity.Actividad;
 import com.proyecto.apartahotel.sispart.entity.Empleado;
-import com.proyecto.apartahotel.sispart.entity.Huesped;
 import com.proyecto.apartahotel.sispart.service.interfa.IActividadService;
 import com.proyecto.apartahotel.sispart.service.interfa.IEmpleadoService;
 

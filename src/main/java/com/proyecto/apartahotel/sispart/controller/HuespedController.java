@@ -58,7 +58,7 @@ public class HuespedController {
 
 		if (findAll.isEmpty()) {
 			response.put("mensaje", "No existen registros en la base de datos");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<Huesped>>(findAll, HttpStatus.OK);
@@ -84,7 +84,7 @@ public class HuespedController {
 
 		if (findAll.isEmpty()) {
 			response.put("mensaje", "No existen registros en la base de datos");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<Page<Huesped>>(findAll, HttpStatus.OK);

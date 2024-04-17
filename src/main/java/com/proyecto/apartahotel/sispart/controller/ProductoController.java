@@ -108,7 +108,7 @@ public class ProductoController {
 
 		if (findAllProducto.isEmpty()) {
 			response.put("mensaje", "No existen registros en la base de datos");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<Producto>>(findAllProducto, HttpStatus.OK);
