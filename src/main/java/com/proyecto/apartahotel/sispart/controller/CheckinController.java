@@ -132,8 +132,8 @@ public class CheckinController {
 	@PostMapping("/crearCheckin")
 	public ResponseEntity<?> createdCheckin(@Valid @RequestBody CheckInDTO checkinDTO, BindingResult result) {
 
-		Map<String, Object> response = new HashMap<>();
 		Integer contador = 0;
+		Map<String, Object> response = new HashMap<>();
 		List<Acompanantes> acompanantes = checkinDTO.getAcompanante();
 
 		if (checkinDTO.getCodHuesped().isEstadoHuesped() == false) {
@@ -163,13 +163,6 @@ public class CheckinController {
 
 		}
 
-		if (checkinDTO.getNumAcompanante() > checkinDTO.getCodHabitacion().getMaxPersonasDisponibles()) {
-
-			response.put("mensaje", "La cantidad de acompañantes es demasiado grande para este tipo de habitacion!");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-
-		}
-
 		if (result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors().stream()
@@ -192,7 +185,19 @@ public class CheckinController {
 				}
 
 				contador++;
+
 			}
+
+			Integer totalHuespedes = contador+=1;
+
+
+			if ( totalHuespedes > checkinDTO.getCodHabitacion().getMaxPersonasDisponibles()) {
+
+				response.put("mensaje", "La cantidad de huespedes es demasiado grande para este tipo de habitacion!");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+
+			}
+
 		}
 
 		try {

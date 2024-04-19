@@ -23,7 +23,7 @@ public class CheckInDTO {
 	@NotNull
 	private Habitacion codHabitacion;
 
-	@NotNull
+
 	private Integer numAcompanante;
 
 	private List<Factura> facturas;
@@ -36,7 +36,7 @@ public class CheckInDTO {
 	}
 
 	public CheckInDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, Huesped codHuesped,
-			@NotNull Habitacion codHabitacion, @NotNull Integer numAcompanante, List<Acompanantes> acompanante) {
+			@NotNull Habitacion codHabitacion, Integer numAcompanante, List<Acompanantes> acompanante) {
 
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
