@@ -78,6 +78,7 @@ public class Huesped implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "codHuesped", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = { "codHuesped", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<CheckIn> checkin;
+	
 
 	@Column(name = "estado_Huesped")
 	private boolean estadoHuesped = true;
@@ -87,6 +88,7 @@ public class Huesped implements Serializable {
 	public Huesped() {
 
 		this.checkin = new ArrayList<>();
+		
 
 	}
 
@@ -248,6 +250,7 @@ public class Huesped implements Serializable {
 	public void setCheckin(List<CheckIn> checkin) {
 		this.checkin = checkin;
 	}
+	
 
 	private static final long serialVersionUID = 2556030903210616284L;
 

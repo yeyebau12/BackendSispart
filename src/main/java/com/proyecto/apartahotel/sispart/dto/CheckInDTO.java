@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.proyecto.apartahotel.sispart.entity.Acompanantes;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
@@ -23,27 +24,26 @@ public class CheckInDTO {
 	private Habitacion codHabitacion;
 
 	@NotNull
-	private Integer numAdultos;
-
-	@NotNull
-	private Integer numNinos;
+	private Integer numAcompanante;
 
 	private List<Factura> facturas;
 
+	private List<Acompanantes> acompanante;
+
 	public CheckInDTO() {
 		this.facturas = new ArrayList<>();
+		this.acompanante = new ArrayList<>();
 	}
 
 	public CheckInDTO(@NotNull Date fechaEntrada, @NotNull Date fechaSalida, Huesped codHuesped,
-			@NotNull Habitacion codHabitacion, @NotNull Integer numAdultos, @NotNull Integer numNinos) {
+			@NotNull Habitacion codHabitacion, @NotNull Integer numAcompanante, List<Acompanantes> acompanante) {
 
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
 		this.codHabitacion = codHabitacion;
-		this.numAdultos = numAdultos;
-		this.numNinos = numNinos;
-
+		this.numAcompanante = numAcompanante;
+		this.acompanante = acompanante;
 	}
 
 	public Date getFechaEntrada() {
@@ -78,20 +78,12 @@ public class CheckInDTO {
 		this.codHabitacion = codHabitacion;
 	}
 
-	public Integer getNumAdultos() {
-		return numAdultos;
+	public Integer getNumAcompanante() {
+		return numAcompanante;
 	}
 
-	public void setNumAdultos(Integer numAdultos) {
-		this.numAdultos = numAdultos;
-	}
-
-	public Integer getNumNinos() {
-		return numNinos;
-	}
-
-	public void setNumNinos(Integer numNinos) {
-		this.numNinos = numNinos;
+	public void setNumAcompanante(Integer numAcompanante) {
+		this.numAcompanante = numAcompanante;
 	}
 
 	public List<Factura> getFacturas() {
@@ -101,15 +93,13 @@ public class CheckInDTO {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
-	
-	public Integer getTotalAcompañantes() {
 
-		Integer total = 0;
+	public List<Acompanantes> getAcompanante() {
+		return acompanante;
+	}
 
-		total = getNumAdultos() + getNumNinos();
-
-		return total;
-
+	public void setAcompanante(List<Acompanantes> acompanante) {
+		this.acompanante = acompanante;
 	}
 
 	public Double getTotalPersona() {
@@ -119,9 +109,9 @@ public class CheckInDTO {
 		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
 		Double total = 0.00;
 
-		if (getTotalAcompañantes() > 1) {
+		if (getNumAcompanante() > 1) {
 
-			total = (((getTotalAcompañantes() - 1) * getCodHabitacion().getNombreHabitacion().getPrecioXAcompanante())
+			total = (((getNumAcompanante() - 1) * getCodHabitacion().getNombreHabitacion().getPrecioXAcompanante())
 					+ getCodHabitacion().getNombreHabitacion().getPrecioXPersona()) * totalDias;
 
 		} else

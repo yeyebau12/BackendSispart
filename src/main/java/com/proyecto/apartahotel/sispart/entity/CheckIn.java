@@ -55,45 +55,53 @@ public class CheckIn implements Serializable {
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private Habitacion codHabitacion;
 
-	@Column(name = "num_adultos", nullable = false)
-	private Integer numAdultos;
+	@Column(name = "num_acompanantes", nullable = false)
+	private Integer numAcompanantes;
 
-	@Column(name = "num_ninos", nullable = false)
-	private Integer numNinos;
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "checkin", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = { "checkin", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Factura> facturas;
 
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_checkin")
+	private List<Acompanantes> acompanante;
+
 	public CheckIn() {
 
 		this.facturas = new ArrayList<>();
+		this.acompanante = new ArrayList<>();
 
 	}
 
+
 	public CheckIn(Long codCheckin, Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion,
-			Integer numAdultos, Integer numNinos) {
+			Integer numAcompanante, List<Acompanantes> acompanante) {
 		this.codCheckin = codCheckin;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
 		this.codHabitacion = codHabitacion;
-		this.numAdultos = numAdultos;
-		this.numNinos = numNinos;
-
+		this.numAcompanantes = numAcompanante;
+		this.acompanante = acompanante;
 	}
 
-	public CheckIn(Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion,
-			Integer numAdultos, Integer numNinos) {
 
+
+
+	public CheckIn( Date fechaEntrada, Date fechaSalida, Huesped codHuesped, Habitacion codHabitacion, Integer numAcompanantes, List<Acompanantes> acompanante) {
+		
+		
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.codHuesped = codHuesped;
 		this.codHabitacion = codHabitacion;
-		this.numAdultos = numAdultos;
-		this.numNinos = numNinos;
-
+		this.numAcompanantes = numAcompanantes;
+		this.acompanante = acompanante;
 	}
+
 
 	public Long getCodCheckin() {
 		return codCheckin;
@@ -135,21 +143,15 @@ public class CheckIn implements Serializable {
 		this.codHabitacion = codHabitacion;
 	}
 
-	public Integer getNumAdultos() {
-		return numAdultos;
+	public Integer getNumAcompanantes() {
+		return numAcompanantes;
 	}
 
-	public void setNumAdultos(Integer numAdultos) {
-		this.numAdultos = numAdultos;
+
+	public void setNumAcompanantes(Integer numAcompanantes) {
+		this.numAcompanantes = numAcompanantes;
 	}
 
-	public Integer getNumNinos() {
-		return numNinos;
-	}
-
-	public void setNumNinos(Integer numNinos) {
-		this.numNinos = numNinos;
-	}
 
 	public List<Factura> getFacturas() {
 		return facturas;
@@ -159,15 +161,15 @@ public class CheckIn implements Serializable {
 		this.facturas = facturas;
 	}
 
-	public Integer getTotalAcompañantes() {
-
-		Integer total = 0;
-
-		total = getNumAdultos() + getNumNinos();
-
-		return total;
-
+	public List<Acompanantes> getAcompanante() {
+		return acompanante;
 	}
+
+	public void setAcompanante(List<Acompanantes> acompanante) {
+		this.acompanante = acompanante;
+	}
+
+
 
 	public Double getTotalPersona() {
 
@@ -176,9 +178,9 @@ public class CheckIn implements Serializable {
 		Integer totalDias = (int) (diffMilliseconds / millisecondsPerDay);
 		Double total = 0.00;
 
-		if (getTotalAcompañantes() > 1) {
+		if (getNumAcompanantes() > 1) {
 
-			total = (((getTotalAcompañantes() - 1) * getCodHabitacion().getNombreHabitacion().getPrecioXAcompanante())
+			total = (((getNumAcompanantes() - 1) * getCodHabitacion().getNombreHabitacion().getPrecioXAcompanante())
 					+ getCodHabitacion().getNombreHabitacion().getPrecioXPersona()) * totalDias;
 
 		} else

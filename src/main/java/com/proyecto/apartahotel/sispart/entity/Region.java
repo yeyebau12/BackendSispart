@@ -27,7 +27,7 @@ public class Region  implements Serializable{
 	@JoinColumn(name = "cod_nacionalidad", nullable = false)
 	private Nacionalidad nacionalidad;
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 80, nullable = false)
 	private String nombre;
 
 	public Region() {

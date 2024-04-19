@@ -1,8 +1,10 @@
 package com.proyecto.apartahotel.sispart.controller;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -25,15 +27,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.apartahotel.sispart.dto.CheckInDTO;
+import com.proyecto.apartahotel.sispart.entity.Acompanantes;
 import com.proyecto.apartahotel.sispart.entity.CheckIn;
 import com.proyecto.apartahotel.sispart.entity.EstadoHabitacion;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
-import com.proyecto.apartahotel.sispart.entity.Huesped;
-import com.proyecto.apartahotel.sispart.entity.Reservacion;
 import com.proyecto.apartahotel.sispart.entity.TipDocumento;
+import com.proyecto.apartahotel.sispart.service.interfa.IAcompananteService;
 import com.proyecto.apartahotel.sispart.service.interfa.ICheckinService;
 import com.proyecto.apartahotel.sispart.service.interfa.IHabitacionesService;
-import com.proyecto.apartahotel.sispart.service.interfa.IHuespedService;
 
 @RestController
 @RequestMapping("/checkin")
@@ -44,10 +45,10 @@ public class CheckinController {
 	private ICheckinService checkinService;
 
 	@Autowired
-	private IHuespedService huespedService;
+	private IHabitacionesService habitacionService;
 
 	@Autowired
-	private IHabitacionesService habitacionService;
+	private IAcompananteService acompananteService;
 
 	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@GetMapping("/listarCheckin")
@@ -132,6 +133,8 @@ public class CheckinController {
 	public ResponseEntity<?> createdCheckin(@Valid @RequestBody CheckInDTO checkinDTO, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
+		Integer contador = 0;
+		List<Acompanantes> acompanantes = checkinDTO.getAcompanante();
 
 		if (checkinDTO.getCodHuesped().isEstadoHuesped() == false) {
 			response.put("mensaje",
@@ -160,7 +163,7 @@ public class CheckinController {
 
 		}
 
-		if (checkinDTO.getTotalAcompañantes() > checkinDTO.getCodHabitacion().getMaxPersonasDisponibles()) {
+		if (checkinDTO.getNumAcompanante() > checkinDTO.getCodHabitacion().getMaxPersonasDisponibles()) {
 
 			response.put("mensaje", "La cantidad de acompañantes es demasiado grande para este tipo de habitacion!");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
@@ -178,11 +181,24 @@ public class CheckinController {
 
 		}
 
+		if (acompanantes != null && !acompanantes.isEmpty()) {
+
+			for (Acompanantes acompanante : acompanantes) {
+
+				if (acompanante.getFechaNacimiento() != null) {
+					int edadAcompanante = acompananteService.calcEdad(acompanante.getFechaNacimiento());
+
+					acompanante.setEdad(edadAcompanante);
+				}
+
+				contador++;
+			}
+		}
+
 		try {
 
 			CheckIn checkin = new CheckIn(checkinDTO.getFechaEntrada(), checkinDTO.getFechaSalida(),
-					checkinDTO.getCodHuesped(), checkinDTO.getCodHabitacion(), checkinDTO.getNumAdultos(),
-					checkinDTO.getNumNinos());
+					checkinDTO.getCodHuesped(), checkinDTO.getCodHabitacion(), contador, checkinDTO.getAcompanante());
 
 			Habitacion habitacion = habitacionService
 					.findByCodHabitacion(checkinDTO.getCodHabitacion().getCodHabitacion());
@@ -210,7 +226,7 @@ public class CheckinController {
 
 	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA" })
 	@DeleteMapping("/eliminarCheckin/{codCheckin}")
-	public ResponseEntity<?> deleteReservacion(@PathVariable("codCheckin") Long codCheckin) {
+	public ResponseEntity<?> deleteCheckin(@PathVariable("codCheckin") Long codCheckin) {
 		Map<String, Object> response = new HashMap<>();
 		CheckIn checkin = checkinService.getOne(codCheckin);
 

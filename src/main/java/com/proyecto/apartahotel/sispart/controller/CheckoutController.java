@@ -28,13 +28,13 @@ public class CheckoutController {
 	private IHabitacionesService habitacionService;
 
 	@Secured({"ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA"})
-	@PutMapping("/checkout/{numHabitacion}")
-	public ResponseEntity<?> checkOut(@PathVariable("numHabitacion") Integer numHabitacion) {
+	@PutMapping("/checkout/{codHabitacion}")
+	public ResponseEntity<?> checkOut(@PathVariable("codHabitacion") Long codHabitacion) {
 
-		Habitacion habitacion = habitacionService.findByNumHabitacion(numHabitacion);
+		Habitacion habitacion = habitacionService.findByCodHabitacion(codHabitacion);
 		Map<String, Object> response = new HashMap<>();
 
-		if (!habitacionService.exitsNumHabitacion(numHabitacion)) {
+		if (!habitacionService.existsById(codHabitacion)) {
 			response.put("mensaje", "La habitacion no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 

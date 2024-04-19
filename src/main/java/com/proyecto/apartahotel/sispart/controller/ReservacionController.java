@@ -178,7 +178,7 @@ public class ReservacionController {
 					.findByCodHabitacion(reservacionDTO.getHabitacion().getCodHabitacion());
 
 			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
-			estadoHabitacion.setCodEstadoHabitacion((long) 4);
+			estadoHabitacion.setCodEstadoHabitacion((long) 3);
 			estadoHabitacion.setNombre("Reservada");
 
 			habitacion.setEstadoHabitacion(estadoHabitacion);

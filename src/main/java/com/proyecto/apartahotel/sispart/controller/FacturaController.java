@@ -90,7 +90,7 @@ public class FacturaController {
 		if (items != null && !items.isEmpty()) {
 			for (ItemFactura item : items) {
 
-				List<String> message = new ArrayList<>();
+	
 				Long codigoProducto = item.getProducto().getCodProducto();
 				Producto producto = productoService.findByCodProducto(codigoProducto);
 

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.proyecto.apartahotel.sispart.entity.Acompanantes;
 import com.proyecto.apartahotel.sispart.entity.CheckIn;
 import com.proyecto.apartahotel.sispart.entity.Factura;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
@@ -54,6 +55,7 @@ public class HuespedDTO {
 
 	private List<CheckIn> checkin;
 
+
 	public HuespedDTO() {
 
 		this.checkin = new ArrayList<>();
@@ -63,7 +65,7 @@ public class HuespedDTO {
 			@Email @NotEmpty String correo, @NotNull TipDocumento tipoDocumento, @NotNull Long numDocumento,
 			@NotNull Date fechaNacimiento, @NotNull Integer edad, @NotNull Nacionalidad nacionalidad,
 			@NotNull Region lugarOrigen, String nomContactoEmergencia, Long numContactoEmergencia) {
-	
+
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numCelular = numCelular;
@@ -190,5 +192,6 @@ public class HuespedDTO {
 	public void setCheckin(List<CheckIn> checkin) {
 		this.checkin = checkin;
 	}
+
 
 }

@@ -8,9 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proyecto.apartahotel.sispart.entity.Acompanantes;
 import com.proyecto.apartahotel.sispart.entity.CheckIn;
 import com.proyecto.apartahotel.sispart.entity.Habitacion;
 import com.proyecto.apartahotel.sispart.entity.Huesped;
+import com.proyecto.apartahotel.sispart.entity.TipDocumento;
 import com.proyecto.apartahotel.sispart.repository.ICheckinRepository;
 import com.proyecto.apartahotel.sispart.service.interfa.ICheckinService;
 
@@ -63,5 +65,7 @@ public class CheckinServiceImpl implements ICheckinService {
 
 		return checkinRepository.existsById(codCheckin);
 	}
+
+
 
 }

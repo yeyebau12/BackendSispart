@@ -113,7 +113,7 @@ public class ActividadController {
 
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA", })
 	@PostMapping("/crearActividad")
 	public ResponseEntity<?> createActividad(@Valid @RequestBody ActividadDTO actividadDTO, BindingResult result) {
 
@@ -199,7 +199,7 @@ public class ActividadController {
 
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA", })
 	@DeleteMapping("/eliminarActividad/{codActividad}")
 	public ResponseEntity<?> deleteActividad(@PathVariable("codActividad") Long codActividad) {
 		Map<String, Object> response = new HashMap<>();
