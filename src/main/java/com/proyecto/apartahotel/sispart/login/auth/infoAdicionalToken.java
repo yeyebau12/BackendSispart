@@ -1,6 +1,8 @@
 package com.proyecto.apartahotel.sispart.login.auth;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,17 @@ public class infoAdicionalToken implements TokenEnhancer {
 
 		UsuarioEmpleado usuarioEmpleado = usuarioService.findByUsername(authentication.getName());
 		Map<String, Object> info = new HashMap<>();
+		List< Object> empleado = new ArrayList<>();
+		
+	    empleado.add(usuarioEmpleado.getEmpleado().getCodEmpleado());
+	    empleado.add(usuarioEmpleado.getEmpleado().getNombre());
+	    empleado.add(usuarioEmpleado.getEmpleado().getApellido());
+	    
+		info.put("cod_empleado",usuarioEmpleado.getEmpleado().getCodEmpleado());
 		info.put("nombre", usuarioEmpleado.getEmpleado().getNombre());
 		info.put("apellido", usuarioEmpleado.getEmpleado().getApellido());
+		info.put("empleado", empleado);
+		
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
 		return accessToken;
 	}

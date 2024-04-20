@@ -41,7 +41,7 @@ public class EmpleadoController {
 	@Autowired
 	private IEmpleadoService empleadoService;
 
-	@Secured({"ROLE_ADMINISTRADOR"})
+	@Secured({"ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarEmpleados")
 	public ResponseEntity<?> findAll() {
 
