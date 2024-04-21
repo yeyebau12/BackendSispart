@@ -25,28 +25,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.apartahotel.sispart.dto.ProductoDTO;
-import com.proyecto.apartahotel.sispart.entity.Huesped;
-import com.proyecto.apartahotel.sispart.entity.Producto;
-import com.proyecto.apartahotel.sispart.service.interfa.IProductoService;
+import com.proyecto.apartahotel.sispart.dto.ProductsIntDTO;
+import com.proyecto.apartahotel.sispart.entity.ProductsInt;
+import com.proyecto.apartahotel.sispart.service.interfa.IProductsIntService;
 
 @RestController
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/productsInt")
+public class ProductsIntController {
 
 	@Autowired
-	private IProductoService productoService;
-
+	private IProductsIntService productsIntService;
+	
 	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/listarProductos")
 	public ResponseEntity<?> findAll() {
 
-		List<Producto> findAll = null;
+		List<ProductsInt> findAll = null;
 		Map<String, Object> response = new HashMap<>();
 
 		try {
 
-			findAll = productoService.findAll();
+			findAll = productsIntService.findAll();
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los registros de la base de datos");
@@ -59,7 +58,7 @@ public class ProductoController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<List<Producto>>(findAll, HttpStatus.OK);
+		return new ResponseEntity<List<ProductsInt>>(findAll, HttpStatus.OK);
 	}
 	
 	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
@@ -67,12 +66,12 @@ public class ProductoController {
 	public ResponseEntity<?> findAll(@PathVariable("page") Integer page) {
 
 		Pageable pageable = PageRequest.of(page, 5);
-		Page<Producto> findAll = null;
+		Page<ProductsInt> findAll = null;
 		Map<String, Object> response = new HashMap<>();
 
 		try {
 
-			findAll = productoService.findAll(pageable);
+			findAll = productsIntService.findAll(pageable);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los registros de la base de datos");
@@ -82,10 +81,10 @@ public class ProductoController {
 
 		if (findAll.isEmpty()) {
 			response.put("mensaje", "No existen registros en la base de datos");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<Page<Producto>>(findAll, HttpStatus.OK);
+		return new ResponseEntity<Page<ProductsInt>>(findAll, HttpStatus.OK);
 	}
 
 
@@ -93,12 +92,12 @@ public class ProductoController {
 	@GetMapping("/filtrarProducto/{nombreProducto}")
 	public ResponseEntity<?> findAllProducto(@PathVariable("nombreProducto") String nombreProducto) {
 
-		List<Producto> findAllProducto = null;
+		List<ProductsInt> findAllProducto = null;
 		Map<String, Object> response = new HashMap<>();
 
 		try {
 
-			findAllProducto = productoService.findProducto(nombreProducto);
+			findAllProducto = productsIntService.findProducto(nombreProducto);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los registros de la base de datos");
@@ -111,19 +110,19 @@ public class ProductoController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<List<Producto>>(findAllProducto, HttpStatus.OK);
+		return new ResponseEntity<List<ProductsInt>>(findAllProducto, HttpStatus.OK);
 	}
 
 	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@GetMapping("/verProducto/{codProducto}")
-	public ResponseEntity<?> detailEmpleado(@PathVariable("codProducto") Long codProducto) {
+	public ResponseEntity<?> detailEmpleado(@PathVariable("codProducto") Long codProductInt) {
 
-		Producto producto = null;
+		ProductsInt producto = null;
 		Map<String, Object> response = new HashMap<>();
 
 		try {
 
-			producto = productoService.findByCodProducto(codProducto);
+			producto = productsIntService.findByCodProducto(codProductInt);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
@@ -131,18 +130,18 @@ public class ProductoController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		if (!productoService.existsById(codProducto)) {
+		if (!productsIntService.existsById(codProductInt)) {
 			response.put("mensaje", "El producto no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+		return new ResponseEntity<ProductsInt>(producto, HttpStatus.OK);
 
 	}
 
 	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
 	@PostMapping("/crearProducto")
-	public ResponseEntity<?> createdEmpleado(@Valid @RequestBody ProductoDTO productoDTO, BindingResult result) {
+	public ResponseEntity<?> createdEmpleado(@Valid @RequestBody ProductsIntDTO productsIntDTO, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -159,10 +158,10 @@ public class ProductoController {
 
 		try {
 
-			Producto producto = new Producto(productoDTO.getNombreProducto(), productoDTO.getMarca(),
-					productoDTO.getCantidad(), productoDTO.getPrecio());
+			ProductsInt productsInt = new ProductsInt(productsIntDTO.getNombreProducto(), productsIntDTO.getMarca(),
+					productsIntDTO.getCantidad(), productsIntDTO.getPrecio());
 
-			productoService.save(producto);
+			productsIntService.save(productsInt);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al insertar el registro del producto en la base de datos");
@@ -177,15 +176,15 @@ public class ProductoController {
 	}
 
 	@Secured({"ROLE_ADMINISTRADOR","ROLE_RECEPCIONISTA"})
-	@PutMapping("/actualizarProducto/{codProducto}")
-	public ResponseEntity<?> updateEmpleado(@Valid @RequestBody ProductoDTO productoDTO,
-			@PathVariable("codProducto") Long codProducto, BindingResult result) {
+	@PutMapping("/actualizarProducto/{codProductInt}")
+	public ResponseEntity<?> updateEmpleado(@Valid @RequestBody ProductsIntDTO productsIntDTO,
+			@PathVariable("codProductInt") Long codProductInt, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
 
-		if (!productoService.existsById(codProducto)) {
+		if (!productsIntService.existsById(codProductInt)) {
 
-			response.put("Error", "El producto no existe con el codigo de producto numero: " + codProducto);
+			response.put("Error", "El producto no existe con el codigo de producto numero: " + codProductInt);
 
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
@@ -203,17 +202,17 @@ public class ProductoController {
 
 		try {
 
-			Producto producto = productoService.findByCodProducto(codProducto);
+			ProductsInt productsInt = productsIntService.findByCodProducto(codProductInt);
 
-			producto.setNombreProducto(productoDTO.getNombreProducto());
-			producto.setMarca(productoDTO.getMarca());
-			producto.setCantidad(productoDTO.getCantidad());
-			producto.setPrecio(productoDTO.getPrecio());
+			productsInt.setNombreProducto(productsIntDTO.getNombreProducto());
+			productsInt.setMarca(productsIntDTO.getMarca());
+			productsInt.setCantidad(productsIntDTO.getCantidad());
+			productsInt.setPrecio(productsIntDTO.getPrecio());
 
-			productoService.save(producto);
+			productsIntService.save(productsInt);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el registro del producto en la base de datos");
+			response.put("Error", "Error al actualizar el registro del producto en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -225,15 +224,15 @@ public class ProductoController {
 	}
 
 	@Secured({"ROLE_ADMINISTRADOR"})
-	@DeleteMapping("/eliminarProducto/{codProducto}")
-	public ResponseEntity<?> deleteEmpleado(@PathVariable("codProducto") Long codProducto) {
+	@DeleteMapping("/eliminarProducto/{codProductInt}")
+	public ResponseEntity<?> deleteEmpleado(@PathVariable("codProductInt") Long codProductInt) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			productoService.delete(codProducto);
+			productsIntService.delete(codProductInt);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar el registro del producto en la base de datos");
+			response.put("Error", "Error al eliminar el registro del producto en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

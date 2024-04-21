@@ -126,7 +126,7 @@ public class TipoHabitacionController {
 
 	@Secured({ "ROLE_ADMINISTRADOR" })
 	@PutMapping("/actualizarTipoHabitacion/{codTipoHabitacion}")
-	public ResponseEntity<?> updateEmpleado(@Valid @RequestBody TipoHabitacionDTO tipoHabitacionDTO,
+	public ResponseEntity<?> updateTipoHabitacion(@Valid @RequestBody TipoHabitacionDTO tipoHabitacionDTO,
 			@PathVariable("codTipoHabitacion") Long codTipoHabitacion, BindingResult result) {
 
 		Map<String, Object> response = new HashMap<>();
