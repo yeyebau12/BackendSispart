@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "producto")
+@Table(name = "producto_int")
 public class ProductsInt implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
