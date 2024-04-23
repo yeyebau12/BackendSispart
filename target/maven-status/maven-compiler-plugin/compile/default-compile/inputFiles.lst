@@ -8,6 +8,7 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IProductoRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\TipoReciboController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\ItemFactura.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\Acompanantes.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\RoleDTO.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\TipoRecibo.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\HuespedServiceImpl.java
@@ -31,11 +32,13 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IFacturaRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\IMetodoPagoService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\ITipSangreService.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\ProductsIntController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\ProyectoSispartUnbosqueApplication.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\ICheckinService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\login\auth\JwtConfig.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\ReservacionController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\login\auth\ResourceServerConfig.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\AcompananteServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\FacturaController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\SexoServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\ProductoDTO.java
@@ -48,6 +51,7 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\CheckinController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\ITipoReciboService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\RegionDTO.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IAcompanantesRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\ActividadController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\Factura.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\INacionalidadRepository.java
@@ -78,6 +82,7 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\HabitacionesServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\CheckIn.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\TipoHabitacion.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\ProductsIntDTO.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\EstadoHabitacionDTO.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\ITipoHabitacionService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IEstadoHabitacionRepository.java
@@ -85,6 +90,7 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\FacturaDTO.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\ITipoReciboRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\RegionServiceImpl.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\ProductsInt.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\CheckinServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\IEmpleadoService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\RecibosPublicosController.java
@@ -100,6 +106,7 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\Mensaje.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IEmpleadoRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IRegionRepository.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\IProductsIntRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\Region.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\IRegionService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\RecibosPublicosDTO.java
@@ -118,6 +125,7 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\ProductoController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\repository\ITipoHabitacionRepository.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\Role.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\AcompañantesDTO.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\Reservacion.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\ReciboPublicoServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\ItemFacturaDTO.java
@@ -127,9 +135,12 @@ D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sisp
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\TipDocumento.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\UsuarioEmpleadoServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\dto\ActividadDTO.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\impl\ProductsIntServiceImpl.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\UsuarioEmpleadoController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\entity\EstadoHabitacion.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\HabitacionController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\NacionalidadController.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\controller\RoleController.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\IAcompananteService.java
+D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\IProductsIntService.java
 D:\Users\yerson\Documents\Documentos Yerson\Semestre 10\Portafolio\Proyecto Sispart\BackendSispart\src\main\java\com\proyecto\apartahotel\sispart\service\interfa\IReservacionService.java

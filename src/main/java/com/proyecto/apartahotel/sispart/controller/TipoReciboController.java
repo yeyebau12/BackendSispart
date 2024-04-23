@@ -150,11 +150,11 @@ public class TipoReciboController {
 
 		try {
 
-			TipoRecibo tipoReecibo = tipoReciboService.findByCodTipoRecibo(codTipoRecibo);
+			TipoRecibo tipoRecibo = tipoReciboService.findByCodTipoRecibo(codTipoRecibo);
 
-			tipoReciboDTO.setEmpresaPub(tipoReciboDTO.getEmpresaPub());
+			tipoRecibo.setEmpresaPub(tipoReciboDTO.getEmpresaPub());
 
-			tipoReciboService.save(tipoReecibo);
+			tipoReciboService.save(tipoRecibo);
 
 		} catch (DataAccessException e) {
 			response.put("error", "Error al actualizar el registro del tipo de recibo en la base de datos");
