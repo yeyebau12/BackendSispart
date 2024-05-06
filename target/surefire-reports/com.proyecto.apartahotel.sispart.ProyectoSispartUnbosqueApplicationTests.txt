@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.proyecto.apartahotel.sispart.ProyectoSispartUnbosqueApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.261 s - in com.proyecto.apartahotel.sispart.ProyectoSispartUnbosqueApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.028 s - in com.proyecto.apartahotel.sispart.ProyectoSispartUnbosqueApplicationTests

@@ -151,8 +151,8 @@ public class CheckinController {
 
 		if (checkinDTO.getCodHabitacion().getEstadoHabitacion().getCodEstadoHabitacion() == 3) {
 
-			response.put("mensaje", "La habitacion que desea asignar ya se encuentra reservada!");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			response.put("mensaje", "El huesped ya puede ingresar a la habitación  reservada!");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 		}
 
