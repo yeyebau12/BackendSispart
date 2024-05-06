@@ -34,12 +34,14 @@ public class CheckoutController {
 		Habitacion habitacion = habitacionService.findByCodHabitacion(codHabitacion);
 		Map<String, Object> response = new HashMap<>();
 
+		
 		if (!habitacionService.existsById(codHabitacion)) {
 			response.put("mensaje", "La habitacion no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 
 		}
-		if (!(habitacion.getEstadoHabitacion().getCodEstadoHabitacion() == 1)) {
+		
+		if ((habitacion.getEstadoHabitacion().getCodEstadoHabitacion() == 1)) {
 			response.put("mensaje", "La habitacion no esta ocupada");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
