@@ -28,7 +28,7 @@ public class CheckoutController {
 	private IHabitacionesService habitacionService;
 
 	@Secured({"ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA"})
-	@PutMapping("/checkout/{codHabitacion}")
+	@PutMapping("/outhabitacion/{codHabitacion}")
 	public ResponseEntity<?> checkOut(@PathVariable("codHabitacion") Long codHabitacion) {
 
 		Habitacion habitacion = habitacionService.findByCodHabitacion(codHabitacion);
