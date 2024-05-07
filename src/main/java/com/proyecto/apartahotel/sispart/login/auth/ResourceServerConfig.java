@@ -34,7 +34,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public CorsConfigurationSource corsConfigurationSource() {
 
 		CorsConfiguration corsConfig = new CorsConfiguration();
-		corsConfig.setAllowedOrigins(Arrays.asList("https://apartahotelsantandereano.web.app", "http://localhost:3000",
+		corsConfig.setAllowedOriginPatterns(Arrays.asList("https://apartahotelsantandereano.web.app", "http://localhost:3000",
 				"http://localhost:4200", "http://192.168.1.15:3000"));
 		corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPIONS"));
 		corsConfig.setAllowCredentials(true);
