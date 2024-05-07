@@ -19,7 +19,7 @@ public class ProyectoSispartUnbosqueApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOriginPatterns("https://apartahotelsantandereano.web.app", "http://localhost:3000",
+						.allowedOrigins("https://apartahotelsantandereano.web.app", "http://localhost:3000",
 								"http://localhost:4200", "http://192.168.1.15:3000")
 						.allowedMethods("*").allowedHeaders("*");
 			}
