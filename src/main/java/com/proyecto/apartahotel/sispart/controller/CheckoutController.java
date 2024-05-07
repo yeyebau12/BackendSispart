@@ -50,7 +50,7 @@ public class CheckoutController {
 
 			EstadoHabitacion estadoHabitación = new EstadoHabitacion();
 			
-			estadoHabitación.setCodEstadoHabitacion((long)3);
+			estadoHabitación.setCodEstadoHabitacion((long)4);
 			estadoHabitación.setNombre("Limpieza");
 			
 			habitacion.setEstadoHabitacion(estadoHabitación);

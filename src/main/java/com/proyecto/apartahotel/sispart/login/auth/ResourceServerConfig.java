@@ -34,13 +34,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public CorsConfigurationSource corsConfigurationSource() {
 
 		CorsConfiguration corsConfig = new CorsConfiguration();
-		corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
+		corsConfig.setAllowedOriginPatterns(Arrays.asList("https://apartahotelsantandereano.web.app", "http://localhost:3000",
+				"http://localhost:4200", "http://192.168.1.15:3000"));
 		corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPIONS"));
 		corsConfig.setAllowCredentials(true);
 		corsConfig.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization","cache-control"));
 
 		UrlBasedCorsConfigurationSource corsSource = new UrlBasedCorsConfigurationSource();
 		corsSource.registerCorsConfiguration("/**", corsConfig);
+	
 
 		return corsSource;
 	}
