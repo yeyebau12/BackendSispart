@@ -183,7 +183,7 @@ public class HabitacionController {
 
 	}
 
-	@Secured({ "ROLE_ADMINISTRADOR" })
+	@Secured({ "ROLE_ADMINISTRADOR", "ROLE_RECEPCIONISTA"  })
 	@PutMapping("/actualizarHabitacion/{codHabitacion}")
 	public ResponseEntity<?> updateHabitacion(@Valid @RequestBody HabitacionDTO habitacionDTO,
 			@PathVariable("codHabitacion") Long codHabitacion, BindingResult result) {
@@ -231,12 +231,12 @@ public class HabitacionController {
 			habitacionService.save(habitacion);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el registro de la habitacion en la base de datos");
+			response.put("mensaje", "Error al actualizar el registro de la habitación en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El registro de la habitacion  ha sido actualizado exitosamente!");
+		response.put("mensaje", "El registro de la habitación  ha sido actualizado exitosamente!");
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 

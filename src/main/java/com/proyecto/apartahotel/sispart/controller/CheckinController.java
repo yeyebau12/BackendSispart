@@ -210,7 +210,7 @@ public class CheckinController {
 
 			EstadoHabitacion estadoHabitacion = new EstadoHabitacion();
 			estadoHabitacion.setCodEstadoHabitacion((long) 2);
-			estadoHabitacion.setNombre("Ocupada");
+			estadoHabitacion.setNombre("Ocupado");
 
 			habitacion.setEstadoHabitacion(estadoHabitacion);
 

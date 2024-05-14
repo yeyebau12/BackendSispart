@@ -59,12 +59,12 @@ public class UsuarioEmpleadoController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los registros de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
 		if (findAll.isEmpty()) {
 			response.put("mensaje", "No existen registros en la base de datos");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<UsuarioEmpleado>>(findAll, HttpStatus.OK);
